@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Importadora Larrain | Perfil</title>
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="fondo">
+    <!--NAVBAR-->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand">
+        <img src="img/larrain.gif" alt="" width="40" height="40" class="d-inline-block align-text-center">
+        IMPORTADORA LARRAIN
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="index.html">TIENDA</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#troquelado">OFERTAS</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#gallery">DESTACADOS</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="#packaging">POPULARES</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="pedidos.html">PEDIDOS</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="perfil.html">PERFIL</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ms-auto">
+            <a href="index.html"><button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">CERRAR SESIÓN</button></a>
+        </ul>
+        </div>
+    </nav>
+    <!--FORMULARIO-->
+    <div class="espacio"></div>
+    <section id="reserva">
+        <div class="container-fluid espacio2 gradient3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12 blanco">
+                    <div class="container espacio3">
+                        <div class="d-flex align-items-start">
+                            <div class="col-md-2 nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <!--Menu de Bodega-->
+                              <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Registro de Productos</button>
+                              <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Busqueda de Productos</button>
+                              <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Pedidos de Cliente</button>
+                              <button class="nav-link" id="v-pills-sucursal-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sucursal" type="button" role="tab" aria-controls="v-pills-sucursal" aria-selected="false">Pedidos de Sucursal</button>
+                            </div>
+                            <div class="tab-content col-md-10" id="v-pills-tabContent">
+                              <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                              <!--Opciones de Registro de producto-->
+                              <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Entrada de producto</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Salida de producto</button>
+                                </li>
+                              </ul>
+                            <div class="tab-content" id="myTabContent">
+                            <!--Ingreso de producto-->
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <form action="" method="POST" class="espacio4">
+                            <div class="row">
+                                <div class="col-md-">
+                                    <div class="row espacio_form">
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="nombre_producto" placeholder="" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="precio" placeholder="" required> 
+                                    </div>
+                                    <div class="row espacio_form">
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="" required>
+                                        </div>
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="oferta" placeholder="" required>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="form-label">Marca</label>
+                                                <select id="region" name="region" class="form-select">
+                                                    <option value="1" selected>Microsoft</option>
+                                                    <option value="2">Razer</option>
+                                                    <option value="3">HP</option>
+                                                    <option value="4">Xiaomi</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                            <div class="col">
+                                            <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Categoria</label>
+                                            <select id="region" name="region" class="form-select">
+                                                <option value="1" selected>Audifonos</option>
+                                                <option value="2">Teclados</option>
+                                                <option value="3">Cargadores</option>
+                                                <option value="4">Mouses</option>
+                                            </select>
+                                            </div>
+                                            </div> 
+                                    </div>
+                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrar Entrada</button>
+                                </div>
+                            </div>
+                            </form>
+                            </div>
+                            <!--Salida de producto-->
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                            <form action="" method="POST" class="espacio4">
+                                <div class="row">
+                                    <div class="col-md-">
+                                        <div class="row espacio_form">
+                                            <div class="col">
+                                                <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" required>
+                                            </div>
+                                            <div class="col">
+                                                <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
+                                                <input type="name" class="form-control" id="exampleFormControlInput1" name="nombre_producto" placeholder="" required>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="precio" placeholder="" required> 
+                                        </div>
+                                        <div class="row espacio_form">
+                                            <div class="col">
+                                                <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="" required>
+                                            </div>
+                                            <div class="col">
+                                                <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" name="oferta" placeholder="" required>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3">
+                                                    <label for="exampleFormControlInput1" class="form-label">Marca</label>
+                                                    <select id="region" name="region" class="form-select">
+                                                        <option value="1" selected>Microsoft</option>
+                                                        <option value="2">Razer</option>
+                                                        <option value="3">HP</option>
+                                                        <option value="4">Xiaomi</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                                <div class="col">
+                                                <div class="mb-3">
+                                                <label for="exampleFormControlInput1" class="form-label">Categoria</label>
+                                                <select id="region" name="region" class="form-select">
+                                                    <option value="1" selected>Audifonos</option>
+                                                    <option value="2">Teclados</option>
+                                                    <option value="3">Cargadores</option>
+                                                    <option value="4">Mouses</option>
+                                                </select>
+                                                </div>
+                                                </div> 
+                                        </div>
+                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrar Salida</button>
+                                    </div>
+                                </div>
+                                </form>
+                                </div>
+                                </div>
+                                </div>
+                                <!--Busqueda de producto-->
+                              <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                                <ul class="nav justify-content-center espacio3">
+                                <form class="d-flex">
+                                    <input class="form-control me-2" type="search" placeholder="Búsqueda" aria-label="Search">
+                                    <button class="btn btn-outline-success" type="submit">Buscar</button>
+                                </form>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Categorias
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#">Action</a></li>
+                                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                                </ul>
+                              </div>
+                              <!--Lista de Pedidos-->
+                              <div class="tab-pane fade negro" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                                  <div class="container">
+                                    <div class="card">
+                                        <h5 class="card-header">Xiaomi Redmi Airdots S</h5>
+                                        <div class="card-body">
+                                        <h5 class="card-title">Arribo estimado del pedido : 15 de octubre de 2021</h5>
+                                        <p class="card-text">Realizado el 29 de septiembre de 2021</p>
+                                        <a href="#" class="btn btn-primary">Detalles</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="container espacio2">
+                                        <div class="card">
+                                        <h5 class="card-header">Nokia 5.1 Plus</h5>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Arribo estimado del pedido : 09 de octubre de 2021</h5>
+                                            <p class="card-text">Realizado el 20 de septiembre de 2021</p>
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="container espacio2">
+                                        <div class="card">
+                                            <h5 class="card-header">HyperX CloudX</h5>
+                                            <div class="card-body">
+                                            <h5 class="card-title">Arribo estimado del pedido : 30 de septiembre de 2021</h5>
+                                            <p class="card-text">Realizado el 11 de septiembre de 2021</p>
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                              </div>
+                              <div class="tab-pane fade negro" id="v-pills-sucursal" role="tabpanel" aria-labelledby="v-pills-home-sucursal">
+                                <div class="container">
+                                    <div class="card">
+                                        <h5 class="card-header">Xiaomi Redmi Airdots S</h5>
+                                        <div class="card-body">
+                                        <h5 class="card-title">Arribo estimado del pedido : 15 de octubre de 2021</h5>
+                                        <p class="card-text">Realizado el 29 de septiembre de 2021</p>
+                                        <a href="#" class="btn btn-primary">Detalles</a>
+                                        </div>
+                                    </div>
+                                    </div>
+                                    <div class="container espacio2">
+                                        <div class="card">
+                                        <h5 class="card-header">Nokia 5.1 Plus</h5>
+                                        <div class="card-body">
+                                            <h5 class="card-title">Arribo estimado del pedido : 09 de octubre de 2021</h5>
+                                            <p class="card-text">Realizado el 20 de septiembre de 2021</p>
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="container espacio2">
+                                        <div class="card">
+                                            <h5 class="card-header">HyperX CloudX</h5>
+                                            <div class="card-body">
+                                            <h5 class="card-title">Arribo estimado del pedido : 30 de septiembre de 2021</h5>
+                                            <p class="card-text">Realizado el 11 de septiembre de 2021</p>
+                                            <a href="#" class="btn btn-primary">Detalles</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                              </div>
+                            </div>
+                          </div>                     
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section> 
+    <script src="js/bootstrap.min.js"></script> 
+</body>
+</html>
