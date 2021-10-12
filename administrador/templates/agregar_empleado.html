@@ -1,0 +1,158 @@
+{%extends "base/navbar.html"%}
+{%load static%}
+
+<body>
+    {% block content %}
+    <section id="reserva">
+        <div class="container-fluid espacio2 gradient3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12 blanco">
+                    <div class="container espacio3">
+                        <!-- MENU LATERAL IZQUIERDO-->
+                        <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-empleados-tab" data-bs-toggle="pill" data-bs-target="#v-pills-empleados" type="button" role="tab" aria-controls="v-pills-empleados" aria-selected="true">Empleados</button>
+                            <button class="nav-link" id="v-pills-cliente-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cliente" type="button" role="tab" aria-controls="v-pills-cliente" aria-selected="false">Cliente</button>
+                        </div>
+                        <!-- CIERRE MENU-->
+                        <div class="tab-content col-md-10" id="v-pills-tabContent">
+                            <!-- MENU HORIZONTAL DE EMPLEADOS-->
+                            <div class="tab-pane fade show active" id="v-pills-empleados" role="tabpanel" aria-labelledby="v-pills-empleados-tab">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-crear-tab" data-bs-toggle="tab" data-bs-target="#nav-crear" type="button" role="tab" aria-controls="nav-crear" aria-selected="true">Crear Empleado</button>
+                                        <button class="nav-link" id="nav-listar-tab" data-bs-toggle="tab" data-bs-target="#nav-listar" type="button" role="tab" aria-controls="nav-listar" aria-selected="false">Listar Empleados</button>
+                                        <button class="nav-link" id="nav-modificar-tab" data-bs-toggle="tab" data-bs-target="#nav-modificar" type="button" role="tab" aria-controls="nav-modificar" aria-selected="false">Modificar Empleados</button>
+                                        <button class="nav-link" id="nav-eliminar-tab" data-bs-toggle="tab" data-bs-target="#nav-eliminar" type="button" role="tab" aria-controls="nav-eliminar" aria-selected="false">Eliminar</button>
+                                    </div>
+                                </nav>
+                                <div class="tab-content espacio4" id="nav-tabContent">
+                                     <!-- FORMULARIO DE CREACION DE EMPLEADOS-->
+                                     <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
+                                        <form action="" method="POST">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md-">
+                                                    <div class="row espacio_form">
+                                                        <div class="col">
+                                                            <label for="exampleFormControlInput1" class="form-label">Rut</label>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" required>
+                                                        </div>
+                                                      </div>
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" required> 
+                                                    </div>
+                                                    <div class="row espacio_form">
+                                                        <div class="col">
+                                                            <label for="exampleFormControlInput1" class="form-label">Apellido Paterno</label>
+                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" required>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="exampleFormControlInput1" class="form-label">Apellido Materno</label>
+                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <label for="exampleFormControlInput1" class="form-label">Genero</label>
+                                                            <div class="col">
+                                                            <div class="form-check form-check-inline col">
+                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="h">
+                                                                <label class="form-check-label" for="inlineRadio1">Hombre</label>
+                                                              </div>
+                                                            <div class="form-check form-check-inline col">
+                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="m">
+                                                                <label class="form-check-label" for="inlineRadio2">Mujer</label>
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
+                                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" required>
+                                                        </div> 
+                                                    </div>
+                                                    <div class="row espacio_form">
+                                                        <div class="col">
+                                                            <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" required>
+                                                          </div>
+                                                          <div class="col">
+                                                              <label for="exampleFormControlInput1" class="form-label">Cargo</label>
+                                                              <select id="region" name="cargo" class="form-select">
+                                                                <option value="">Seleccionar</option>
+                                                                {% for c in cargos %}
+                                                                  <option value="{{ c.0 }}">{{c.1}}</option>
+                                                                {% endfor %}
+                                                              </select>
+                                                          </div>
+                                                    </div>
+                                                    
+                                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrarme</button>
+                                                </div>
+                                            </div>
+                                          </form>
+                                    </div>
+                                    <!-- FORMULARIO DE LISTADO DE EMPLEADOS-->
+                                    <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
+
+                                    </div>
+                                    <!-- FORMULARIO DE MODIFICACION DE EMPLEADOS-->
+                                    <div class="tab-pane fade" id="nav-modificar" role="tabpanel" aria-labelledby="nav-modificar-tab">
+                                        
+                                    </div>
+                                    <!-- FORMULARIO DE ELIMINACION DE EMPLEADOS-->
+                                    <div class="tab-pane fade" id="nav-eliminar" role="tabpanel" aria-labelledby="nav-eliminar-tab">
+
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CIERRE MENU EMPLEADOS-->
+                            <!-- MENU HORIZONTAL CLIENTES-->
+                            <div class="tab-pane fade" id="v-pills-cliente" role="tabpanel" aria-labelledby="v-pills-cliente-tab">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-listar-tab" data-bs-toggle="tab" data-bs-target="#nav-crear" type="button" role="tab" aria-controls="nav-crear" aria-selected="true">Listar Clientes</button>
+                                    </div>
+                                </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">...</div>
+                                    </div>
+                            </div>
+
+                            
+
+                            
+                        </div>
+                        </div>             
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section> 
+        <h1 class= "blanco">EMPLEADOS</h1>
+        {{mensaje}}
+        <table class= "blanco">
+            <tr>
+                <th>ID</th>
+                <th>RUT</th>
+
+            </tr>
+            {%for p in empleados%}
+            <tr>
+                <td>{{ p.0 }}</td>
+                <td>{{ p.1 }}</td>
+                <td>{{ p.2 }}</td>
+                <td>{{ p.3 }}</td>
+                <td>{{ p.4 }}</td>
+                <td>{{ p.5 }}</td>
+                <td>{{ p.6 }}</td>
+                <td>{{ p.7 }}</td>
+                <td>{{ p.8 }}</td>
+                <td>{{ p.9 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endblock%}
+</body>
+</html>
