@@ -24,7 +24,7 @@ from agente.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home',home),
+    path('',home),
     path('registro',registro),
     path('agregarempleado',agregarempleado),
     path('mantenedor_productos',mantenedor_productos),
