@@ -35,7 +35,9 @@ def agregar_empleado(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,carg
    
 
 def listar_empleados():
-    django_cursor = connection.cursor()
+    
+
+    """django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
 
@@ -44,7 +46,7 @@ def listar_empleados():
     lista = []
     for fila in out_cur:
         lista.append(fila)
-    return lista
+    return lista"""
     
 
 def listar_cargos():
