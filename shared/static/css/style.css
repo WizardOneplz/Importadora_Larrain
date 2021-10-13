@@ -52,3 +52,10 @@ html,body{
     margin-left: auto;
     margin-right: auto;
 }
+
+/*CONTENEDOR SUBIR OFERTA*/
+
+.contenedor{
+    background-color: rgb(255, 45, 227);
+}
+
