@@ -1,14 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import connection
+from core.models import Empleado,CuentaEmpleado
 import cx_Oracle 
 
 # Create your views here.
 
 def mantenedor_admin(request):
     data = {
-        'empleados':listar_empleados(),
         'cargos':listar_cargos(),
         'cliente':listado_clientes(),
+        'listar_empleados':Empleado.objects.all()
     }
     if request.method== 'POST':
         rut = request.POST.get('rut')
@@ -33,19 +34,6 @@ def agregar_empleado(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,carg
     cursor.callproc('ADM_AGREGAR_EMPLEADO',[rut, nombre, ap_paterno, ap_materno, genero, telefono, email, cargo, salida])
     return salida.getvalue()
 
-def listar_empleados():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
-
-    cursor.callproc("ADM_LISTAR_EMPLEADOS", [out_cur])
-
-    lista = []
-    for fila in out_cur:
-        lista.append(fila)
-    return lista
-    
-
 def listar_cargos():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -69,3 +57,46 @@ def listado_clientes():
     for fila in out_cur:
         lista.append(fila)
     return lista
+
+def eliminar_empleado(request, rut):
+    cuentaempleado = CuentaEmpleado.objects.get(empleado_rut=rut)
+    cuentaempleado.delete()
+    empleado = Empleado.objects.get(rut=rut)
+    empleado.delete()
+
+    return redirect('/agregar_empleado')
+
+def modificar_empleado(request, rut):
+    data = {
+        'cargos':listar_cargos(),
+        'cliente':listado_clientes(),
+        'listar_empleados':Empleado.objects.all()
+    }
+
+    empleado = Empleado.objects.get(rut=rut)
+
+    return render(request, "modificar_empleado.html", data)
+
+
+def editar_empleado(request):
+
+    rut = request.POST.get('rut')
+    nombre = request.POST.get('nombre')
+    ap_paterno = request.POST.get('ap_paterno')
+    ap_materno = request.POST.get('ap_materno')
+    genero = request.POST.get('genero')
+    telefono = request.POST.get('telefono')
+    email = request.POST.get('email')
+    cargo = request.POST.get('cargo')
+    
+    empleado = Empleado.objects.get(rut=rut)
+    empleado.nombre = nombre
+    empleado.apellido_paterno = ap_paterno
+    empleado.apellido_materno = ap_materno
+    empleado.genero = genero
+    empleado.telefono = telefono
+    empleado.email = email
+    empleado.cargo = cargo
+    empleado.save()
+
+    return redirect('/agregar_empleado')
