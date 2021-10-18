@@ -48,8 +48,7 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <button class="nav-link active" id="nav-crear-tab" data-bs-toggle="tab" data-bs-target="#nav-crear" type="button" role="tab" aria-controls="nav-crear" aria-selected="true">Crear Empleado</button>
                                         <button class="nav-link" id="nav-listar-tab" data-bs-toggle="tab" data-bs-target="#nav-listar" type="button" role="tab" aria-controls="nav-listar" aria-selected="false">Listar Empleados</button>
-                                        <button class="nav-link" id="nav-modificar-tab" data-bs-toggle="tab" data-bs-target="#nav-modificar" type="button" role="tab" aria-controls="nav-modificar" aria-selected="false">Modificar Empleados</button>
-                                        <button class="nav-link" id="nav-eliminar-tab" data-bs-toggle="tab" data-bs-target="#nav-eliminar" type="button" role="tab" aria-controls="nav-eliminar" aria-selected="false">Eliminar</button>
+                                        <button class="nav-link" id="nav-modificar-tab" data-bs-toggle="tab" data-bs-target="#nav-modificar" type="button" role="tab" aria-controls="nav-modificar" aria-selected="false">Modificar/Eliminar Empleados</button>
                                     </div>
                                 </nav>
                                 <div class="tab-content espacio4" id="nav-tabContent">
@@ -114,15 +113,15 @@
                                                           </div>
                                                     </div>
                                                     
-                                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrarme</button>
+                                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrar</button>
                                                     {{mensaje}}
                                                 </div>
                                             </div>
                                           </form>
                                     </div>
-                                    <!-- FORMULARIO DE LISTADO DE EMPLEADOS-->
+                                    <!-- LISTADO DE EMPLEADOS-->
                                     <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
-                                        <table class="table blanco">                                     
+                                        <table class="table blanco align-middle text-center">                                     
                                         <thead>
                                             <tr>
                                             <th scope="col">ID</th>
@@ -137,31 +136,61 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {%for p in empleados%}
+                                            {%for p in listar_empleados%}
                                             <tr>
-                                            <th scope="row">{{ p.0 }}</th>
-                                            <td>{{ p.1 }}</td>
-                                            <td>{{ p.2 }}</td>
-                                            <td>{{ p.3 }}</td>
-                                            <td>{{ p.4 }}</td>
-                                            <td>{{ p.5 }}</td>
-                                            <td>{{ p.6 }}</td>
-                                            <td>{{ p.7 }}</td>
-                                            <td>{{ p.8 }}</td>
-                                            <td>{{ p.9 }}</td>
+                                            <th scope="row">{{ p.id }}</th>
+                                            <td>{{ p.rut }}</td>
+                                            <td>{{ p.nombre }}</td>
+                                            <td>{{ p.apellido_paterno }}</td>
+                                            <td>{{ p.apellido_materno }}</td>
+                                            <td>{{ p.genero }}</td>
+                                            <td>{{ p.telefono }}</td>
+                                            <td>{{ p.email }}</td>
+                                            <td>{{ p.cargo }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                        </table>
+                                        <!-- LISTADO DE EMPLEADOS-->
+                                    </div>
+                                    <!-- TABLA DE MODIFICACION DE EMPLEADOS-->
+                                    <div class="tab-pane fade" id="nav-modificar" role="tabpanel" aria-labelledby="nav-modificar-tab">
+                                        <table class="table blanco align-middle text-center">                                     
+                                        <thead>
+                                            <tr class="">
+                                            <th scope="col">ID</th>
+                                            <th scope="col">RUT</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">APELLIDO PATERNO</th>
+                                            <th scope="col">APELLIDO MATERNO</th>
+                                            <th scope="col">GENERO</th>
+                                            <th scope="col">TELÉFONO</th>
+                                            <th scope="col">EMAIL</th>
+                                            <th scope="col">CARGO</th>
+                                            <th colspan="2">OPCIONES
+                                                
+                                            </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for p in listar_empleados%}
+                                            <tr>
+                                            <th scope="row">{{ p.id }}</th>
+                                            <td>{{ p.rut }}</td>
+                                            <td>{{ p.nombre }}</td>
+                                            <td>{{ p.apellido_paterno }}</td>
+                                            <td>{{ p.apellido_materno }}</td>
+                                            <td>{{ p.genero }}</td>
+                                            <td>{{ p.telefono }}</td>
+                                            <td>{{ p.email }}</td>
+                                            <td>{{ p.cargo }}</td>
+                                            <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR<a/></td>
+                                            <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR<a/></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
                                         </table>
                                         <!-- CIERRE FORMULARIO DE LISTADO DE EMPLEADOS-->
-                                    </div>
-                                    <!-- FORMULARIO DE MODIFICACION DE EMPLEADOS-->
-                                    <div class="tab-pane fade" id="nav-modificar" role="tabpanel" aria-labelledby="nav-modificar-tab">
-                                        
-                                    </div>
-                                    <!-- FORMULARIO DE ELIMINACION DE EMPLEADOS-->
-                                    <div class="tab-pane fade" id="nav-eliminar" role="tabpanel" aria-labelledby="nav-eliminar-tab">
-
                                     </div>
                                 </div>
                             </div>
@@ -175,7 +204,7 @@
                                 </nav>
                                     <div class="tab-content" id="nav-tabContent">
                                         <div class="tab-pane fade show active" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
-                                            <table class="table blanco">                                     
+                                            <table class="table blanco align-middle">                                     
                                                 <thead>
                                                     <tr>
                                                     <th scope="col">RUT</th>
