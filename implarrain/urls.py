@@ -32,7 +32,7 @@ urlpatterns = [
     path('editar_empleado/',editar_empleado),
     path('mantenedor_productos',mantenedor_productos),
     path('modificar_producto/<id_producto>',modificar_producto),
-    path('editar_producto',editar_producto),
+    path('editar_producto/',editar_producto),
     path('eliminar_producto/<id_producto>',eliminar_producto), 
     path('listar_datos',listar_datos),
     path('modificar_datos',modificar_datos),
