@@ -33,33 +33,32 @@
             <div class="col-md-12 blanco">
                 <div class="container espacio3">
                     <div class="d-flex align-items-start">
-                        <form action="/editar_empleado/" method="POST">
+                        <form class="col-md-12"action="/editar_empleado/{{ p.rut }}" method="POST">
                             {% csrf_token %}
                             <div class="row">
-                                {% for p in listar_empleados %}
-                                <div class="col-md-">
+                                <div class="col-md">
                                     <div class="row espacio_form">
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">ID</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" value="{{p.id}}" readonly required>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" value="{{empleados.id}}" readonly required>
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Rut</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" value="{{p.rut}}" required>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" value="{{empleados.rut}}" readonly required>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" value="{{p.nombre}}" required> 
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" value="{{empleados.nombre}}" required> 
                                     </div>
                                     <div class="row espacio_form">
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Apellido Paterno</label>
-                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" value="{{p.apellido_paterno}}" required>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" value="{{empleados.apellido_paterno}}" required>
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Apellido Materno</label>
-                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" value="{{p.apellido_materno}}"required>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" value="{{empleados.apellido_materno}}"required>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -78,13 +77,13 @@
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" value="{{p.telefono}}" required>
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" value="{{empleados.telefono}}" required>
                                         </div> 
                                     </div>
                                     <div class="row espacio_form">
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" value="{{p.email}}" readonly required>
+                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" value="{{empleados.email}}" readonly required>
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Cargo</label>
@@ -96,11 +95,9 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Modificar</button>
                                     {{mensaje}}
                                 </div>
-                                {% endfor %}
                             </div>
                         </form>
                     </div>

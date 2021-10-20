@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db import connection
-from core.models import Empleado,CuentaEmpleado
+from core.models import Empleado,CuentaEmpleado, Rol
 import cx_Oracle 
 
 # Create your views here.
@@ -24,6 +24,7 @@ def mantenedor_admin(request):
         salida = agregar_empleado(rut, nombre, ap_paterno, ap_materno, genero, telefono, email, cargo)
         if salida==1:
             data['mensaje'] = 'Empleado registrado correctamente'
+            data['empleados'] = listado_empleados()
         else:
             data['mensaje'] = 'No se ha podido registrar al Empleado'
     return render(request, 'agregar_empleado.html',data)
@@ -81,14 +82,11 @@ def eliminar_empleado(request, rut):
 
 def modificar_empleado(request, rut):
     data = {
-        'cargos':listar_cargos(),
-        'cliente':listado_clientes(),
-        'listar_empleados':Empleado.objects.all()
+        'empleados':Empleado.objects.get(rut=rut),
+        'cargos':listar_cargos()
     }
-
-    empleado = Empleado.objects.get(rut=rut)
-
-    return render(request, "modificar_empleado.html", data)
+    
+    return render(request, "modificar_empleado.html",data)
 
 
 def editar_empleado(request):
