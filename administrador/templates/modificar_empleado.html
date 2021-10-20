@@ -36,9 +36,13 @@
                         <form action="/editar_empleado/" method="POST">
                             {% csrf_token %}
                             <div class="row">
+                                {% for p in listar_empleados %}
                                 <div class="col-md-">
-                                    {% for p in listar_empleados %}
                                     <div class="row espacio_form">
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">ID</label>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" value="{{p.id}}" readonly required>
+                                        </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Rut</label>
                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" value="{{p.rut}}" required>
@@ -80,7 +84,7 @@
                                     <div class="row espacio_form">
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Email</label>
-                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" value="{{p.email}}" required>
+                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" value="{{p.email}}" readonly required>
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Cargo</label>
@@ -92,10 +96,11 @@
                                             </select>
                                         </div>
                                     </div>
-                                    {% endfor %}
-                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrar</button>
+                                    
+                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Modificar</button>
                                     {{mensaje}}
                                 </div>
+                                {% endfor %}
                             </div>
                         </form>
                     </div>

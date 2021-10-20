@@ -9,6 +9,7 @@ def mantenedor_admin(request):
     data = {
         'cargos':listar_cargos(),
         'cliente':listado_clientes(),
+        'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all()
     }
     if request.method== 'POST':
@@ -49,11 +50,23 @@ def listar_cargos():
 def listado_clientes():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
-    out_cur =django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
 
-    cursor.callproc("LISTAR_DATOS",[out_cur])
+    cursor.callproc("LISTAR_DATOS", [out_cur])
 
-    lista =[]
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listado_empleados():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("ADM_LISTAR_EMPLEADOS", [out_cur])
+
+    lista = []
     for fila in out_cur:
         lista.append(fila)
     return lista
@@ -79,8 +92,9 @@ def modificar_empleado(request, rut):
 
 
 def editar_empleado(request):
-
+    
     rut = request.POST.get('rut')
+    id = request.POST.get('id')
     nombre = request.POST.get('nombre')
     ap_paterno = request.POST.get('ap_paterno')
     ap_materno = request.POST.get('ap_materno')
@@ -89,7 +103,10 @@ def editar_empleado(request):
     email = request.POST.get('email')
     cargo = request.POST.get('cargo')
     
+    
     empleado = Empleado.objects.get(rut=rut)
+    empleado.rut = rut
+    empleado.id = id 
     empleado.nombre = nombre
     empleado.apellido_paterno = ap_paterno
     empleado.apellido_materno = ap_materno
