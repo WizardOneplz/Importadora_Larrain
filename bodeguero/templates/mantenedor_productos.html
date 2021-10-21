@@ -28,9 +28,9 @@
                         <!--Menu Bodeguero-->
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v-pills-mantenedor-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mantenedor" type="button" role="tab" aria-controls="v-pills-mantenedor" aria-selected="true">Mantenedores</button>
-                            <button class="nav-link" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="false">Stock</button>
-                            <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
-                            <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
+                            <button class="nav-link" id="v-pills-stock-tab" data-bs-toggle="pill" data-bs-target="#v-pills-stock" type="button" role="tab" aria-controls="v-pills-stock" aria-selected="false">Stock</button>
+                            <button class="nav-link" id="v-pills-pedidas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Pedidos</button>
+                            <button class="nav-link" id="v-pills-productos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-productos" type="button" role="tab" aria-controls="v-pills-productos" aria-selected="false">Productos</button>
                             <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
                         </div>
                         <div class="tab-content col-md-10" id="v-pills-tabContent">
@@ -161,17 +161,9 @@
                             </div>
                             <!-- Cierre Opciones de mantenedor-->
                             <!-- Entrada y Salida de productos-->
-                            <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
-                            <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-entrada-tab" data-bs-toggle="tab" data-bs-target="#nav-entrada" type="button" role="tab" aria-controls="nav-entrada" aria-selected="true">Entrada</button>
-                                <button class="nav-link" id="nav-salida-tab" data-bs-toggle="tab" data-bs-target="#nav-salida" type="button" role="tab" aria-controls="nav-salida" aria-selected="false">Salida</button>
-                            </div>
-                            </nav>
-                            <div class="tab-content" id="nav-tabContent">
-                            <!-- Entrada de productos-->
-                            <div class="tab-pane fade show active" id="nav-entrada" role="tabpanel" aria-labelledby="nav-entrada-tab">
-                                <table class="table blanco espacio4 align-middle">                                     
+                            <div class="tab-pane fade" id="v-pills-stock" role="tabpanel" aria-labelledby="v-pills-stock-tab">
+                            <input type="search" class="search form-control" placeholder="BUSQUEDA"></input>
+                            <table class="table blanco espacio4 align-middle">                                     
                                     <thead>
                                         <tr>
                                         <th scope="col">ID</th>
@@ -203,15 +195,91 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- Cierre Entrada de productos-->
-                            <!-- Salida de productos-->
-                            <div class="tab-pane fade" id="nav-salida" role="tabpanel" aria-labelledby="nav-salida-tab">...</div>
-                            <!-- Cierre Salida de productos-->
-                            </div>
-                            </div>
                             <!-- Cierre Entrada y Salida de productos-->
-                            <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">...</div>
-                            <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">...</div>
+                            <!-- Lista de Pedidos-->
+                            <div class="tab-pane fade" id="v-pills-pedidos" role="tabpanel" aria-labelledby="v-pills-pedidos-tab">
+                            <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-online-tab" data-bs-toggle="tab" data-bs-target="#nav-online" type="button" role="tab" aria-controls="nav-online" aria-selected="true">ONLINE</button>
+                                <button class="nav-link" id="nav-sucursal-tab" data-bs-toggle="tab" data-bs-target="#nav-sucursal" type="button" role="tab" aria-controls="nav-sucursal" aria-selected="false">SUCURSAL</button>
+                            </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                            <!-- Lista de Pedidos ONLINE-->
+                            <div class="tab-pane fade show active" id="nav-online" role="tabpanel" aria-labelledby="nav-online-tab">
+                                <table class="table blanco espacio4 align-middle">                                     
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">PRECIO TOTAL</th>
+                                        <th scope="col">FECHA DE COMPRA</th>
+                                        <th scope="col">FECHA ESTIMADA</th>
+                                        <th scope="col">ID ESTADO PAGO</th>
+                                        <th scope="col">ID DETALLE ORDEN</th>
+                                        <th scope="col">ID ESTADO DE PEDIDO</th>
+                                        <th scope="col">ID TIPO DE PAGO</th>
+                                        <th scope="col">ID TIPO DE ORDEN</th>
+                                        <th scope="col">OPCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for p in pedidoslistados%}
+                                        <tr>
+                                        <th scope="row">{{ p.id_orden }}</th>
+                                        <td>{{ p.precio_total}}</td>
+                                        <td>{{ p.fecha_compra }}</td>
+                                        <td>{{ p.fecha_estimada }}</td>
+                                        <td>{{ p.estado_pago_id_estado_pago }}</td>
+                                        <td>{{ p.detalle_orden_id_detalle_orden }}</td>
+                                        <td>{{ p.stado_pedido_id_estado_pedido }}</td>
+                                        <td>{{ p.tipo_pago_id_tipo_pago }}</td>
+                                        <td>{{ p.tipo_orden_id_tipo_orden }}</td>
+                                        <td><a href="modificar_producto/{{ p.id_producto }}" class="btn btn-primary">MODIFICAR<a/></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="tab-pane fade" id="nav-sucursal" role="tabpanel" aria-labelledby="nav-sucursal-tab">...</div>
+                            </div>
+                            </div>
+                            <!-- Cierre Lista de Pedidos-->
+                            <!-- Lista de Productos-->
+                            <div class="tab-pane fade" id="v-pills-productos" role="tabpanel" aria-labelledby="v-pills-productos-tab">
+                                <table class="table blanco espacio4 align-middle">                                     
+                                    <thead>
+                                        <tr>
+                                        <th scope="col">ID</th>
+                                        <th scope="col">PRECIO TOTAL</th>
+                                        <th scope="col">FECHA DE COMPRA</th>
+                                        <th scope="col">FECHA ESTIMADA</th>
+                                        <th scope="col">ID ESTADO PAGO</th>
+                                        <th scope="col">ID DETALLE ORDEN</th>
+                                        <th scope="col">ID ESTADO DE PEDIDO</th>
+                                        <th scope="col">ID TIPO DE PAGO</th>
+                                        <th scope="col">ID TIPO DE ORDEN</th>
+                                        <th scope="col">OPCIONES</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {%for p in pedidoslistados%}
+                                        <tr>
+                                        <th scope="row">{{ p.id_orden }}</th>
+                                        <td>{{ p.precio_total}}</td>
+                                        <td>{{ p.fecha_compra }}</td>
+                                        <td>{{ p.fecha_estimada }}</td>
+                                        <td>{{ p.estado_pago_id_estado_pago }}</td>
+                                        <td>{{ p.detalle_orden_id_detalle_orden }}</td>
+                                        <td>{{ p.estado_pedido_id_estado_pedido }}</td>
+                                        <td>{{ p.tipo_pago_id_tipo_pago }}</td>
+                                        <td>{{ p.tipo_orden_id_tipo_orden }}</td>
+                                        <td><a href="modificar_producto/{{ p.id_producto }}" class="btn btn-primary">MODIFICAR<a/></td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- Cierre Lista de Productos-->
                             <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">...</div>
                         </div>
                         </div>             
@@ -221,5 +289,9 @@
         </div>        
     </section> 
     {% endblock%}
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 </body>
 </html>

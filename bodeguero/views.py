@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from core.models import Producto
+from core.models import OrdenCompra
 import cx_Oracle
 
 # Create your views here.
@@ -10,7 +11,8 @@ def mantenedor_productos(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'productoslistados': Producto.objects.all()
+        'productoslistados': Producto.objects.all(),
+        'pedidoslistados': OrdenCompra.objects.all()
     }
 
     #agregar_marca(4,'Genius')
@@ -120,16 +122,10 @@ def eliminar_producto(request, id_producto):
     return redirect('/mantenedor_productos')
 
 def modificar_producto(request, id_producto):
-    data = {
-        'marcas':listar_marcas(),
-        'categorias':listar_categorias(),
-        'productos':listar_productos(),
-        'productoslistados': Producto.objects.all()
-    }
 
     producto = Producto.objects.get(id_producto=id_producto)
 
-    return render(request, "modificar_producto.html", data)
+    return render(request, "modificar_producto.html", {"productos": producto})
 
 def editar_producto(request):
 

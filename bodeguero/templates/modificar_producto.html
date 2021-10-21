@@ -25,26 +25,24 @@
                     <div class="container espacio3">
                         <div class="d-flex align-items-start">
                                 <!--Mantedor de Productos-->
-                                <form action="/editar_producto/" method="POST" class="espacio4" enctype="multipart/form-data">
+                                <form action="/editar_producto/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
                                 {% csrf_token %}                       
                                 <div class="row">
-                                <div class="col-md-">
-                                    {%for p in productoslistados%}
+                                <div class="col-md-">                                
                                     <div class="row espacio_form">
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" value="{{p.id_producto}}" name="id" placeholder="" readonly required>
+                                            <input type="number" class="form-control" id="exampleFormControlInput1" value="{{productos.id_producto}}" name="id" placeholder="" readonly required>
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{p.nombre_producto}}"  name="nombre_producto" placeholder="" readonly required>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{productos.nombre_producto}}"  name="nombre_producto" placeholder="" readonly required>
                                         </div>
                                     </div>
                                     <div class="mb-3">
                                         <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" value="{{p.stock}}" placeholder="" required> 
+                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" value="{{productos.stock}}" placeholder="" required> 
                                     </div>
-                                    {% endfor %}
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
                                 </div>
                             </div>
