@@ -54,8 +54,6 @@ class AuthUser(models.Model):
         db_table = 'auth_user'
 
 
-<<<<<<< HEAD
-=======
 class AuthUserGroups(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
@@ -78,7 +76,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
->>>>>>> bda749731c50363c0fcec9e11b09a06e85727835
 class Bodega(models.Model):
     id_bodega = models.BigIntegerField(primary_key=True)
     num_pasillo = models.CharField(max_length=30)
