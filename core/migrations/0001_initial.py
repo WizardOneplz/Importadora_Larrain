@@ -286,18 +286,5 @@ class Migration(migrations.Migration):
                 'db_table': 'valoracion',
                 'managed': False,
             },
-        ),
-        migrations.CreateModel(
-            name='SolicitudPresencial',
-            fields=[
-                ('id_producto', models.BigIntegerField()),
-                ('nombre_producto', models.CharField(max_length=30)),
-                ('cantidad', models.BigIntegerField()),
-                ('orden_compra_id_orden', models.OneToOneField(db_column='orden_compra_id_orden', on_delete=django.db.models.deletion.DO_NOTHING, primary_key=True, serialize=False, to='core.ordencompra')),
-            ],
-            options={
-                'db_table': 'solicitud_presencial',
-                'managed': False,
-            },
-        ),
+        )
     ]

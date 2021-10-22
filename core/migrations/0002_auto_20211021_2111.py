@@ -145,8 +145,5 @@ class Migration(migrations.Migration):
                 'db_table': 'estado_solicitud',
                 'managed': False,
             },
-        ),
-        migrations.DeleteModel(
-            name='SolicitudPresencial',
-        ),
+        )
     ]

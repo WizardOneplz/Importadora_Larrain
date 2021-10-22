@@ -8,7 +8,6 @@
 from django.db import models
 
 
-<<<<<<< HEAD
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150, blank=True, null=True)
 
@@ -26,24 +25,6 @@ class AuthGroupPermissions(models.Model):
         managed = False
         db_table = 'auth_group_permissions'
         unique_together = (('group', 'permission'),)
-=======
-class AgenteOferta(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    nombre = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'agente_oferta'
-
-
-class AuthGroup(models.Model):
-    name = models.CharField(unique=True, max_length=150, blank=True, null=True)
-
-    class Meta:
-        managed = False
-        db_table = 'auth_group'
->>>>>>> c9c8e702017709a130b46360fffd04954c284800
 
 
 class AuthPermission(models.Model):
@@ -74,7 +55,6 @@ class AuthUser(models.Model):
         db_table = 'auth_user'
 
 
-<<<<<<< HEAD
 class AuthUserGroups(models.Model):
     id = models.BigAutoField(primary_key=True)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
@@ -97,8 +77,6 @@ class AuthUserUserPermissions(models.Model):
         unique_together = (('user', 'permission'),)
 
 
-=======
->>>>>>> c9c8e702017709a130b46360fffd04954c284800
 class Bodega(models.Model):
     id_bodega = models.BigIntegerField(primary_key=True)
     num_pasillo = models.CharField(max_length=30)
