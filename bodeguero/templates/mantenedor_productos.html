@@ -131,7 +131,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="exampleFormControlInput1" class="form-label">Marca</label>
-                                                <select id="marcas" name="marcas" class="form-select">
+                                                <select id="id_marca" name="id_marca" class="form-select">
                                                     <option value="">Seleccionar</option>
                                                     {% for m in marcas %}
                                                       <option value="{{ m.0 }}">{{m.1}}</option>
@@ -142,7 +142,7 @@
                                         <div class="col">
                                             <div class="mb-3">
                                             <label for="exampleFormControlInput1" class="form-label">Categoria</label>
-                                                <select id="id_categorias" name="id_categorias" class="form-select">
+                                                <select id="id_categoria" name="id_categoria" class="form-select">
                                                     <option value="">Seleccionar</option>
                                                     {% for c in categorias %}
                                                     <option value="{{ c.0 }}">{{c.1}}</option>

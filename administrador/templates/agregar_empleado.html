@@ -161,9 +161,7 @@
                                             <th scope="col">TELÉFONO</th>
                                             <th scope="col">EMAIL</th>
                                             <th scope="col">CARGO</th>
-                                            <th colspan="2">OPCIONES
-                                                
-                                            </th>
+                                            <th colspan="2">OPCIONES</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -178,8 +176,8 @@
                                             <td>{{ p.telefono }}</td>
                                             <td>{{ p.email }}</td>
                                             <td>{{ p.cargo }}</td>
-                                            <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR<a/></td>
-                                            <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR<a/></td>
+                                            <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
+                                            <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
                                             </tr>
                                             {% endfor %}
                                         </tbody>
@@ -242,11 +240,11 @@
                                                      <div class="row espacio_form">
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">CANTIDAD DE PASILLOS</label>
-                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" required>
+                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_pasillos" placeholder="" required>
                                                          </div>
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
-                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="" required>
+                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion  " placeholder="" required>
                                                          </div>
                                                      </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
@@ -281,7 +279,27 @@
 
                                     <!-- MODIFICAR BODEGAS-->
                                     <div class="tab-pane fade" id="nav-modificarbod" role="tabpanel" aria-labelledby="nav-modificarbod-tab">
-
+                                        <table class="table blanco align-middle">                                     
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">NUMERO PASILLOS</th>
+                                                    <th scope="col">DIRECCION</th>
+                                                    <th colspan="2">OPCIONES</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                {%for c in bodega%}
+                                                <tr>
+                                                    <th scope="row">{{ c.0 }}</th>
+                                                    <td>{{ c.1 }}</td>
+                                                    <td>{{ c.2 }}</td>
+                                                    <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
+                                                    <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
                                     </div>
                                   </div>   
                             </div>   
@@ -296,7 +314,7 @@
                                     </div>
                                 </nav>
                                     <div class="tab-content" id="nav-tabContent">
-                                        <!-- AGREGAR PASILLOS-->
+                                    <!-- AGREGAR PASILLOS-->
                                     <div class="tab-pane fade show active" id="nav-crearpass" role="tabpanel" aria-labelledby="nav-crearpass-tab">
                                         <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
                                             <form action="" method="POST">
@@ -306,14 +324,14 @@
                                                      <div class="row espacio_form">
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">CANTIDAD DE ESTANTERIAS</label>
-                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" required>
+                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_estanterias" placeholder="" required>
                                                          </div>
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">ID BODEGA</label>
-                                                             <select id="cargo" name="cargo" class="form-select">
+                                                             <select id="id_bodega" name="id_bodega" class="form-select">
                                                                 <option value="">Seleccionar</option>
-                                                                {% for b in bodega %}
-                                                                  <option value="{{ c.0 }}">{{c.1}}</option>
+                                                                {% for b in bodega%}
+                                                                  <option value="{{ b.0 }}">{{b.0}}</option>
                                                                 {% endfor %}
                                                             </select>
                                                          </div>
@@ -350,7 +368,27 @@
 
                                     <!-- MODIFICAR PASILLOS-->
                                     <div class="tab-pane fade" id="nav-modificarpass" role="tabpanel" aria-labelledby="nav-modificarpass-tab">
-
+                                        <table class="table blanco align-middle">                                     
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">CANTIDAD ESTANTERIAS</th>
+                                                    <th scope="col">ID BODEGA</th>
+                                                    <th colspan="2">OPCIONES</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                {%for c in pasillo%}
+                                                <tr>
+                                                    <th scope="row">{{ c.0 }}</th>
+                                                    <td>{{ c.1 }}</td>
+                                                    <td>{{ c.2 }}</td>
+                                                    <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
+                                                    <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
                                     </div>
                                   </div>   
                             </div>  
@@ -448,7 +486,29 @@
                                     
                                     <!-- MODIFICAR ESTANTERIA-->
                                     <div class="tab-pane fade" id="nav-modificarest" role="tabpanel" aria-labelledby="nav-modificarest-tab">
-
+                                        <table class="table blanco align-middle">                                     
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">CAPACIDAD</th>
+                                                    <th scope="col">ID PASILLO</th>
+                                                    <th scope="col">NOMBRE PRODUCTO</th>
+                                                    <th colspan="2">OPCIONES</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                {%for c in estanteria%}
+                                                <tr>
+                                                    <th scope="row">{{ c.0 }}</th>
+                                                    <td>{{ c.1 }}</td>
+                                                    <td>{{ c.2 }}</td>
+                                                    <td>{{ c.3 }}</td>
+                                                    <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
+                                                    <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
                                     </div>
                                   </div>   
                             </div>  
