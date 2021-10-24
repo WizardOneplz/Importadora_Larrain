@@ -46,7 +46,7 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <!--Mantedor de Marcas-->
                                 <div class="tab-pane fade show active" id="nav-marca" role="tabpanel" aria-labelledby="nav-marca-tab">
-                                <form action"" method="POST">
+                                <form action="" method="POST">
                                     <div class="row espacio4">
                                         {% csrf_token %}
                                         <div class="col">
@@ -64,7 +64,7 @@
                                 <!--Cierre Mantedor de Marcas-->
                                 <!--Mantedor de Categorias-->
                                 <div class="tab-pane fade" id="nav-categoria" role="tabpanel" aria-labelledby="nav-categoria-tab">
-                                <form action"" method="POST">
+                                <form action="" method="POST">
                                     <div class="row espacio4">
                                         {% csrf_token %}
                                         <div class="col">
@@ -131,10 +131,10 @@
                                         <div class="col">
                                             <div class="mb-3">
                                                 <label for="exampleFormControlInput1" class="form-label">Marca</label>
-                                                <select id="id_categoria" name="id_marca" class="form-select"> 
-                                                    <option value="">Seleccionar<option>
+                                                <select id="marcas" name="marcas" class="form-select">
+                                                    <option value="">Seleccionar</option>
                                                     {% for m in marcas %}
-                                                        <option value={{m.0}}>{{m.1}}<option>
+                                                      <option value="{{ m.0 }}">{{m.1}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>
@@ -142,10 +142,10 @@
                                         <div class="col">
                                             <div class="mb-3">
                                             <label for="exampleFormControlInput1" class="form-label">Categoria</label>
-                                                <select id="id_categoria" name="id_categoria" class="form-select">
-                                                    <option value="">Seleccionar<option>
+                                                <select id="id_categorias" name="id_categorias" class="form-select">
+                                                    <option value="">Seleccionar</option>
                                                     {% for c in categorias %}
-                                                        <option value={{c.0}}>{{c.1}}<option>
+                                                    <option value="{{ c.0 }}">{{c.1}}</option>
                                                     {% endfor %}
                                                 </select>
                                             </div>

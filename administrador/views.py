@@ -5,12 +5,19 @@ import cx_Oracle
 
 # Create your views here.
 
+#EMPLEADOS
 def mantenedor_admin(request):
     data = {
         'cargos':listar_cargos(),
+        'marcas':listar_marcas(),
+        'categorias':listar_categorias(),
+        'productos':listar_productos(),
         'cliente':listado_clientes(),
         'empleados':listado_empleados(),
-        'listar_empleados':Empleado.objects.all()
+        'listar_empleados':Empleado.objects.all(),
+        'bodega':listado_bodega(),
+        'pasillo':listado_pasillo(),
+        'estanteria':listado_estanteria()
     }
     if request.method== 'POST':
         rut = request.POST.get('rut')
@@ -36,6 +43,18 @@ def agregar_empleado(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,carg
     cursor.callproc('ADM_AGREGAR_EMPLEADO',[rut, nombre, ap_paterno, ap_materno, genero, telefono, email, cargo, salida])
     return salida.getvalue()
 
+def listado_empleados():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("ADM_LISTAR_EMPLEADOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
 def listar_cargos():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -48,24 +67,36 @@ def listar_cargos():
         lista.append(fila)
     return lista
 
-def listado_clientes():
+def listar_marcas():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
 
-    cursor.callproc("LISTAR_DATOS", [out_cur])
+    cursor.callproc("SP_LISTAR_MARCAS", [out_cur])
 
     lista = []
     for fila in out_cur:
         lista.append(fila)
     return lista
 
-def listado_empleados():
+def listar_categorias():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
 
-    cursor.callproc("ADM_LISTAR_EMPLEADOS", [out_cur])
+    cursor.callproc("SP_LISTAR_CATEGORIAS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listar_productos():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_PRODUCTOS", [out_cur])
 
     lista = []
     for fila in out_cur:
@@ -88,7 +119,6 @@ def modificar_empleado(request, rut):
     
     return render(request, "modificar_empleado.html",data)
 
-
 def editar_empleado(request):
     
     rut = request.POST.get('rut')
@@ -100,8 +130,7 @@ def editar_empleado(request):
     telefono = request.POST.get('telefono')
     email = request.POST.get('email')
     cargo = request.POST.get('cargo')
-    
-    
+      
     empleado = Empleado.objects.get(rut=rut)
     empleado.rut = rut
     empleado.id = id 
@@ -115,3 +144,59 @@ def editar_empleado(request):
     empleado.save()
 
     return redirect('/agregar_empleado')
+
+#CLIENTES
+
+def listado_clientes():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("LISTAR_DATOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+#BODEGA
+
+def listado_bodega():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("LISTAR_BODEGA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+#PASILLO
+
+def listado_pasillo():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("LISTAR_PASILLO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+#ESTANTERIA
+
+def listado_estanteria():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("LISTAR_ESTANTERIA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
