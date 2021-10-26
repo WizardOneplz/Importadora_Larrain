@@ -17,7 +17,8 @@ def registro(request):
         email = request.POST.get('email')
         direccion = request.POST.get('Direccion')
         ciudad = request.POST.get('ciudad')
-        salida = agregar_cliente(rut, nombre, ap_paterno, ap_materno, genero, telefono, email,direccion, ciudad)
+        clave= request.POST.get('clave')
+        salida = agregar_cliente(rut, nombre, ap_paterno, ap_materno, genero, telefono, email,direccion, ciudad, clave)
         if salida==1:
             data['mensaje'] = 'Empleado registrado correctamente'
         else:
@@ -28,7 +29,14 @@ def agregar_cliente(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,direc
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('AGREGAR_CLIENTE',[rut, nombre, ap_paterno, ap_materno, genero, telefono, email,direccion, ciudad, salida])
+    cursor.callproc('AGREGAR_CLIENTE',[rut, nombre, ap_paterno, ap_materno, genero, telefono, email,direccion, ciudad,salida])
+    return salida.getvalue()
+
+def agregar_cuenta(rut,email,clave):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('AGREGAR_CUENTA_CLIENTE',[rut,email,clave,salida])
     return salida.getvalue()
 
 def listar_ciudad():

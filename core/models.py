@@ -8,7 +8,7 @@
 from django.db import models
 
 
-<<<<<<< HEAD
+
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150, blank=True, null=True)
 
@@ -26,7 +26,7 @@ class AuthGroupPermissions(models.Model):
         managed = False
         db_table = 'auth_group_permissions'
         unique_together = (('group', 'permission'),)
-=======
+
 class AgenteOferta(models.Model):
     id = models.BigAutoField(primary_key=True)
     nombre = models.CharField(max_length=50, blank=True, null=True)
@@ -43,7 +43,7 @@ class AuthGroup(models.Model):
     class Meta:
         managed = False
         db_table = 'auth_group'
->>>>>>> d2e063b70222db95f9e3645d4351f9a459399638
+
 
 
 class AuthPermission(models.Model):

@@ -85,11 +85,7 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-<<<<<<< HEAD
         'NAME': '127.0.0.1:1521/xe',
-=======
-        'NAME': '127.0.0.1:1521 /xe',
->>>>>>> d2e063b70222db95f9e3645d4351f9a459399638
         'USER': 'IMPLARRAIN',
         'PASSWORD': '123',
         'TEST': {
