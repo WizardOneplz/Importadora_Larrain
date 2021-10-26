@@ -8,6 +8,7 @@
 from django.db import models
 
 
+<<<<<<< HEAD
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150, blank=True, null=True)
 
@@ -25,6 +26,24 @@ class AuthGroupPermissions(models.Model):
         managed = False
         db_table = 'auth_group_permissions'
         unique_together = (('group', 'permission'),)
+=======
+class AgenteOferta(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    nombre = models.CharField(max_length=50, blank=True, null=True)
+    precio = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'agente_oferta'
+
+
+class AuthGroup(models.Model):
+    name = models.CharField(unique=True, max_length=150, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group'
+>>>>>>> d2e063b70222db95f9e3645d4351f9a459399638
 
 
 class AuthPermission(models.Model):
@@ -151,6 +170,7 @@ class DetalleOrden(models.Model):
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
     empleado_rut = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_rut')
     producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
+    vendedor_rut = models.CharField(max_length=4000)
 
     class Meta:
         managed = False
@@ -211,7 +231,7 @@ class Empleado(models.Model):
     genero = models.CharField(max_length=1)
     telefono = models.BigIntegerField()
     email = models.CharField(max_length=30)
-    cargo = models.BigIntegerField()
+    cargo = models.CharField(max_length=30)
 
     class Meta:
         managed = False
@@ -236,6 +256,15 @@ class EstadoPedido(models.Model):
         db_table = 'estado_pedido'
 
 
+class EstadoSolicitud(models.Model):
+    id_estado = models.BigIntegerField(primary_key=True)
+    nombre_estado = models.CharField(max_length=15)
+
+    class Meta:
+        managed = False
+        db_table = 'estado_solicitud'
+
+
 class Estanteria(models.Model):
     id_estanteria = models.BigIntegerField(primary_key=True)
     capacidad = models.BigIntegerField()
@@ -258,7 +287,7 @@ class Marca(models.Model):
 
 class Oferta(models.Model):
     id_oferta = models.BigIntegerField(primary_key=True)
-    id_proveedor = models.BigIntegerField()
+    rut_proveedor = models.CharField(max_length=20)
     nombre_proveedor = models.CharField(max_length=40)
     apellido_proveedor = models.CharField(max_length=40)
     email = models.CharField(max_length=40)
@@ -305,6 +334,7 @@ class Producto(models.Model):
     stock = models.BigIntegerField()
     oferta = models.CharField(max_length=1)
     porcentaje = models.BigIntegerField(blank=True, null=True)
+    imagen = models.BinaryField(blank=True, null=True)
     marca_id_marca = models.ForeignKey(Marca, models.DO_NOTHING, db_column='marca_id_marca')
     categoria_id_categoria = models.ForeignKey(Categoria, models.DO_NOTHING, db_column='categoria_id_categoria')
 
@@ -331,17 +361,6 @@ class Rol(models.Model):
         db_table = 'rol'
 
 
-class SolicitudPresencial(models.Model):
-    id_producto = models.BigIntegerField()
-    nombre_producto = models.CharField(max_length=30)
-    cantidad = models.BigIntegerField()
-    orden_compra_id_orden = models.OneToOneField(OrdenCompra, models.DO_NOTHING, db_column='orden_compra_id_orden', primary_key=True)
-
-    class Meta:
-        managed = False
-        db_table = 'solicitud_presencial'
-
-
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=30)
@@ -351,6 +370,9 @@ class SolicitudProductos(models.Model):
     stock = models.BigIntegerField()
     observacion = models.CharField(max_length=30, blank=True, null=True)
     empleado_rut = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='empleado_rut')
+    supervisor_rut = models.CharField(max_length=4000)
+    bodeguero_rut = models.CharField(max_length=4000)
+    estado_solicitud_id_estado = models.ForeignKey(EstadoSolicitud, models.DO_NOTHING, db_column='estado_solicitud_id_estado')
 
     class Meta:
         managed = False

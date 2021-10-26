@@ -4,7 +4,67 @@
 <body>
     {% block content %}
     <!--agregar formulario de registro-->
-    {% endblock%}
-   
+    <div class="contenedor">
+        <h1 >Gestion Ofertas</h1>
+        <h2> Nueva oferta</h2>
+        <form action="" method="POST">
+            {% csrf_token %}
+    
+            <label for="">ID Oferta</label>
+            <input type="number" name="id_oferta" id="ID_OFERTA">
+            <br>
+            <label for="">ID Proveedor</label>
+            <input type="number" name="id_proveedor" id="ID_PROVEEDOR">
+            <br>
+            <label for="">Nombre</label>
+            <input type="text" name="nombre_proveedor" id="NOMBRE_PROVEEDOR">
+            <br>
+            <label for="">Apellido</label>
+            <input type="text" name="apellido_proveedor" id="APELLIDO">
+            <br>
+            <label for="">Email</label>
+            <input type="email" name="email" id="EMAIL">
+            <br>
+            <label for="">Oferta</label>
+            <input type="text" name="oferta" id="OFERTA">
+            <br>
+            <label for="">Fecha</label>
+            <input type="date" name="fecha" id="FECHA">
+
+            <label for="">Rut Empleado</label>
+            <input type="text" name="empleado_rut" id="EMPLEADO_RUT">
+
+            <input type="submit" value="Guardar">
+    
+        </form>
+        {{mensaje}}
+        <h2 >Ofertas</h2>
+        <table>
+            <tr>
+                <th>ID Oferta</th>
+                <th>ID Proveedor</th>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Email</th>
+                <th>Oferta</th>
+                <th>Fecha</th>
+                <th>RUT Empleado</th>
+            </tr>
+            {% for p in ofertas %}
+            <tr>
+                <td>{{ p.1 }}</td>
+                <td>{{ p.2 }}</td>
+                <td>{{ p.3 }}</td>
+                <td>{{ p.4 }}</td>
+                <td>{{ p.5 }}</td>
+                <td>{{ p.6 }}</td>
+                <td>{{ p.7 }}</td>
+                <td>{{ p.8 }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endblock %}
+
+    </div>   
 </body>
 </html>
