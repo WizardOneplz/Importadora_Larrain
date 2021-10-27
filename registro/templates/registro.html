@@ -81,6 +81,7 @@
                         <label for="exampleFormControlInput1" class="form-label">Email</label>
                         <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" required>
                       </div>
+                      
                     <div class="mb-3">
                         <label for="exampleFormControlInput1" class="form-label">Dirección</label>
                         <input type="text" class="form-control" id="exampleFormControlInput1" name="Direccion" placeholder="" required> 
@@ -94,9 +95,16 @@
                                 {% endfor %}
                             </select>
                         </div>
-                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrarme</button>
-                        {{mensaje}}   
+                           
                     </div>
+                </div>
+                <div class="row espacio_form">
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="" required>
+                      </div>
+                 <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrarme</button>
+                        {{mensaje}}
                 </div>
             </div>
         </div>       

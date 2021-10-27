@@ -61,10 +61,6 @@ class Migration(migrations.Migration):
         migrations.DeleteModel(
             name='Rol',
         ),
-        migrations.RemoveField(
-            model_name='solicitudpresencial',
-            name='orden_compra_id_orden',
-        ),
         migrations.DeleteModel(
             name='SolicitudProductos',
         ),
@@ -80,7 +76,5 @@ class Migration(migrations.Migration):
         migrations.DeleteModel(
             name='OrdenCompra',
         ),
-        migrations.DeleteModel(
-            name='SolicitudPresencial',
-        ),
+        
     ]

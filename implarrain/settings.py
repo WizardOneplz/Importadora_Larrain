@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'cliente',
     'shared',
     'agente',
+    
 ]
 
 MIDDLEWARE = [
