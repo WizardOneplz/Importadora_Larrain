@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'cliente',
     'shared',
     'agente',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,4 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+IMPORT_EXPORT_USE_TRANSACTIONS = True  
