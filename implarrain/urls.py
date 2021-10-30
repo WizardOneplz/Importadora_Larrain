@@ -24,12 +24,24 @@ from agente.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path('',home),
     path('registro',registro),
     path('home',home),
     path('registro',registro,),
     path('agregar_empleado',mantenedor_admin),
+=======
+    path('home',home),
+    path('registro',registro,),
+    path('agregar_empleado',mantenedor_admin),
+    path('eliminar_empleado/<rut>',eliminar_empleado),
+    path('modificar_empleado/<rut>',modificar_empleado),
+    path('editar_empleado/',editar_empleado),
+>>>>>>> e9f8a83ff2751a9cee1373dfb5eafd8d938c57ce
     path('mantenedor_productos',mantenedor_productos),
+    path('modificar_producto/<id_producto>',modificar_producto),
+    path('editar_producto/',editar_producto),
+    path('eliminar_producto/<id_producto>',eliminar_producto), 
     path('listar_datos',listar_datos),
     path('modificar_datos',modificar_datos),
     path('subir_oferta',subir_oferta),
