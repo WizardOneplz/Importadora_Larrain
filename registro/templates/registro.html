@@ -28,7 +28,92 @@
 
 <body>
     {% block content %}
-    <!--agregar formulario de registro-->
+    <div class="container-fluid espacio2 gradient3">
+    <div class="row align-items-center justify-content-center">
+    <div class="col-md-12 blanco">
+    <div class="container espacio3">
+    <div class="d-flex align-items-start">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-">
+                <div class="row espacio_form">
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Rut</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" required>
+                    </div>
+                 </div>
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">Nombre</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" required> 
+                </div>
+                <div class="row espacio_form">
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Apellido Paterno</label>
+                        <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" required>
+                    </div>
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Apellido Materno</label>
+                        <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Genero</label>
+                        <div class="col">
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M">
+                            <label class="form-check-label" for="inlineRadio1">Masculino</label>
+                         </div>
+                        <div class="form-check form-check-inline col">
+                            <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="F">
+                            <label class="form-check-label" for="inlineRadio2">Femenino</label>
+                        </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
+                        <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" required>
+                    </div> 
+                </div>
+                <div class="row espacio_form">
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" required>
+                      </div>
+                      
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">Dirección</label>
+                        <input type="text" class="form-control" id="exampleFormControlInput1" name="Direccion" placeholder="" required> 
+                      </div>
+                      <div class="mb-3">
+                            <label for="exampleFormControlInput1" class="form-label">Región</label>
+                            <select id="ciudad" name="ciudad" class="form-select">
+                                <option value="">Seleccionar</option>
+                                {% for c in CIUDAD %}
+                                    <option value="{{ c.0 }}">{{c.1}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                           
+                    </div>
+                </div>
+                <div class="row espacio_form">
+                    <div class="col">
+                        <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                        <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="" required>
+                      </div>
+                 <button type="submit" value="Submit" class="btn btn-warning btn-lg">Registrarme</button>
+                        {{mensaje}}
+                </div>
+            </div>
+        </div>       
+    </form>
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
     {% endblock%}
    
 </body>

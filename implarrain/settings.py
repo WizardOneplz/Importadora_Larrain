@@ -45,6 +45,11 @@ INSTALLED_APPS = [
     'cliente',
     'shared',
     'agente',
+<<<<<<< HEAD
+    'import_export',
+=======
+    
+>>>>>>> e9f8a83ff2751a9cee1373dfb5eafd8d938c57ce
 ]
 
 MIDDLEWARE = [
@@ -85,7 +90,7 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1521 /xe',
+        'NAME': '127.0.0.1:1521/xe',
         'USER': 'IMPLARRAIN',
         'PASSWORD': '123',
         'TEST': {
@@ -139,3 +144,4 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+IMPORT_EXPORT_USE_TRANSACTIONS = True  
