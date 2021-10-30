@@ -1,0 +1,56 @@
+{%extends "base/navbar.html"%}
+{%load static%}
+
+{% block navbar%}
+<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="home">Bienvenido</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="">*nombre ADMIN*</a>
+      </li>
+  </ul>
+  <ul class="navbar-nav ms-auto">
+      <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">CERRAR SESIÓN</button>
+  </ul>
+  </div>
+{% endblock%}
+
+<body>
+    {% block content %}
+    <div class="container-fluid espacio2 gradient3">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-12 blanco">
+                <div class="container espacio3">
+                    <div class="d-flex align-items-start">
+                        <form action="/editar_bodega/" method="POST">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-">
+                                 <div class="row espacio_form"> 
+                                    <div class="col">
+                                        <label for="exampleFormControlInput1" class="form-label">ID BODEGA</label>
+                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="id_bodega" placeholder="" value="{{bodegas.id_bodega}}" readonly required>
+                                    </div>
+                                     <div class="col">
+                                         <label for="exampleFormControlInput1" class="form-label">CANTIDAD DE PASILLOS</label>
+                                         <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_pasillos" placeholder="" value="{{bodegas.num_pasillo}}" required>
+                                     </div>
+                                     <div class="col">
+                                         <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
+                                         <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" placeholder="" value="{{bodegas.direccion}}" required>
+                                     </div>
+                                 </div>
+                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
+                                </div>
+                            </div>
+                          </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>  
+    {% endblock %}
+</body>
+</html>
