@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db import connection
-from core.models import Empleado,CuentaEmpleado, Rol
+from core.models import Empleado,CuentaEmpleado, Rol, Estanteria, Bodega, Pasillo
 import cx_Oracle 
 
 # Create your views here.
@@ -15,9 +15,13 @@ def mantenedor_admin(request):
         'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
+        'listado_bodega':Bodega.objects.all(),
         'bodega':listado_bodega(),
         'pasillo':listado_pasillo(),
-        'estanteria':listado_estanteria()
+        'listar_pasillo':Pasillo.objects.all(),
+        'estanteria':listado_estanteria(),
+        'listar_estanteria':Estanteria.objects.all(),
+        
     }
  
 #AGREGAR EMPLEADO
@@ -32,10 +36,10 @@ def mantenedor_admin(request):
         cargo = request.POST.get('cargo')
         salida = agregar_empleado(rut, nombre, ap_paterno, ap_materno, genero, telefono, email, cargo)
         if salida==1:
-            data['mensaje'] = 'Empleado registrado correctamente'
+            data['mensaje'] = 'Creado correctamente'
             data['empleados'] = listado_empleados()
         else:
-            data['mensaje'] = 'No se ha podido registrar al Empleado'
+            data['mensaje'] = 'No se ha podido registrar'     
 
 #AGREGAR BODEGA
     if request.method== 'POST':
@@ -44,10 +48,10 @@ def mantenedor_admin(request):
 
         salida = agregar_bodega(cant_pasillos,direccion)
         if salida==1:
-            data['mensaje'] = 'Bodega registrada correctamente'
+            data['mensaje'] = 'Creado correctamente'
             data['bodega'] = listado_bodega()
         else:
-            data['mensaje'] = 'No se ha podido registrar la bodega'
+            data['mensaje'] = 'No se ha podido registrar' 
 
 #AGREGAR PASILLO
     if request.method== 'POST':
@@ -56,19 +60,30 @@ def mantenedor_admin(request):
 
         salida = agregar_pasillo(cant_estanterias,id_bodega)
         if salida==1:
-            data['mensaje'] = 'Pasillo registrado correctamente'
+            data['mensaje'] = 'Creado correctamente'
             data['pasillo'] = listado_pasillo()
         else:
-            data['mensaje'] = 'No se ha podido registrar el pasillo'
+            data['mensaje'] = 'No se ha podido registrar' 
 
 #AGREGAR ESTANTERIA
+    if request.method== 'POST':
+        capacidad = request.POST.get('capacidad')
+        id_pasillo = request.POST.get('id_pasillo')
+        id_producto = request.POST.get('id_producto')
+
+        salida = agregar_estanteria(capacidad,id_pasillo,id_producto)
+        if salida==1:
+            data['mensaje'] = 'Creado correctamente'
+            data['estanteria'] = listado_estanteria()
+        else:
+            data['mensaje'] = 'No se ha podido registrar' 
 
     return render(request, 'agregar_empleado.html',data)
 
 
 #METODOS
 
-#EMPLEADO
+
 def agregar_empleado(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,cargo):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -215,11 +230,33 @@ def listado_bodega():
         lista.append(fila)
     return lista
 
-def eliminar_empleado(request, rut):
-    cuentaempleado = CuentaEmpleado.objects.get(empleado_rut=rut)
-    cuentaempleado.delete()
-    empleado = Empleado.objects.get(rut=rut)
-    empleado.delete()
+def eliminar_bodega(request, id_bodega):
+    data = {}
+    try:
+        bodega = Bodega.objects.get(id_bodega=id_bodega)
+        bodega.delete()
+    except:
+        return redirect('/agregar_empleado')
+    
+    return redirect('/agregar_empleado')
+
+
+def modificar_bodega(request, id_bodega):
+    bodega = Bodega.objects.get(id_bodega=id_bodega)
+    
+    return render(request, "modificar_bodega.html",{"bodegas":bodega})
+
+def editar_bodega(request):
+    
+    id_bodega = request.POST.get('id_bodega')
+    num_pasillo = request.POST.get('cant_pasillos')
+    direccion = request.POST.get('direccion')
+   
+    bodega = Bodega.objects.get(id_bodega=id_bodega)
+    bodega.id_bodega = id_bodega
+    bodega.num_pasillo = num_pasillo
+    bodega.direccion = direccion
+    bodega.save()
 
     return redirect('/agregar_empleado')
 
@@ -244,7 +281,30 @@ def listado_pasillo():
         lista.append(fila)
     return lista
 
+def eliminar_pasillo(request, id_pasillo):
+    try:
+        pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
+        pasillo.delete()
+    except:
+        estanteria = Estanteria.objects.get(pasillo_id_pasillo=id_pasillo)
+        estanteria.delete()
+        pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
+        pasillo.delete()
+    
+    data={
+        'pasillo':listado_pasillo()
+    }
+
+    return redirect('/agregar_empleado',data)
+
 #ESTANTERIA
+
+def agregar_estanteria(capacidad,id_pasillo,id_producto):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('ADM_AGREGAR_ESTANTERIA',[capacidad,id_pasillo,id_producto, salida])
+    return salida.getvalue()
 
 def listado_estanteria():
     django_cursor = connection.cursor()
@@ -257,3 +317,9 @@ def listado_estanteria():
     for fila in out_cur:
         lista.append(fila)
     return lista
+
+def eliminar_estanteria(request, id_estanteria):
+    estanteria = Estanteria.objects.get(id_estanteria=id_estanteria)
+    estanteria.delete()
+    return redirect('/agregar_empleado')
+

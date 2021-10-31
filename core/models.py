@@ -8,22 +8,23 @@
 from django.db import models
 
 
-class AgenteOferta(models.Model):
-    id = models.BigAutoField(primary_key=True)
-    nombre = models.CharField(max_length=50, blank=True, null=True)
-    precio = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'agente_oferta'
-
-
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'auth_group'
+
+
+class AuthGroupPermissions(models.Model):
+    id = models.BigAutoField(primary_key=True)
+    group = models.ForeignKey(AuthGroup, models.DO_NOTHING)
+    permission = models.ForeignKey('AuthPermission', models.DO_NOTHING)
+
+    class Meta:
+        managed = False
+        db_table = 'auth_group_permissions'
+        unique_together = (('group', 'permission'),)
 
 
 class AuthPermission(models.Model):
@@ -150,7 +151,7 @@ class DetalleOrden(models.Model):
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
     empleado_rut = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_rut')
     producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
-    vendedor_rut = models.CharField(max_length=4000)
+    vendedor_rut = models.CharField(max_length=20)
 
     class Meta:
         managed = False
@@ -204,7 +205,7 @@ class DjangoSession(models.Model):
 
 class Empleado(models.Model):
     id = models.BigIntegerField()
-    rut = models.CharField(primary_key=True, max_length=20)
+    rut = models.CharField(primary_key=True, max_length=4000)
     nombre = models.CharField(max_length=30)
     apellido_paterno = models.CharField(max_length=30)
     apellido_materno = models.CharField(max_length=30)
@@ -344,14 +345,12 @@ class Rol(models.Model):
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=30)
-    nombre_categoria = models.BigIntegerField()
+    nombre_categoria = models.CharField(max_length=30)
+    nombre_marca = models.CharField(max_length=30)
     precio = models.BigIntegerField()
-    nombre_marca = models.BigIntegerField()
     stock = models.BigIntegerField()
     observacion = models.CharField(max_length=30, blank=True, null=True)
     empleado_rut = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='empleado_rut')
-    supervisor_rut = models.CharField(max_length=4000)
-    bodeguero_rut = models.CharField(max_length=4000)
     estado_solicitud_id_estado = models.ForeignKey(EstadoSolicitud, models.DO_NOTHING, db_column='estado_solicitud_id_estado')
 
     class Meta:

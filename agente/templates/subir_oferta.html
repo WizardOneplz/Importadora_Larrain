@@ -3,68 +3,107 @@
 
 <body>
     {% block content %}
-    <!--agregar formulario de registro-->
-    <div class="contenedor">
-        <h1 >Gestion Ofertas</h1>
-        <h2> Nueva oferta</h2>
-        <form action="" method="POST">
-            {% csrf_token %}
-    
-            <label for="">ID Oferta</label>
-            <input type="number" name="id_oferta" id="ID_OFERTA">
-            <br>
-            <label for="">ID Proveedor</label>
-            <input type="number" name="id_proveedor" id="ID_PROVEEDOR">
-            <br>
-            <label for="">Nombre</label>
-            <input type="text" name="nombre_proveedor" id="NOMBRE_PROVEEDOR">
-            <br>
-            <label for="">Apellido</label>
-            <input type="text" name="apellido_proveedor" id="APELLIDO">
-            <br>
-            <label for="">Email</label>
-            <input type="email" name="email" id="EMAIL">
-            <br>
-            <label for="">Oferta</label>
-            <input type="text" name="oferta" id="OFERTA">
-            <br>
-            <label for="">Fecha</label>
-            <input type="date" name="fecha" id="FECHA">
+    <section id="reserva">
+        <div class="container-fluid espacio2 gradient3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12 blanco">
+                    <div class="container espacio3">
+                        <!-- MENU LATERAL IZQUIERDO-->
+                        <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-ofertas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ofertas" type="button" role="tab" aria-controls="v-pills-ofertas" aria-selected="true">Ofertas</button>
+                        </div>
+                        <!-- CIERRE MENU-->
+                        <div class="tab-content col-md-10" id="v-pills-tabContent">
+                            <!-- MENU HORIZONTAL DE OFERTAS-->
+                            <div class="tab-pane fade show active" id="v-pills-ofertas" role="tabpanel" aria-labelledby="v-pills-ofertas-tab">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-crear-tab" data-bs-toggle="tab" data-bs-target="#nav-crear" type="button" role="tab" aria-controls="nav-crear" aria-selected="true">Subir Oferta</button>
+                                        <button class="nav-link" id="nav-listar-tab" data-bs-toggle="tab" data-bs-target="#nav-listar" type="button" role="tab" aria-controls="nav-listar" aria-selected="false">Listar Ofertas</button>
+                                    </div>
+                                </nav>
+                                <div class="tab-content espacio4" id="nav-tabContent">
+                                     <!-- FORMULARIO DE CREACION DE OFERTAS-->
+                                    <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
+                                            {% if messages %}
+                                        {%for message in messages%}
+                                        <div class="alert alert-{{ message.tags }}" role="alert">
+                                            <p{% if message.tags %} class=""{% endif %}>{{ message }}</p>
 
-            <label for="">Rut Empleado</label>
-            <input type="text" name="empleado_rut" id="EMPLEADO_RUT">
+                                        </div>
+                                        {%endfor%}
+                                        {% endif %}
+                                        <form method="post" enctype="multipart/form-data">  
+                                            {% csrf_token %}  
+                                            <inppload Excel file</h2>
+                                            <h3>Subir Nueva Oferta</h3>
+                                            <input type="file" name="myfile">  
+                                            <button type="submit">Subir</button>  
+                                            {{mensaje}}
+                                        </form>
+                                    </div>
+                                    <!-- FORMULARIO DE LISTADO DE OFERTAS-->
+                                    <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
+                                        <h2 >Ofertas</h2>
+                                        <table class="blanco">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID Oferta</th>
+                                                    <th>RUT Proveedor</th>
+                                                    <th>Nombre</th>
+                                                    <th>Apellido</th>
+                                                    <th>Email</th>
+                                                    <th>Oferta</th>
+                                                    <th>Fecha</th>
+                                                    <th>RUT Empleado</th>
+                                                </tr>
+                                            </thead> 
+                                            {% for p in ofertas %}
+                                            <tr>
+                                                <td>{{ p.0 }}</td>
+                                                <td>{{ p.1 }}</td>
+                                                <td>{{ p.2 }}</td>
+                                                <td>{{ p.3 }}</td>
+                                                <td>{{ p.4 }}</td>
+                                                <td>{{ p.5 }}</td>
+                                                <td>{{ p.6 }}</td>
+                                                <td>{{ p.7 }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </table>
 
-            <input type="submit" value="Guardar">
-    
-        </form>
-        {{mensaje}}
-        <h2 >Ofertas</h2>
-        <table>
-            <tr>
-                <th>ID Oferta</th>
-                <th>ID Proveedor</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Email</th>
-                <th>Oferta</th>
-                <th>Fecha</th>
-                <th>RUT Empleado</th>
-            </tr>
-            {% for p in ofertas %}
-            <tr>
-                <td>{{ p.1 }}</td>
-                <td>{{ p.2 }}</td>
-                <td>{{ p.3 }}</td>
-                <td>{{ p.4 }}</td>
-                <td>{{ p.5 }}</td>
-                <td>{{ p.6 }}</td>
-                <td>{{ p.7 }}</td>
-                <td>{{ p.8 }}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        {% endblock %}
+                                    </div>
+                                    <!-- FORMULARIO DE MODIFICACION DE OFERTAS-->
+                                    <div class="tab-pane fade" id="nav-modificar" role="tabpanel" aria-labelledby="nav-modificar-tab">
+                                        
+                                    </div>
+                                    <!-- FORMULARIO DE ELIMINACION DE OFERTAS-->
+                                    <div class="tab-pane fade" id="nav-eliminar" role="tabpanel" aria-labelledby="nav-eliminar-tab">
 
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- CIERRE MENU OFERTAS-->
+                            <!-- MENU HORIZONTAL OFERTAS-->
+                            <div class="tab-pane fade" id="v-pills-ofertas" role="tabpanel" aria-labelledby="v-pills-ofertas-tab">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-listar-tab" data-bs-toggle="tab" data-bs-target="#nav-crear" type="button" role="tab" aria-controls="nav-crear" aria-selected="true">Listar Ofertas</button>
+                                    </div>
+                                </nav>
+                                    <div class="tab-content" id="nav-tabContent">
+                                        <div class="tab-pane fade show active" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">...</div>
+                                    </div>
+                            </div>
+                        </div>
+                        </div>             
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section> 
+    {% endblock %}
     </div>   
 </body>
 </html>

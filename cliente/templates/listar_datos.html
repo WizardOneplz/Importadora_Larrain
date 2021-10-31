@@ -4,8 +4,33 @@
 <body >
   {% block content %}
   <!--agregar formulario de registro-->
-  <h1>chirimollas con kk</h1>
+  <h1> Listado de Clientes</h1>
+  <table> 
+    <tr>
+        <th>Rut</th>
+        <th>Nombre</th>
+        <th>Apellido_paterno</th>
+        <th>Apellido_materno</th>
+        <th>Genero</th>
+        <th>Telefono</th>
+        <th>Email</th>
+        <th>Direccion</th>
+        <th>ID_ciudad</th>
+    </tr>
+    {% for p in CLIENTE%}
+        <tr>
+          <td>{{p.0}}</td>
+          <td>{{p.1}}</td>
+          <td>{{p.2}}</td>
+          <td>{{p.3}}</td>
+          <td>{{p.4}}</td>
+          <td>{{p.5}}</td>
+          <td>{{p.6}}</td>
+          <td>{{p.7}}</td>
+          <td>{{p.8}}</td>
+        </tr>
+    {% endfor %}
+  </table> 
   {% endblock%}
-    
 </body>
 </html>

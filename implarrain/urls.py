@@ -27,7 +27,14 @@ urlpatterns = [
     path('home',home),
     path('registro',registro,),
     path('agregar_empleado',mantenedor_admin),
+    #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
+    path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
+    path('eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
+    path('eliminar_bodega/<id_bodega>',eliminar_bodega),
+    #MODIFICAR
+    path('modificar_bodega/<id_bodega>',modificar_bodega),
+    path('editar_bodega/',editar_bodega),
     path('modificar_empleado/<rut>',modificar_empleado),
     path('editar_empleado/',editar_empleado),
     path('mantenedor_productos',mantenedor_productos),
