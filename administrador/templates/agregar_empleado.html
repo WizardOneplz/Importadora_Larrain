@@ -108,7 +108,6 @@
                                                     </div>
                                                     
                                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
-                                                    {{mensaje}}
                                                 </div>
                                             </div>
                                           </form>
@@ -244,11 +243,10 @@
                                                          </div>
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
-                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion  " placeholder="" required>
+                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" placeholder="" required>
                                                          </div>
                                                      </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
-                                                        {{mensaje}}
                                                     </div>
                                                 </div>
                                               </form>
@@ -289,17 +287,18 @@
                                                 </tr>
                                             </thead>
                                                 <tbody>
-                                                {%for c in bodega%}
+                                                {%for b in listado_bodega%}
                                                 <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                    <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
-                                                    <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
+                                                    <th scope="row">{{ b.id_bodega }}</th>
+                                                    <td>{{ b.num_pasillo }}</td>
+                                                    <td>{{ b.direccion }}</td>
+                                                    <td><a href="modificar_bodega/{{ b.id_bodega }}" class="btn btn-primary">MODIFICAR</a></td>
+                                                    <td><a href="eliminar_bodega/{{ b.id_bodega }}" class="btn btn-danger">ELIMINAR</a></td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>
                                         </table>
+                                        {{alerta}}
                                     </div>
                                   </div>   
                             </div>   
@@ -310,7 +309,7 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                         <button class="nav-link active" id="nav-crearpass-tab" data-bs-toggle="tab" data-bs-target="#nav-crearpass" type="button" role="tab" aria-controls="nav-crearpass" aria-selected="true">Crear Pasillo</button>
                                         <button class="nav-link" id="nav-listarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-listarpass" type="button" role="tab" aria-controls="nav-listarpass" aria-selected="false">Listar Pasillo</button>
-                                        <button class="nav-link" id="nav-modificarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarpass" type="button" role="tab" aria-controls="nav-modificarpass" aria-selected="false">Modificar/Eliminar Pasillo</button>
+                                        <button class="nav-link" id="nav-modificarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarpass" type="button" role="tab" aria-controls="nav-modificarpass" aria-selected="false">Eliminar Pasillo</button>
                                     </div>
                                 </nav>
                                     <div class="tab-content" id="nav-tabContent">
@@ -337,7 +336,6 @@
                                                          </div>
                                                      </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
-                                                        {{mensaje}}
                                                     </div>
                                                 </div>
                                               </form>
@@ -378,13 +376,12 @@
                                                 </tr>
                                             </thead>
                                                 <tbody>
-                                                {%for c in pasillo%}
+                                                {%for p in listar_pasillo%}
                                                 <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                    <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
-                                                    <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
+                                                    <th scope="row">{{ p.id_pasillo }}</th>
+                                                    <td>{{ p.num_estanteria }}</td>
+                                                    <td>{{ p.bodega_id_bodega }}</td>
+                                                    <td><a href="eliminar_pasillo/{{ p.id_pasillo }}" class="btn btn-danger">ELIMINAR</a></td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -399,7 +396,7 @@
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                       <button class="nav-link active" id="nav-crearest-tab" data-bs-toggle="tab" data-bs-target="#nav-crearest" type="button" role="tab" aria-controls="nav-crearest" aria-selected="true">Crear Estanteria</button>
                                       <button class="nav-link" id="nav-listarest-tab" data-bs-toggle="tab" data-bs-target="#nav-listarest" type="button" role="tab" aria-controls="nav-listarest" aria-selected="false">Listar Estanteria</button>
-                                      <button class="nav-link" id="nav-modificarest-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarest" type="button" role="tab" aria-controls="nav-modificarest" aria-selected="false">Modificar/Eliminar Estanteria</button>
+                                      <button class="nav-link" id="nav-modificarest-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarest" type="button" role="tab" aria-controls="nav-modificarest" aria-selected="false">Eliminar Estanteria</button>
                                     </div>
                                   </nav>
                                   <div class="tab-content" id="nav-tabContent">
@@ -413,46 +410,25 @@
                                                      <div class="row espacio_form">
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">CAPACIDAD</label>
-                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" required>
+                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="capacidad" placeholder="" required>
                                                          </div>
                                                          <div class="col">
                                                              <label for="exampleFormControlInput1" class="form-label">ID PASILLO</label>
-                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="" required>
+                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="id_pasillo" placeholder="" required>
                                                          </div>
                                                      </div>
-                                                     <div class="row espacio_form">
-                                                        <div class="col">
-                                                            <label for="exampleFormControlInput1" class="form-label">MARCA</label>
-                                                            <select id="marcas" name="marcas" class="form-select">
-                                                                <option value="">Seleccionar</option>
-                                                                {% for m in marcas %}
-                                                                  <option value="{{ m.0 }}">{{m.1}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                        <div class="col">
-                                                            <label for="exampleFormControlInput1" class="form-label">Categoria</label>
-                                                            <select id="id_categorias" name="id_categorias" class="form-select">
-                                                                <option value="">Seleccionar</option>
-                                                                {% for c in categorias %}
-                                                                  <option value="{{ c.0 }}">{{c.1}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                        </div>
-                                                    </div>
                                                     <div class="row espacio_form">
                                                         <div class="col">
                                                             <label for="exampleFormControlInput1" class="form-label">NOMBRE PRODUCTO</label>
-                                                            <select id="cargo" name="cargo" class="form-select">
+                                                            <select id="id_producto" name="id_producto" class="form-select">
                                                                 <option value="">Seleccionar</option>
-                                                                {% for c in cargos %}
-                                                                  <option value="{{ c.0 }}">{{c.1}}</option>
+                                                                {% for p in productos%}
+                                                                  <option value="{{ p.0 }}">{{p.1}}</option>
                                                                 {% endfor %}
                                                             </select>
                                                         </div>
                                                     </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
-                                                        {{mensaje}}
                                                     </div>
                                                 </div>
                                               </form>
@@ -471,12 +447,12 @@
                                                 </tr>
                                             </thead>
                                                 <tbody>
-                                                {%for c in estanteria%}
+                                                {%for e in estanteria%}
                                                 <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                    <td>{{ c.3 }}</td>
+                                                    <th scope="row">{{ e.0}}</th>
+                                                    <td>{{ e.1 }}</td>
+                                                    <td>{{ e.2 }}</td>
+                                                    <td>{{ e.3 }}</td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>
@@ -497,14 +473,13 @@
                                                 </tr>
                                             </thead>
                                                 <tbody>
-                                                {%for c in estanteria%}
+                                                {%for e in listar_estanteria%}
                                                 <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                    <td>{{ c.3 }}</td>
-                                                    <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
-                                                    <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
+                                                    <th scope="row">{{ e.id_estanteria }}</th>
+                                                    <td>{{ e.capacidad }}</td>
+                                                    <td>{{ e.pasillo_id_pasillo }}</td>
+                                                    <td>{{ e.producto_id_producto }}</td>
+                                                    <td><a href="eliminar_estanteria/{{ e.id_estanteria }}" class="btn btn-danger">ELIMINAR</a></td>
                                                 </tr>
                                                 {% endfor %}
                                                 </tbody>
