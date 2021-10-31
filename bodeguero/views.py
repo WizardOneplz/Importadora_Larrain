@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
-from core.models import Producto
-from core.models import OrdenCompra
+from core.models import Producto, OrdenCompra, SolicitudProductos
 import cx_Oracle
 
 # Create your views here.
@@ -11,27 +10,13 @@ def mantenedor_productos(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
+        'listapedidos':listar_pedidos(),
         'productoslistados': Producto.objects.all(),
-        'pedidoslistados': OrdenCompra.objects.all()
+        'pedidoslistados': OrdenCompra.objects.all(),
+        'solicitudes': SolicitudProductos.objects.all()
     }
 
     #agregar_marca(4,'Genius')
-
-    if request.method== 'POST':
-        id_producto = request.POST.get('id')  
-        nombre_producto = request.POST.get('nombre_producto')
-        precio = request.POST.get('precio')
-        stock = request.POST.get('stock')
-        oferta = request.POST.get('oferta')
-        porcentaje = request.POST.get('p_oferta')
-        id_marca = request.POST.get('id_marca')
-        id_categoria = request.POST.get('id_categoria')
-        imagen = request.FILES['imagen'].read()
-        salida = agregar_producto(id_producto, nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
-        if salida==1:
-            data['mensaje'] = 'Producto registrado correctamente'
-        else:
-            data['mensaje'] = 'No se ha podido registrar el producto'
 
     if request.method== 'POST':
         id = request.POST.get('id')
@@ -49,6 +34,7 @@ def mantenedor_productos(request):
         salida = agregar_categoria(id_categoria, nombre_categoria)
         if salida==1:
             data['mensaje'] = 'Categoria registrada correctamente'
+            data['categorias'] = listar_categorias()
         else:
             data['mensaje'] = 'No se ha podido registrar la Categoria'  
 
@@ -94,6 +80,19 @@ def listar_productos():
 
     return lista
 
+def listar_pedidos():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_PEDIDOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+
+    return lista
+
 def agregar_marca(id, nombre_marca):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -107,6 +106,20 @@ def agregar_categoria(id_categoria, nombre_categoria):
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_AGREGAR_CATEGORIA',[id_categoria, nombre_categoria, salida])
     return salida.getvalue()
+
+def cargar_producto(request):
+    id_producto = request.POST.get('id')  
+    nombre_producto = request.POST.get('nombre_producto')
+    precio = request.POST.get('precio')
+    stock = request.POST.get('stock')
+    oferta = request.POST.get('oferta')
+    porcentaje = request.POST.get('p_oferta')
+    id_marca = request.POST.get('id_marca')
+    id_categoria = request.POST.get('id_categoria')
+    imagen = request.FILES['imagen'].read()
+    salida = agregar_producto(id_producto, nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
+
+    return redirect('/mantenedor_productos')
 
 def agregar_producto(id_producto, nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen):
     django_cursor = connection.cursor()
@@ -138,5 +151,25 @@ def editar_producto(request):
     producto.nombre_producto = nombre_producto
     producto.stock = stock
     producto.save() 
+    
+    return redirect('/mantenedor_productos')
+
+def modificar_solicitud(request, id_solicitud):
+    
+    solicitud = SolicitudProductos.objects.get(id_solicitud=id_solicitud)
+
+    return render(request, "modificar_solicitud.html", {"solicitudes": solicitud})
+
+def editar_solicitud(request):
+
+    id_solicitud = request.POST.get('id_solicitud')  
+    nombre_producto = request.POST.get('nombre_producto')
+    observacion = request.POST.get('observacion')
+
+    solicitud = SolicitudProductos.objects.get(id_solicitud=id_solicitud)
+    solicitud.id_solicitud = id_solicitud
+    solicitud.nombre_producto = nombre_producto
+    solicitud.observacion = observacion
+    solicitud.save() 
     
     return redirect('/mantenedor_productos')
