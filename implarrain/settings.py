@@ -44,12 +44,8 @@ INSTALLED_APPS = [
     'administrador',
     'cliente',
     'shared',
-<<<<<<< HEAD
-    'agente',    
-=======
     'agente',
     'import_export',
->>>>>>> a882ac99b3a89ddb0675e16308178a47c7878ce6
 ]
 
 MIDDLEWARE = [

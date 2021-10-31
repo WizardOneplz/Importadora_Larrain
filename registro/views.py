@@ -20,17 +20,24 @@ def registro(request):
         direccion = request.POST.get('Direccion')
         ciudad = request.POST.get('ciudad')
         clave= request.POST.get('clave')
-        salida = agregar_cliente(rut, nombre, ap_paterno, ap_materno, genero, telefono, email,direccion, ciudad)
-        salida1 = agregar_cuenta(email, clave, rut)
+        salida = agregar_cliente(rut, nombre, ap_paterno, ap_materno, genero, telefono, email, direccion, ciudad)
         if salida==1:
             data['mensaje'] = 'Empleado registrado correctamente'
         else:
             data['mensaje'] = 'No se ha podido registrar al Empleado'
-        if salida1 ==1:
+        
+
+    if request.method== 'POST':
+        rut = request.POST.get('rut')
+        email = request.POST.get('email')
+        clave= request.POST.get('clave')
+        salida = agregar_cuenta(email, clave, rut)
+        if salida ==1:
             data['mensaje'] = 'Cuenta registrada correctamente'
         else:
             data['mensaje'] = 'No se ha podido registrar la cuenta'
     return render(request, 'registro.html' , data)
+
      
 
 def agregar_cliente(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,direccion,ciudad):
