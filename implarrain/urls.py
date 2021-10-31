@@ -47,4 +47,5 @@ urlpatterns = [
     path('listar_datos',listar_datos),
     path('modificar_datos',modificar_datos),
     path('subir_oferta',subir_oferta),
+    path('subir_oferta1/',subir_oferta_listado),
 ]

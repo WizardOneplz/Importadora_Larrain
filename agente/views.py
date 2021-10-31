@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import connection
 from tablib import Dataset 
 from core.models import Oferta
@@ -25,7 +25,10 @@ def subir_oferta(request):
     data = {
         'ofertas':listado_ofertas(),
     }
-   #template = loader.get_template('export/importar.html')
+    return render(request,'subir_oferta.html',data)
+
+def subir_oferta_listado(request):
+       #template = loader.get_template('export/importar.html')
     if request.method == 'POST':
         #template = loader.get_template('export/importar.html')  if request.method == 'POST':  
         oferta_resource = OfertaResource()
@@ -35,7 +38,7 @@ def subir_oferta(request):
 
         if not nuevas_ofertas.name.endswith('xlsx'):
             messages.info(request,'wrong format')
-            return render(request, 'subir_oferta.html',data)
+            return render(request, 'subir_oferta.html',{})
         imported_data = dataset.load(nuevas_ofertas.read(),format='xlsx')
         for data in imported_data:
             value = Oferta(
@@ -49,8 +52,8 @@ def subir_oferta(request):
                 data[7],
                 )
             value.save()
+    return redirect('/subir_oferta')
     
-    return render(request,'subir_oferta.html',data)
     
  
 
