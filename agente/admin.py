@@ -6,4 +6,4 @@ from import_export.admin import ImportExportModelAdmin
 # Register your models here. 
 
 class OfertaAdmin(ImportExportModelAdmin):
-    list_display = ('id_oferta','id_proveedor','nombre_proveedor','apellido_proveedor','email','oferta','fecha','empleado_rut')
+    list_display = ('id_oferta','rut_proveedor','nombre_proveedor','apellido_proveedor','email','oferta','fecha','empleado_rut')

@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 # This is an auto-generated Django model module.
 # You'll have to do the following manually to clean this up:
 #   * Rearrange models' order
@@ -153,6 +151,7 @@ class DetalleOrden(models.Model):
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
     empleado_rut = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_rut')
     producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
+    vendedor_rut = models.CharField(max_length=20)
 
     class Meta:
         managed = False
@@ -206,14 +205,14 @@ class DjangoSession(models.Model):
 
 class Empleado(models.Model):
     id = models.BigIntegerField()
-    rut = models.CharField(primary_key=True, max_length=20)
+    rut = models.CharField(primary_key=True, max_length=4000)
     nombre = models.CharField(max_length=30)
     apellido_paterno = models.CharField(max_length=30)
     apellido_materno = models.CharField(max_length=30)
     genero = models.CharField(max_length=1)
     telefono = models.BigIntegerField()
     email = models.CharField(max_length=30)
-    cargo = models.BigIntegerField()
+    cargo = models.CharField(max_length=30)
 
     class Meta:
         managed = False
@@ -238,6 +237,15 @@ class EstadoPedido(models.Model):
         db_table = 'estado_pedido'
 
 
+class EstadoSolicitud(models.Model):
+    id_estado = models.BigIntegerField(primary_key=True)
+    nombre_estado = models.CharField(max_length=15)
+
+    class Meta:
+        managed = False
+        db_table = 'estado_solicitud'
+
+
 class Estanteria(models.Model):
     id_estanteria = models.BigIntegerField(primary_key=True)
     capacidad = models.BigIntegerField()
@@ -260,7 +268,7 @@ class Marca(models.Model):
 
 class Oferta(models.Model):
     id_oferta = models.BigIntegerField(primary_key=True)
-    id_proveedor = models.BigIntegerField()
+    rut_proveedor = models.CharField(max_length=20)
     nombre_proveedor = models.CharField(max_length=40)
     apellido_proveedor = models.CharField(max_length=40)
     email = models.CharField(max_length=40)
@@ -307,6 +315,7 @@ class Producto(models.Model):
     stock = models.BigIntegerField()
     oferta = models.CharField(max_length=1)
     porcentaje = models.BigIntegerField(blank=True, null=True)
+    imagen = models.BinaryField(blank=True, null=True)
     marca_id_marca = models.ForeignKey(Marca, models.DO_NOTHING, db_column='marca_id_marca')
     categoria_id_categoria = models.ForeignKey(Categoria, models.DO_NOTHING, db_column='categoria_id_categoria')
 
@@ -332,15 +341,17 @@ class Rol(models.Model):
         managed = False
         db_table = 'rol'
 
+
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=30)
-    nombre_categoria = models.BigIntegerField()
+    nombre_categoria = models.CharField(max_length=30)
+    nombre_marca = models.CharField(max_length=30)
     precio = models.BigIntegerField()
-    nombre_marca = models.BigIntegerField()
     stock = models.BigIntegerField()
     observacion = models.CharField(max_length=30, blank=True, null=True)
     empleado_rut = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='empleado_rut')
+    estado_solicitud_id_estado = models.ForeignKey(EstadoSolicitud, models.DO_NOTHING, db_column='estado_solicitud_id_estado')
 
     class Meta:
         managed = False
@@ -373,4 +384,3 @@ class Valoracion(models.Model):
     class Meta:
         managed = False
         db_table = 'valoracion'
->>>>>>> e9f8a83ff2751a9cee1373dfb5eafd8d938c57ce
