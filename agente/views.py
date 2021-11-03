@@ -37,9 +37,10 @@ def subir_oferta_listado(request):
         nuevas_ofertas = request.FILES['myfile']
 
         if not nuevas_ofertas.name.endswith('xlsx'):
-            messages.info(request,'wrong format')
+            messages.info(request,'Formato Archivo Incorrecto')
             return render(request, 'subir_oferta.html',{})
         imported_data = dataset.load(nuevas_ofertas.read(),format='xlsx')
+        messages.info(request,'Archivo Añadido Correctamente')
         for data in imported_data:
             value = Oferta(
                 data[0],

@@ -2,6 +2,22 @@
 {%load static%}
 
 <body>
+    {% block navbar%}
+    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="home">Bienvenido</a>
+          </li>
+          <li class="nav-item">
+          <a class="nav-link" href="">*nombre AGENT*</a>
+          </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+          <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">CERRAR SESIÓN</button>
+      </ul>
+      </div>
+    {% endblock%}
+
     {% block content %}
     <section id="reserva">
         <div class="container-fluid espacio2 gradient3">
@@ -38,15 +54,17 @@
                                             {% csrf_token %}  
                                             <inppload Excel file</h2>
                                             <h3>Subir Nueva Oferta</h3>
-                                            <input type="file" name="myfile">  
-                                            <button type="submit">Subir</button>  
+                                            <input class="boton_subir" type="file" name="myfile">
+                                            <br>
+                                            <br>  
+                                            <button type="submit" class="btn btn-warning btn-lg">Subir</button>  
                                             {{mensaje}}
                                         </form>
                                     </div>
                                     <!-- FORMULARIO DE LISTADO DE OFERTAS-->
                                     <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
                                         <h2 >Ofertas</h2>
-                                        <table class="blanco">
+                                        <table class="table blanco align-middle text-center">
                                             <thead>
                                                 <tr>
                                                     <th>ID Oferta</th>
