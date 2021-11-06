@@ -48,28 +48,35 @@
                                 <!-- FORMULARIO DE CREACION DE EMPLEADOS-->
                                 <div class="tab-content espacio4" id="nav-tabContent">
                                      <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
-                                        <form action="" method="POST">
+                                        <form class="needs-validation" action="" method="POST" novalidate>
                                             {% csrf_token %}
                                             <div class="row">
                                                 <div class="col-md-">
-                                                    <div class="row espacio_form">
+                                                    <div class="row espacio_form position-relative">
                                                         <div class="col">
                                                             <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" maxlength="12" required>
+                                                            <input type="text" class="form-control" id="rut" name="rut" placeholder="12.345.678-9" min="111111111" max="999999999" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-tooltip">Complete los datos</div>
                                                         </div>
                                                       </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 position-relative">
                                                         <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
-                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" required> 
+                                                        <input style="text-transform: uppercase;" type="text" class="form-control" id="exampleFormControlInput1" name="nombre" maxlength="30" placeholder="" required> 
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-tooltip">Complete los datos</div>
                                                     </div>
-                                                    <div class="row espacio_form">
+                                                    <div class="row espacio_form position-relative">
                                                         <div class="col">
                                                             <label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label>
-                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" required>
+                                                            <input style="text-transform: uppercase;" type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" maxlength="30" placeholder="" required>
+                                                            <div class="invalid-tooltip">Complete los datos</div>
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label>
-                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" required>
+                                                            <input style="text-transform: uppercase;" type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" maxlength="30" placeholder="" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-tooltip">Complete los datos</div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -77,33 +84,41 @@
                                                             <label for="exampleFormControlInput1" class="form-label">GENERO</label>
                                                             <div class="col">
                                                             <div class="form-check form-check-inline col">
-                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M">
+                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M" required>
                                                                 <label class="form-check-label" for="inlineRadio1">MASCULINO</label>
                                                               </div>
                                                             <div class="form-check form-check-inline col">
                                                                 <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="F">
                                                                 <label class="form-check-label" for="inlineRadio2">FEMENINO</label>
                                                             </div>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Complete los datos</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">TELÉFONO</label>
-                                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678"  required>
+                                                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="+56912345678" min="11111111111" max="99999999999" required>
+                                                           <!--MENSAJE-->
+                                                            <div class="invalid-tooltip">Complete los datos</div>
                                                         </div> 
                                                     </div>
                                                     <div class="row espacio_form">
-                                                        <div class="col">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" required>
-                                                          </div>
-                                                          <div class="col">
+                                                            <input style="text-transform: uppercase;" type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" maxlength="30" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-tooltip">Complete los datos</div>
+                                                        </div>
+                                                          <div class="col position-relative">
                                                               <label for="exampleFormControlInput1" class="form-label">CARGO</label>
-                                                              <select id="cargo" name="cargo" class="form-select">
-                                                                <option value="">Seleccionar</option>
+                                                              <select id="cargo" name="cargo" class="form-select" required>
+                                                                <option selected disabled value="">Seleccione...</option>
                                                                 {% for c in cargos %}
                                                                   <option value="{{ c.0 }}">{{c.1}}</option>
                                                                 {% endfor %}
                                                               </select>
+                                                                <!--MENSAJE-->
+                                                              <div class="invalid-tooltip">Complete los datos</div>
                                                           </div>
                                                     </div>
                                                     
@@ -493,7 +508,91 @@
             </div>
         </div>        
     </section> 
-        
+   <script>
+       var Fn = {
+  // Valida el rut con su cadena completa "XXXXXXXX-X"
+  validaRut : function (rutCompleto) {
+    rutCompleto = rutCompleto.replace("‐","-");
+    if (!/^[0-9]+[-|‐]{1}[0-9kK]{1}$/.test( rutCompleto ))
+      return false;
+    var tmp   = rutCompleto.split('-');
+    var digv  = tmp[1]; 
+    var rut   = tmp[0];
+    if ( digv == 'K' ) digv = 'k' ;
+
+    return (Fn.dv(rut) == digv );
+  },
+  dv : function(T){
+    var M=0,S=1;
+    for(;T;T=Math.floor(T/10))
+      S=(S+T%10*(9-M++%6))%11;
+    return S?S-1:'k';
+  }
+}
+
+
+$("#btnvalida").click(function(){
+  if (Fn.validaRut( $("#txt_rut").val() )){
+    $("#msgerror").html("El rut ingresado es válido :D");
+  } else {
+    $("#msgerror").html("El Rut no es válido 😢 ");
+  }
+});
+   </script>
+
+    <!--VALIDACION DE CAMPOS-->
+    <script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+    'use strict'
+
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.querySelectorAll('.needs-validation')
+
+    // Loop over them and prevent submission
+    Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+            event.preventDefault()
+            event.stopPropagation()
+            }
+
+            form.classList.add('was-validated')
+        }, false)
+        })
+    })() 
+    </script>
+
+    <!--RESTRINGUIR INPUT TELEFONO-->
+    <script>
+    document.getElementById('telefono').onkeypress =
+      function (e) {
+        var ev = e || window.event;
+        if(ev.charCode < 48 || ev.charCode > 57) {
+          return false; // not a digit
+        } else if(this.value * 10 + ev.charCode - 48 > this.max) {
+           return false;
+        } else {
+           return true;
+        }
+      }
+    </script>
+
+    <!--RESTRINGUIR INPUT RUT-->
+    <script>
+    document.getElementById('rut').onkeypress =
+      function (e) {
+        var ev = e || window.event;
+        if(ev.charCode < 48 || ev.charCode > 57) {
+          return false; // not a digit
+        } else if(this.value * 10 + ev.charCode - 48 > this.max) {
+           return false;
+        } else {
+           return true;
+        }
+      }
+    </script>
     {% endblock%}
 </body>
 </html>
