@@ -20,19 +20,18 @@ def mantenedor_productos(request):
     #agregar_marca(4,'Genius')
 
     if request.method== 'POST':
-        id = request.POST.get('id')
         nombre_marca = request.POST.get('nombre_marca')
-        salida = agregar_marca(id, nombre_marca)
+        salida = agregar_marca(nombre_marca)
         if salida==1:
             data['MensajeMarca'] = 'Marca registrada correctamente'
             data['marcas'] = listar_marcas()
         else:
             data['MensajeMarca'] = 'No se ha podido registrar la marca'
+            data['MensajeProducto'] = 'Producto registrado correctamente'
 
     if request.method== 'POST':
-        id_categoria = request.POST.get('id_categoria')
         nombre_categoria = request.POST.get('nombre_categoria')
-        salida = agregar_categoria(id_categoria, nombre_categoria)
+        salida = agregar_categoria(nombre_categoria)
         if salida==1:
             data['MensajeCategoria'] = 'Categoria registrada correctamente'
             data['categorias'] = listar_categorias()
@@ -55,9 +54,8 @@ def mantenedor_categorias(request):
     }
 
     if request.method== 'POST':
-        id_categoria = request.POST.get('id_categoria')
         nombre_categoria = request.POST.get('nombre_categoria')
-        salida = agregar_categoria(id_categoria, nombre_categoria)
+        salida = agregar_categoria(nombre_categoria)
         if salida==1:
             data['MensajeCategoria'] = 'Categoria registrada correctamente'
             data['categorias'] = listar_categorias()
@@ -132,22 +130,21 @@ def listar_solicitudes():
 
     return lista
 
-def agregar_marca(id, nombre_marca):
+def agregar_marca(nombre_marca):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_MARCA',[id, nombre_marca, salida])
+    cursor.callproc('SP_AGREGAR_MARCA',[nombre_marca, salida])
     return salida.getvalue()
 
-def agregar_categoria(id_categoria, nombre_categoria):
+def agregar_categoria(nombre_categoria):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_CATEGORIA',[id_categoria, nombre_categoria, salida])
+    cursor.callproc('SP_AGREGAR_CATEGORIA',[nombre_categoria, salida])
     return salida.getvalue()
 
 def cargar_producto(request):
-    id_producto = request.POST.get('id')  
     nombre_producto = request.POST.get('nombre_producto')
     precio = request.POST.get('precio')
     stock = request.POST.get('stock')
@@ -156,20 +153,15 @@ def cargar_producto(request):
     id_marca = request.POST.get('id_marca')
     id_categoria = request.POST.get('id_categoria')
     imagen = request.FILES['imagen'].read()
-    salida = agregar_producto(id_producto, nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
-    if salida==1:
-        MensajeProducto = 'Producto registrado correctamente'
-        categorias = listar_categorias()
-    else:
-        MensajeProducto = 'No se ha podido registrar el producto'  
+    salida = agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
 
     return redirect('/mantenedor_productos')
 
-def agregar_producto(id_producto, nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen):
+def agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('SP_AGREGAR_PRODUCTO',[id_producto, nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen, salida])
+    cursor.callproc('SP_AGREGAR_PRODUCTO',[nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen, salida])
     return salida.getvalue()
 
 def eliminar_producto(request, id_producto):
