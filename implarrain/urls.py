@@ -38,6 +38,7 @@ urlpatterns = [
     path('modificar_empleado/<rut>',modificar_empleado),
     path('editar_empleado/',editar_empleado),
     path('mantenedor_productos',mantenedor_productos),
+    path('mantenedor_categorias',mantenedor_categorias),
     path('agregar_producto/',cargar_producto),
     path('modificar_producto/<id_producto>',modificar_producto),
     path('modificar_solicitud/<id_solicitud>',modificar_solicitud),

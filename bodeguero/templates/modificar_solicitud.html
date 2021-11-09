@@ -39,9 +39,22 @@
                                             <input type="text" class="form-control" id="exampleFormControlInput1" value="{{solicitudes.nombre_producto}}"  name="nombre_producto" placeholder="" readonly required>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Observación</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="observacion" value="{{solicitudes.observacion}}" placeholder=""> 
+                                    <div class="row espacio_form">
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">Observación</label>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="observacion" value="{{solicitudes.observacion}}" placeholder="">    
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label>
+                                                <select id="id_estado" name="id_estado" class="form-select">
+                                                    <option value="">Seleccionar</option>
+                                                    {% for c in solicitud %}
+                                                    <option value="{{ c.0 }}">{{c.1}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
                                     </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
                                 </div>
