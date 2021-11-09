@@ -58,7 +58,7 @@
         }
       }
 
-      //VALIDACION EXTENSION DE stock
+    //VALIDACION EXTENSION DE stock
     document.getElementById('precio').onkeypress =
     function (e) {
       var ev = e || window.event;
