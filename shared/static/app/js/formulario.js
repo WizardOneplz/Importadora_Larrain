@@ -45,6 +45,32 @@
       }
     }
 
+    //VALIDACION EXTENSION DE stock
+    document.getElementById('stock').onkeypress =
+      function (e) {
+        var ev = e || window.event;
+        if(ev.charCode < 48 || ev.charCode > 57) {
+          return false; // not a digit
+        } else if(this.value * 10 + ev.charCode - 48 > this.max) {
+           return false;
+        } else {
+           return true;
+        }
+      }
+
+      //VALIDACION EXTENSION DE stock
+    document.getElementById('precio').onkeypress =
+    function (e) {
+      var ev = e || window.event;
+      if(ev.charCode < 48 || ev.charCode > 57) {
+        return false; // not a digit
+      } else if(this.value * 10 + ev.charCode - 48 > this.max) {
+         return false;
+      } else {
+         return true;
+      }
+    }
+
     
 
       
