@@ -24,7 +24,7 @@
             <div class="col-md-12 blanco">
                 <div class="container espacio3">
                     <div class="d-flex align-items-start">
-                        <form class="col-md-12"action="/editar_empleado/{{ p.rut }}" method="POST">
+                        <form class="col-md-12" action="/editar_empleado/{{ p.rut }}" method="POST">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-md">
@@ -52,12 +52,12 @@
                                             <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" value="{{empleados.apellido_materno}}"required>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col">
+                                    <div class="row position-relative">
+                                        <div class="col ">
                                             <label for="exampleFormControlInput1" class="form-label">Genero</label>
                                             <div class="col">
                                             <div class="form-check form-check-inline col">
-                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M">
+                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M" required>
                                                 <label class="form-check-label" for="inlineRadio1">Masculino</label>
                                             </div>
                                             <div class="form-check form-check-inline col">
@@ -78,7 +78,7 @@
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Cargo</label>
-                                            <select id="cargo" name="cargo" class="form-select">
+                                            <select id="cargo" name="cargo" class="form-select" required>
                                                 <option value="">Seleccionar</option>
                                                 {% for c in cargos %}
                                                 <option value="{{ c.0 }}">{{c.1}}</option>
