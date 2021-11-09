@@ -25,7 +25,7 @@
                     <div class="container espacio3">
                         <div class="d-flex align-items-start">
                                 <!--Mantedor de Productos-->
-                                <form action="/editar_producto/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
+                                <form action="/editar_producto/" method="POST" class="espacio4 col-md-12 needs-validation" enctype="multipart/form-data" novalidate>
                                 {% csrf_token %}                       
                                 <div class="row">
                                 <div class="col-md-">                                
@@ -39,9 +39,11 @@
                                             <input type="text" class="form-control" id="exampleFormControlInput1" value="{{productos.nombre_producto}}"  name="nombre_producto" placeholder="" readonly required>
                                         </div>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 position-relative">
                                         <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" value="{{productos.stock}}" placeholder="" required> 
+                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" value="{{productos.stock}}" min="0" max="1000" placeholder="" required> 
+                                        <!--MENSAJE-->
+                                        <div class="invalid-feedback">Ingrese una cantidad valida. Entre 0 y 1000.</div>
                                     </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
                                 </div>
@@ -53,6 +55,8 @@
             </div>
         </div>        
     </section> 
+
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock %}
 </body>
 </html>

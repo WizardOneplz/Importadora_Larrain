@@ -45,7 +45,7 @@
                             <div class="tab-content" id="nav-tabContent">
                                 <!--Mantedor de Marcas-->
                                 <div class="tab-pane fade" id="nav-marca" role="tabpanel" aria-labelledby="nav-marca-tab">
-                                <form action="" method="POST">
+                                <form class="needs-validation" id="formulario" action="" method="POST" novalidate>
                                     <div class="row espacio4">
                                         {% csrf_token %}
                                         <div class="col">
@@ -63,16 +63,18 @@
                                 <!--Cierre Mantedor de Marcas-->
                                 <!--Mantedor de Categorias-->
                                 <div class="tab-pane fade show active" id="nav-categoria" role="tabpanel" aria-labelledby="nav-categoria-tab">
-                                <form action="" method="POST">
+                                <form class="needs-validation" id="formulario" action="" method="POST" novalidate>
                                     <div class="row espacio4">
                                         {% csrf_token %}
                                         <div class="col">
                                             <label class="espacio_form" for="inputEmail4">ID de Categoria</label>
                                             <input type="number" class="form-control" name="id_categoria" id="id_categoria" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
                                         </div>
-                                        <div class="col">
+                                        <div class="col position-relative">
                                             <label class="espacio_form" for="inputEmail4">Nombre de Categoria</label>
-                                            <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" placeholder="">
+                                            <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" minlength="3" maxlength="30" placeholder="">
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">Ingrese un nombre valido. Entre 3 y 30 caracteres.</div>
                                         </div>
                                     </div>
                                     <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Categoria</button>
@@ -82,80 +84,95 @@
                                 <!--Cierre Mantedor de Categorias-->
                                 <!--Mantedor de Productos-->
                                 <div class="tab-pane fade" id="nav-producto" role="tabpanel" aria-labelledby="nav-producto-tab">
-                                <form action="/agregar_producto/" method="POST" class="espacio4" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="row">
-                                <div class="col-md-">
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
-                                        </div>
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" placeholder="" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Precio</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="precio" placeholder="" required> 
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="" required> 
-                                    </div>
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Oferta</label>
-                                            <div class="col">
-                                            <div class="form-check form-check-inline col">
-                                                <input class="form-check-input" type="radio" name="oferta" id="inlineRadio1" value="S">
-                                                <label class="form-check-label" for="inlineRadio1">Si</label>
-                                                </div>
-                                            <div class="form-check form-check-inline col">
-                                                <input class="form-check-input" type="radio" name="oferta" id="inlineRadio2" value="N">
-                                                <label class="form-check-label" for="inlineRadio2">No</label>
-                                            </div>
-                                            </div>
-                                        </div>
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="p_oferta" placeholder="">
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Imagen referencial</label>
-                                        <input type="file" class="form-control" id="exampleFormControlInput1" name="imagen" placeholder="" required> 
-                                    </div>
+                                    <form action="/agregar_producto/" method="POST" class="espacio4 needs-validation" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %}
                                     <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="exampleFormControlInput1" class="form-label">Marca</label>
-                                                <select id="id_marca" name="id_marca" class="form-select">
-                                                    <option value="">Seleccionar</option>
-                                                    {% for m in marcas %}
-                                                      <option value="{{ m.0 }}">{{m.1}}</option>
-                                                    {% endfor %}
-                                                </select>
+                                    <div class="col-md-">
+                                        <div class="row espacio_form">
+                                            <div class="col">
+                                                <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
                                             </div>
-                                    </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Categoria</label>
-                                                <select id="id_categoria" name="id_categoria" class="form-select">
-                                                    <option value="">Seleccionar</option>
-                                                    {% for c in categorias %}
-                                                    <option value="{{ c.0 }}">{{c.1}}</option>
-                                                    {% endfor %}
-                                                </select>
+                                            <div class="col position-relative">
+                                                <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" minlength="3" maxlength="30" placeholder="" required>
+                                                <!--MENSAJE-->
+                                                <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras.</div>
                                             </div>
-                                        </div> 
+                                        </div>
+                                        <div class="mb-3 position-relative">
+                                            <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                                            <input type="number" class="form-control" id="precio" name="precio" placeholder="" min="1" max="3000000" required> 
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">Ingresar un Precio valido. Entre 1 y 3.000.000.</div>
+                                        </div>
+                                        <div class="mb-3 position-relative">
+                                            <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
+                                            <input type="number" class="form-control" id="stock" name="stock" placeholder="" min="0" max="1000" required> 
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">Ingrese una cantidad valida. Entre 0 y 1000</div>
+                                        </div>
+                                        <div class="row espacio_form position-relative">
+                                            <div class="col">
+                                                <label for="exampleFormControlInput1" class="form-label">Oferta</label>
+                                                <div class="col">
+                                                <div class="form-check form-check-inline col">
+                                                    <input class="form-check-input" type="radio" name="oferta" id="inlineRadio1" value="S" required>
+                                                    <label class="form-check-label" for="inlineRadio1">Si</label>
+                                                    </div>
+                                                <div class="form-check form-check-inline col">
+                                                    <input class="form-check-input" type="radio" name="oferta" id="inlineRadio2" value="N">
+                                                    <label class="form-check-label" for="inlineRadio2">No</label>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            <div class="col position-relative">
+                                                <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" name="p_oferta" placeholder="" min="0" max="100" required>
+                                                <!--MENSAJE-->
+                                                <div class="invalid-feedback">Ingrese un porcentaje de oferta valido. Entre 0 y 100.</div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 position-relative">
+                                            <label for="exampleFormControlInput1" class="form-label">Imagen referencial</label>
+                                            <input type="file" class="form-control" id="exampleFormControlInput1" name="imagen" placeholder="" required> 
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">Insertar una Imagen.</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="mb-3 position-relative">
+                                                    <label for="exampleFormControlInput1" class="form-label">Marca</label>
+                                                    <select id="id_marca" name="id_marca" class="form-select" required>
+                                                        <option selected disabled value="">Seleccione...</option>
+                                                        {% for m in marcas %}
+                                                          <option value="{{ m.0 }}">{{m.1}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">Ingrese una Marca.</div>
+                                                </div>
+                                        </div>
+                                            <div class="col">
+                                                <div class="mb-3 position-relative">
+                                                <label for="exampleFormControlInput1" class="form-label">Categoria</label>
+                                                    <select id="id_categoria" name="id_categoria" class="form-select" required>
+                                                        <option selected disabled value="">Seleccione...</option>
+                                                        {% for c in categorias %}
+                                                        <option value="{{ c.0 }}">{{c.1}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">Ingrese una Categoria.</div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">Crear Producto</button>
+                                        {{MensajeProducto}}
                                     </div>
-                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Crear Producto</button>
                                 </div>
-                            </div>
-                            </form>
-                            </div>
+                                </form>
+                                </div>
                             <!--Cierre Mantedor de Productos-->
                             </div>
                             </div>
@@ -297,6 +314,8 @@
         }
         }
     </script> 
+
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
 </body>
 </html>
