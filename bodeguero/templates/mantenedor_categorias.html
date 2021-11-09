@@ -37,33 +37,32 @@
                             <div class="tab-pane fade show active" id="v-pills-mantenedor" role="tabpanel" aria-labelledby="v-pills-mantenedor-tab">
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-marca-tab" data-bs-toggle="tab" data-bs-target="#nav-marca" type="button" role="tab" aria-controls="nav-marca" aria-selected="true">Crear Marca</button>
-                                <a href="mantenedor_categorias" style="text-decoration:none"><button class="nav-link" id="nav-categoria-tab" data-bs-toggle="tab" data-bs-target="#nav-categoria" type="button" role="tab" aria-controls="nav-categoria" aria-selected="false">Crear Categoria</button></a>
+                                <a href="mantenedor_productos" style="text-decoration:none"><button class="nav-link" id="nav-marca-tab" data-bs-toggle="tab" data-bs-target="#nav-marca" type="button" role="tab" aria-controls="nav-marca" aria-selected="true">Crear Marca</button></a>
+                                <button class="nav-link active" id="nav-categoria-tab" data-bs-toggle="tab" data-bs-target="#nav-categoria" type="button" role="tab" aria-controls="nav-categoria" aria-selected="false">Crear Categoria</button>
                                 <button class="nav-link" id="nav-producto-tab" data-bs-toggle="tab" data-bs-target="#nav-producto" type="button" role="tab" aria-controls="nav-producto" aria-selected="false">Crear Producto</button>
                             </div>
                             </nav>
                             <div class="tab-content" id="nav-tabContent">
                                 <!--Mantedor de Marcas-->
-                                <div class="tab-pane fade show active" id="nav-marca" role="tabpanel" aria-labelledby="nav-marca-tab">
+                                <div class="tab-pane fade" id="nav-marca" role="tabpanel" aria-labelledby="nav-marca-tab">
                                 <form action="" method="POST">
                                     <div class="row espacio4">
                                         {% csrf_token %}
                                         <div class="col">
                                             <label class="espacio_form" for="inputEmail4">ID de Marca</label>
-                                            <input type="number" class="form-control" name="id" id="id" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
+                                            <input type="number" class="form-control" name="id" id="id" placeholder="">
                                         </div>
                                         <div class="col">
                                             <label class="espacio_form" for="inputEmail4">Nombre de Marca</label>
-                                            <input type="text" class="form-control" name="nombre_marca" id="nombre_marca" placeholder="" required>
+                                            <input type="text" class="form-control" name="nombre_marca" id="nombre_marca" placeholder="">
                                         </div>
                                     </div>
                                     <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Marca</button>
-                                    {{MensajeMarca}}
                                 </form>
                                 </div>
                                 <!--Cierre Mantedor de Marcas-->
                                 <!--Mantedor de Categorias-->
-                                <div class="tab-pane fade" id="nav-categoria" role="tabpanel" aria-labelledby="nav-categoria-tab">
+                                <div class="tab-pane fade show active" id="nav-categoria" role="tabpanel" aria-labelledby="nav-categoria-tab">
                                 <form action="" method="POST">
                                     <div class="row espacio4">
                                         {% csrf_token %}
@@ -73,10 +72,11 @@
                                         </div>
                                         <div class="col">
                                             <label class="espacio_form" for="inputEmail4">Nombre de Categoria</label>
-                                            <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" placeholder="" required>
+                                            <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" placeholder="">
                                         </div>
                                     </div>
                                     <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Categoria</button>
+                                    {{MensajeCategoria}}
                                 </form>
                                 </div>
                                 <!--Cierre Mantedor de Categorias-->
@@ -152,7 +152,6 @@
                                         </div> 
                                     </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Crear Producto</button>
-                                    {{MensajeProducto}}
                                 </div>
                             </div>
                             </form>
