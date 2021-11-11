@@ -27,49 +27,45 @@
                         <div class="d-flex align-items-start">
                         <!--Menu Bodeguero-->
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a href="mantenedor_marca" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-marcas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marcas" type="button" role="tab" aria-controls="v-pills-marcas" aria-selected="true">Marcas</button></a>
-                            <button class="nav-link active" id="v-pills-categorias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categorias" type="button" role="tab" aria-controls="v-pills-categorias" aria-selected="true">Categorias</button>
+                            <button class="nav-link active" id="v-pills-marcas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marcas" type="button" role="tab" aria-controls="v-pills-marcas" aria-selected="true">Marcas</button>
+                            <a href="mantenedor_categorias" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-categorias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categorias" type="button" role="tab" aria-controls="v-pills-categorias" aria-selected="true">Categorias</button></a>
                             <a href="mantenedor_productos" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-productos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-productos" type="button" role="tab" aria-controls="v-pills-productos" aria-selected="true">Productos</button></a>
                             <button class="nav-link" id="v-pills-pedidos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Pedidos</button>
                             <button class="nav-link" id="v-pills-solicitud-tab" data-bs-toggle="pill" data-bs-target="#v-pills-solicitud" type="button" role="tab" aria-controls="v-pills-solicitud" aria-selected="false">Solicitudes</button>
                         </div>
                         <div class="tab-content col-md-10" id="v-pills-tabContent">
                             <!--Opciones de Marcas-->
-                            <div class="tab-pane fade" id="v-pills-marcas" role="tabpanel" aria-labelledby="v-pills-marcas-tab">
-                            </div>
-                            <!--Cierre Opciones de Marcas-->
-                            <!--Opciones de Categorias-->
-                            <div class="tab-pane fade show active" id="v-pills-categorias" role="tabpanel" aria-labelledby="v-pills-categorias-tab">
+                            <div class="tab-pane fade show active" id="v-pills-marcas" role="tabpanel" aria-labelledby="v-pills-marcas-tab">
                                 <nav>
                                     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <button class="nav-link active" id="nav-crearcategoria-tab" data-bs-toggle="tab" data-bs-target="#nav-crearcategoria" type="button" role="tab" aria-controls="nav-crearcategoria" aria-selected="true">Crear Categoria</button>
-                                        <button class="nav-link" id="nav-editarcategoria-tab" data-bs-toggle="tab" data-bs-target="#nav-editarcategoria" type="button" role="tab" aria-controls="nav-editarcategoria" aria-selected="false">Editar / Eliminar Categoria</button>
+                                        <button class="nav-link active" id="nav-crearmarca-tab" data-bs-toggle="tab" data-bs-target="#nav-crearmarca" type="button" role="tab" aria-controls="nav-crearmarca" aria-selected="true">Crear Marca</button>
+                                        <button class="nav-link" id="nav-editarmarca-tab" data-bs-toggle="tab" data-bs-target="#nav-editarmarca" type="button" role="tab" aria-controls="nav-editarmarca" aria-selected="false">Editar / Eliminar Marca</button>
                                     </div>
                                 </nav>
                                 <div class="tab-content" id="nav-tabContent">
-                                    <!--Creacion de Categoria-->
-                                    <div class="tab-pane fade show active" id="nav-crearcategoria" role="tabpanel" aria-labelledby="nav-crearcategoria-tab">
+                                    <!--Creacion de Marca-->
+                                    <div class="tab-pane fade show active" id="nav-crearmarca" role="tabpanel" aria-labelledby="nav-crearmarca-tab">
                                         <form class="needs-validation" id="formulario" action="" method="POST" novalidate>
                                             <div class="row espacio4">
                                                 {% csrf_token %}
                                                 <div class="col position-relative">
-                                                    <label class="espacio_form" for="inputEmail4">ID de Categoria</label>
-                                                    <input type="number" class="form-control" name="id_categoria" id="id_categoria" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
+                                                    <label class="espacio_form" for="inputEmail4">ID de Marca</label>
+                                                    <input type="number" class="form-control" name="id" id="id" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
                                                 </div>
                                                 <div class="col position-relative">
-                                                    <label class="espacio_form" for="inputEmail4">Nombre de Categoria</label>
-                                                    <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" minlength="3" maxlength="30" placeholder="" required>
+                                                    <label class="espacio_form" for="inputEmail4">Nombre de Marca</label>
+                                                    <input type="text" class="form-control" name="nombre_marca" id="nombre_marca" minlength="3" maxlength="30" placeholder="" required>
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">Ingrese un nombre valido. Entre 3 y 30 caracteres.</div>
                                                 </div>
                                             </div>
-                                            <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Categoria</button>
-                                            {{MensajeCategoria}}     
+                                            <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Marca</button>
+                                            {{MensajeMarca}}
                                         </form>
                                     </div>
-                                    <!--Cierre Creacion de Categoria-->
-                                    <!--Editar Categoria-->
-                                    <div class="tab-pane fade" id="nav-editarcategoria" role="tabpanel" aria-labelledby="nav-editarcategoria-tab">
+                                    <!--Cierre Creacion de Marca-->
+                                    <!--Editar Marca-->
+                                    <div class="tab-pane fade" id="nav-editarmarca" role="tabpanel" aria-labelledby="nav-editarmarca-tab">
                                         <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
                                         <table id="myTable" class="table blanco espacio4 align-middle listaproductos">                                     
                                             <thead>
@@ -80,19 +76,23 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {%for p in categorias%}
+                                                {%for p in marcas%}
                                                 <tr>
-                                                <th scope="row">{{ p.id_categoria }}</th>
-                                                <td>{{ p.nombre_categoria }}</td>
-                                                <td><a href="modificar_categoria/{{ p.id_categoria }}" class="btn btn-primary">MODIFICAR<a/></td>
-                                                <td><a href="eliminar_categoria/{{ p.id_categoria }}" class="btn btn-danger">ELIMINAR<a/></td>
+                                                <th scope="row">{{ p.id_marca }}</th>
+                                                <td>{{ p.nombre_marca }}</td>
+                                                <td><a href="modificar_marca/{{ p.id_marca }}" class="btn btn-primary">MODIFICAR<a/></td>
+                                                <td><a href="eliminar_marca/{{ p.id_marca }}" class="btn btn-danger">ELIMINAR<a/></td>
                                                 </tr>
                                                 {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
-                                    <!-- Cierre Editar Categoria-->
+                                    <!--Cierre Editar Marca-->
                                 </div>
+                            </div>
+                            <!--Cierre Opciones de Marcas-->
+                            <!--Opciones de Categorias-->
+                            <div class="tab-pane fade" id="v-pills-categorias" role="tabpanel" aria-labelledby="v-pills-categorias-tab">
                             </div>
                             <!--Cierre Opciones de Categorias-->
                             <!--Opciones de Productos-->

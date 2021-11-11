@@ -1,19 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
-from core.models import EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos
+from core.models import EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria
 import cx_Oracle
 
 # Create your views here.
 
-def mantenedor_productos(request):
+def mantenedor_marca(request):
     data = {
-        'marcas':listar_marcas(),
-        'categorias':listar_categorias(),
         'productos':listar_productos(),
         'listapedidos':listar_pedidos(),
         'productoslistados': Producto.objects.all(),
         'pedidoslistados': OrdenCompra.objects.all(),
         'solicitudes': SolicitudProductos.objects.all(),
+        'marcas': Marca.objects.all(),
+        'categorias': Categoria.objects.all(),
         'solcitud':listar_solicitudes()
     }
 
@@ -24,27 +24,16 @@ def mantenedor_productos(request):
         salida = agregar_marca(nombre_marca)
         if salida==1:
             data['MensajeMarca'] = 'Marca registrada correctamente'
-            data['marcas'] = listar_marcas()
         else:
             data['MensajeMarca'] = 'No se ha podido registrar la marca'
             data['MensajeProducto'] = 'Producto registrado correctamente'
 
-    if request.method== 'POST':
-        nombre_categoria = request.POST.get('nombre_categoria')
-        salida = agregar_categoria(nombre_categoria)
-        if salida==1:
-            data['MensajeCategoria'] = 'Categoria registrada correctamente'
-            data['categorias'] = listar_categorias()
-        else:
-            data['MensajeCategoria'] = 'No se ha podido registrar la categoria'  
-
-
-    return render(request, 'mantenedor_productos.html', data)
+    return render(request, 'mantenedor_marca.html', data)
 
 def mantenedor_categorias(request):
     data = {
-        'marcas':listar_marcas(),
-        'categorias':listar_categorias(),
+        'marcas':Marca.objects.all(),
+        'categorias': Categoria.objects.all(),
         'productos':listar_productos(),
         'listapedidos':listar_pedidos(),
         'productoslistados': Producto.objects.all(),
@@ -58,38 +47,25 @@ def mantenedor_categorias(request):
         salida = agregar_categoria(nombre_categoria)
         if salida==1:
             data['MensajeCategoria'] = 'Categoria registrada correctamente'
-            data['categorias'] = listar_categorias()
         else:
             data['MensajeCategoria'] = 'No se ha podido registrar la categoria'  
 
 
-    return render(request, 'mantenedor_categorias.html', data)        
+    return render(request, 'mantenedor_categorias.html', data)
 
-def listar_marcas():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
+def mantenedor_productos(request):
+    data = {
+        'marcas':Marca.objects.all(),
+        'categorias': Categoria.objects.all(),
+        'productos':listar_productos(),
+        'listapedidos':listar_pedidos(),
+        'productoslistados': Producto.objects.all(),
+        'pedidoslistados': OrdenCompra.objects.all(),
+        'solicitudes': SolicitudProductos.objects.all(),
+        'solcitud':listar_solicitudes()
+    }
 
-    cursor.callproc("SP_LISTAR_MARCAS", [out_cur])
-
-    lista = []
-    for fila in out_cur:
-        lista.append(fila)
-
-    return lista
-
-def listar_categorias():
-    django_cursor = connection.cursor()
-    cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
-
-    cursor.callproc("SP_LISTAR_CATEGORIAS", [out_cur])
-
-    lista = []
-    for fila in out_cur:
-        lista.append(fila)
-
-    return lista
+    return render(request, 'mantenedor_productos.html', data)             
 
 def listar_productos():
     django_cursor = connection.cursor()
@@ -190,6 +166,13 @@ def editar_producto(request):
     
     return redirect('/mantenedor_productos')
 
+def modificar_producto(request, id_producto):
+    
+    producto = Producto.objects.get(id_producto=id_producto)
+
+    return render(request, "modificar_producto.html", {"productos": producto})
+
+
 def modificar_solicitud(request, id_solicitud):
     
     data = {
@@ -214,3 +197,51 @@ def editar_solicitud(request):
     solicitud.save() 
     
     return redirect('/mantenedor_productos')
+
+def eliminar_marca(request, id_marca):
+    marca = Marca.objects.get(id_marca=id_marca)
+    marca.delete()
+
+    return redirect('/mantenedor_marca')
+
+def modificar_marca(request, id_marca):
+    
+    marca = Marca.objects.get(id_marca=id_marca)
+
+    return render(request, "modificar_marca.html", {"marca": marca})
+
+def editar_marca(request):
+    
+    id_marca = request.POST.get('id_marca')  
+    nombre_marca = request.POST.get('nombre_marca')
+
+    marca = Marca.objects.get(id_marca=id_marca)
+    marca.id_marca = id_marca
+    marca.nombre_marca = nombre_marca
+    marca.save() 
+    
+    return redirect('/mantenedor_marca')
+
+def eliminar_categoria(request, id_categoria):
+    categoria = Categoria.objects.get(id_categoria=id_categoria)
+    categoria.delete()
+
+    return redirect('/mantenedor_categorias')
+
+def modificar_categoria(request, id_categoria):
+    
+    categoria = Categoria.objects.get(id_categoria=id_categoria)
+
+    return render(request, "modificar_categoria.html", {"categoria": categoria})
+
+def editar_categoria(request):
+    
+    id_categoria = request.POST.get('id_categoria')  
+    nombre_categoria = request.POST.get('nombre_categoria')
+
+    categoria = Categoria.objects.get(id_categoria=id_categoria)
+    categoria.id_categoria = id_categoria
+    categoria.nombre_categoria = nombre_categoria
+    categoria.save() 
+    
+    return redirect('/mantenedor_categorias')

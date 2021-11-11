@@ -315,7 +315,7 @@ class Producto(models.Model):
     stock = models.BigIntegerField()
     oferta = models.CharField(max_length=1)
     porcentaje = models.BigIntegerField(blank=True, null=True)
-    imagen = models.ImageField(upload_to='img/', default="default.png", blank=True, null=True)
+    imagen = models.BinaryField(blank=True, null=True)
     marca_id_marca = models.ForeignKey(Marca, models.DO_NOTHING, db_column='marca_id_marca')
     categoria_id_categoria = models.ForeignKey(Categoria, models.DO_NOTHING, db_column='categoria_id_categoria')
 
