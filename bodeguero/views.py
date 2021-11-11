@@ -25,8 +25,7 @@ def mantenedor_marca(request):
         if salida==1:
             data['MensajeMarca'] = 'Marca registrada correctamente'
         else:
-            data['MensajeMarca'] = 'No se ha podido registrar la marca'
-            data['MensajeProducto'] = 'Producto registrado correctamente'
+            data['MensajeMarca'] = 'El nombre de la marca ya esta siendo utilizado'
 
     return render(request, 'mantenedor_marca.html', data)
 
@@ -48,7 +47,7 @@ def mantenedor_categorias(request):
         if salida==1:
             data['MensajeCategoria'] = 'Categoria registrada correctamente'
         else:
-            data['MensajeCategoria'] = 'No se ha podido registrar la categoria'  
+            data['MensajeCategoria'] = 'El nombre de la categoria ya esta siendo utilizado'  
 
 
     return render(request, 'mantenedor_categorias.html', data)
@@ -64,7 +63,22 @@ def mantenedor_productos(request):
         'solicitudes': SolicitudProductos.objects.all(),
         'solcitud':listar_solicitudes()
     }
-
+    
+    if request.method== 'POST':
+        nombre_producto = request.POST.get('nombre_producto')
+        precio = request.POST.get('precio')
+        stock = request.POST.get('stock')
+        oferta = request.POST.get('oferta')
+        porcentaje = request.POST.get('p_oferta')
+        id_marca = request.POST.get('id_marca')
+        id_categoria = request.POST.get('id_categoria')
+        imagen = request.FILES['imagen'].read()
+        salida = agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
+        if salida==1:
+            data['MensajeProducto'] = 'Producto registrado correctamente'
+        else:
+            data['MensajeProducto'] = 'El nombre del producto ya esta siendo utilizado' 
+            
     return render(request, 'mantenedor_productos.html', data)             
 
 def listar_productos():
@@ -119,19 +133,6 @@ def agregar_categoria(nombre_categoria):
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_AGREGAR_CATEGORIA',[nombre_categoria, salida])
     return salida.getvalue()
-
-def cargar_producto(request):
-    nombre_producto = request.POST.get('nombre_producto')
-    precio = request.POST.get('precio')
-    stock = request.POST.get('stock')
-    oferta = request.POST.get('oferta')
-    porcentaje = request.POST.get('p_oferta')
-    id_marca = request.POST.get('id_marca')
-    id_categoria = request.POST.get('id_categoria')
-    imagen = request.FILES['imagen'].read()
-    salida = agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
-
-    return redirect('/mantenedor_productos')
 
 def agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen):
     django_cursor = connection.cursor()

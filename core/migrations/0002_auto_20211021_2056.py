@@ -11,18 +11,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='AgenteOferta',
-            fields=[
-                ('id', models.BigAutoField(primary_key=True, serialize=False)),
-                ('nombre', models.CharField(blank=True, max_length=50, null=True)),
-                ('precio', models.IntegerField()),
-            ],
-            options={
-                'db_table': 'agente_oferta',
-                'managed': False,
-            },
-        ),
-        migrations.CreateModel(
             name='AuthGroup',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),

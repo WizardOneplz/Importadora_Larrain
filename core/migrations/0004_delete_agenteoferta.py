@@ -9,8 +9,4 @@ class Migration(migrations.Migration):
         ('core', '0003_merge_0002_auto_20211021_2056_0002_auto_20211021_2111'),
     ]
 
-    operations = [
-        migrations.DeleteModel(
-            name='AgenteOferta',
-        ),
-    ]
+

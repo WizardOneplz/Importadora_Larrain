@@ -53,7 +53,6 @@ urlpatterns = [
     path('mantenedor_marca',mantenedor_marca),
     path('mantenedor_categorias',mantenedor_categorias),
     path('mantenedor_productos',mantenedor_productos),
-    path('agregar_producto/',cargar_producto),
     path('modificar_producto/<id_producto>',modificar_producto),
     path('modificar_solicitud/<id_solicitud>',modificar_solicitud),
     path('editar_producto/',editar_producto),
