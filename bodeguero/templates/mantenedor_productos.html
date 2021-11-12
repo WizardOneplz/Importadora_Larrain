@@ -64,9 +64,9 @@
                                                     </div>
                                                     <div class="col position-relative">
                                                         <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
-                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" minlength="3" maxlength="30" placeholder="" required>
+                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" pattern="[A-Z ]{3,30}" placeholder="" required>
                                                         <!--MENSAJE-->
-                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras.</div>
+                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras Mayúsculas.</div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 position-relative">

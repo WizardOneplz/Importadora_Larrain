@@ -37,9 +37,9 @@
                                         </div>
                                         <div class="col">
                                             <label for="exampleFormControlInput1" class="form-label">Nombre Categoria</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{categoria.nombre_categoria}}"  name="nombre_categoria" placeholder="" required pattern="[A-Za-z A-Za-z]{3,30}">
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{categoria.nombre_categoria}}"  name="nombre_categoria" placeholder="" required pattern="[A-Z ]{3,30}">
                                             <!--MENSAJE-->
-                                            <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras.</div>
+                                            <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras en mayúsculas.</div>
                                         </div>
                                     </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>

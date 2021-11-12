@@ -41,9 +41,9 @@
                                     </div>
                                      <div class="col position-relative">
                                          <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
-                                         <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" placeholder="" minlength="5" maxlength="30" value="{{bodegas.direccion}}" required>
+                                         <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" placeholder="" pattern="[A-Z0-9.# ]{5,30}" value="{{bodegas.direccion}}" required>
                                         <!--MENSAJE-->
-                                        <div class="invalid-feedback">Ingrese una direccion de Bodega valida.</div>
+                                        <div class="invalid-feedback">Ingrese una direccion de Bodega valida en mayúsculas.</div>
                                     </div>
                                  </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>

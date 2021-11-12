@@ -52,8 +52,8 @@
                                             {% csrf_token %}
                                             <div class="row">
                                                 <div class="col-md-">
-                                                    <div class="row espacio_form position-relative">
-                                                        <div class="col">
+                                                    <div class="row espacio_form ">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">RUT</label>
                                                             <input type="text" class="form-control" id="rut" name="rut" placeholder="12.345.678-9" min="111111111" max="999999999" required>
                                                             <!--MENSAJE-->
@@ -62,22 +62,22 @@
                                                     </div>
                                                     <div class="mb-3 position-relative">
                                                         <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
-                                                        <input type="text" id="nombre" name="nombre" class="form-control" required pattern="[A-Za-z A-Za-z]{3,30}" > 
+                                                        <input type="text" id="nombre" name="nombre" class="form-control" minlength="3" maxlength="30" required pattern="[A-Z ]{3,30}"> 
                                                         <!--MENSAJE-->
-                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras.</div>
+                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                     </div>
                                                     <div class="row espacio_form position-relative">
                                                         <div class="col">
                                                             <label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label>
-                                                            <input type="name" class="form-control" id="ap_paterno" name="ap_paterno" pattern="[A-Za-z]{4,30}" placeholder="" required>
+                                                            <input type="name" class="form-control" id="ap_paterno" name="ap_paterno" pattern="[A-Z ]{4,30}" placeholder="" required>
                                                             <!--MENSAJE-->
-                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras.</div>
+                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                         </div>
                                                         <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label>
-                                                            <input type="name" class="form-control" id="ap_materno" name="ap_materno" pattern="[A-Za-z]{4,30}" placeholder="" required>
+                                                            <input type="name" class="form-control" id="ap_materno" name="ap_materno" pattern="[A-Z ]{4,30}" placeholder="" required>
                                                             <!--MENSAJE-->
-                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras.</div>
+                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                         </div>
                                                     </div>
                                                     <div class="row position-relative">
@@ -104,7 +104,7 @@
                                                     <div class="row espacio_form">
                                                         <div class="col position-relative">
                                                             <label for="email">Email:</label>
-                                                            <input type="email" class="form-control" id="email" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+                                                            <input type="email" class="form-control" id="email" name="email" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required>
                                                             <!--MENSAJE-->
                                                             <div class="invalid-feedback">Ingrese un Correo Válido.</div>
                                                         </div>
@@ -260,9 +260,9 @@
                                                          </div>
                                                          <div class="col position-relative">
                                                              <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
-                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" minlength="5" maxlength="30" placeholder="" required>
+                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" pattern="[A-Z0-9.# ]{5,30}" placeholder="" required>
                                                             <!--MENSAJE-->
-                                                            <div class="invalid-feedback">Ingrese una direccion de Bodega valida.</div>
+                                                            <div class="invalid-feedback">Ingrese una direccion de Bodega valida en mayúsculas.</div>
                                                          </div>
                                                      </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
@@ -514,7 +514,7 @@
                                                 </tbody>
                                         </table>
                                     </div>
-                                  </div>   
+                                </div>   
                             </div>  
                         </div>
                     </div>             
