@@ -25,7 +25,7 @@
                     <div class="container espacio3">
                         <div class="d-flex align-items-start">
                                 <!--Mantedor de Productos-->
-                                <form action="/editar_solicitud/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
+                                <form action="/editar_solicitud/" method="POST" class="espacio4 col-md-12 needs-validation" enctype="multipart/form-data" novalidate>
                                 {% csrf_token %}                       
                                 <div class="row">
                                 <div class="col-md-">                                
@@ -45,10 +45,10 @@
                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="observacion" value="{{solicitudes.observacion}}" placeholder="">    
                                         </div>
                                         <div class="col">
-                                            <div class="mb-3">
+                                            <div class="mb-3 position-relative">
                                             <label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label>
                                                 <select id="id_estado" name="id_estado" class="form-select">
-                                                    <option value="">Seleccionar</option>
+                                                    <option selected disabled value="">Seleccione...</option>
                                                     {% for c in solicitud %}
                                                     <option value="{{ c.0 }}">{{c.1}}</option>
                                                     {% endfor %}
@@ -66,6 +66,7 @@
             </div>
         </div>        
     </section> 
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock %}
 </body>
 </html>
