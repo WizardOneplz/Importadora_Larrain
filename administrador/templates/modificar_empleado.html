@@ -23,6 +23,7 @@
         <div class="row align-items-center justify-content-center">
             <div class="col-md-12 blanco">
                 <div class="container espacio3">
+                    <h1 class="text-center">Modificacion de Empleado</h1>
                     <div class="d-flex align-items-start">
                         <form class="col-md-12 needs-validation" action="/editar_empleado/{{ p.rut }}" method="POST" novalidate>
                             {% csrf_token %}
@@ -40,20 +41,20 @@
                                     </div>
                                     <div class="mb-3 position-relative">
                                         <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" minlength="3" maxlength="30" value="{{empleados.nombre}}" required> 
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" required pattern="[A-Za-z A-Za-z]{3,30}" value="{{empleados.nombre}}" > 
                                         <!--MENSAJE-->
                                         <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras.</div>
                                     </div>
                                     <div class="row espacio_form">
                                         <div class="col position-relative">
                                             <label for="exampleFormControlInput1" class="form-label">Apellido Paterno</label>
-                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" minlength="4" maxlength="30" value="{{empleados.apellido_paterno}}" required>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" pattern="[A-Za-z]{4,30}" value="{{empleados.apellido_paterno}}" required>
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras.</div>
                                         </div>
                                         <div class="col position-relative">
                                             <label for="exampleFormControlInput1" class="form-label">Apellido Materno</label>
-                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" minlength="4" maxlength="30" value="{{empleados.apellido_materno}}"required>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" pattern="[A-Za-z]{4,30}" value="{{empleados.apellido_materno}}"required>
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras.</div>
                                         </div>

@@ -23,9 +23,10 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-12 blanco">
                     <div class="container espacio3">
+                        <h1 class="text-center">Modificacion de Marca</h3>
                         <div class="d-flex align-items-start">
                                 <!--Mantedor de Productos-->
-                                <form action="/editar_marca/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
+                                <form action="/editar_marca/" method="POST" class="espacio4 col-md-12 needs-validation" enctype="multipart/form-data" novalidate>
                                 {% csrf_token %}                       
                                 <div class="row">
                                 <div class="col-md-">                                
@@ -34,9 +35,11 @@
                                             <label for="exampleFormControlInput1" class="form-label">ID Marca</label>
                                             <input type="number" class="form-control" id="exampleFormControlInput1" value="{{marca.id_marca}}" name="id_marca" placeholder="" readonly required>
                                         </div>
-                                        <div class="col">
+                                        <div class="col position-relative">
                                             <label for="exampleFormControlInput1" class="form-label">Nombre Marca</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{marca.nombre_marca}}"  name="nombre_marca" placeholder="" required>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_marca" placeholder="" required pattern="[A-Za-z A-Za-z]{2,30}" value="{{marca.nombre_marca}}">
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras.</div>
                                         </div>
                                     </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
@@ -49,6 +52,7 @@
             </div>
         </div>        
     </section> 
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock %}
 </body>
 </html>
