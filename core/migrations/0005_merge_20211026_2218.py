@@ -8,7 +8,6 @@ class Migration(migrations.Migration):
     dependencies = [
         ('core', '0002_auto_20211011_2130'),
         ('core', '0004_auto_20211021_2135'),
-        ('core', '0004_delete_agenteoferta'),
     ]
 
     operations = [

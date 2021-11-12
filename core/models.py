@@ -259,7 +259,7 @@ class Estanteria(models.Model):
 
 class Marca(models.Model):
     id_marca = models.BigIntegerField(primary_key=True)
-    nombre_marca = models.CharField(max_length=30)
+    nombre_marca = models.CharField(max_length=30, unique=True) 
 
     class Meta:
         managed = False
