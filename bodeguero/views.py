@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
-from core.models import EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria
+from core.models import EstadoPedido, EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria, DetalleOrden
 import cx_Oracle
 
 # Create your views here.
@@ -120,6 +120,19 @@ def listar_solicitudes():
 
     return lista
 
+def listar_estados():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_ESTADO_PEDIDO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+
+    return lista
+
 def agregar_marca(nombre_marca):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -158,11 +171,15 @@ def editar_producto(request):
     id_producto = request.POST.get('id')  
     nombre_producto = request.POST.get('nombre_producto')
     stock = request.POST.get('stock')
+    oferta = request.POST.get('oferta')
+    poferta = request.POST.get('p_oferta')
 
     producto = Producto.objects.get(id_producto=id_producto)
     producto.id_producto = id_producto
     producto.nombre_producto = nombre_producto
     producto.stock = stock
+    producto.oferta = oferta
+    producto.porcentaje = poferta
     producto.save() 
     
     return redirect('/mantenedor_productos')
@@ -246,3 +263,24 @@ def editar_categoria(request):
     categoria.save() 
     
     return redirect('/mantenedor_categorias')
+
+def modificar_orden(request, id_orden):
+    
+    data = {
+          'orden' : OrdenCompra.objects.get(id_orden=id_orden),
+          'estado': listar_estados()  
+    }
+     
+    return render(request, "modificar_orden.html", data)
+
+def editar_orden(request):
+    
+    id_orden = request.POST.get('id_orden')  
+    estado_pedido = request.POST.get('estado_orden')
+
+    orden = OrdenCompra.objects.get(id_orden=id_orden)
+    orden.id_orden = id_orden
+    orden.estado_pedido_id_estado_pedido = EstadoPedido.objects.get(id_estado_pedido = estado_pedido)
+    orden.save() 
+    
+    return redirect('/mantenedor_marca')
