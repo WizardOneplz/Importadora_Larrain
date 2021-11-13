@@ -256,7 +256,6 @@ class Estanteria(models.Model):
         managed = False
         db_table = 'estanteria'
 
-
 class Marca(models.Model):
     id_marca = models.BigIntegerField(primary_key=True)
     nombre_marca = models.CharField(max_length=30, unique=True) 

@@ -35,33 +35,33 @@
                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" value="{{empleados.id}}" readonly required>
                                         </div>
                                         <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Rut</label>
+                                            <label for="exampleFormControlInput1" class="form-label">RUT</label>
                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" value="{{empleados.rut}}" readonly required>
                                         </div>
                                     </div>
                                     <div class="mb-3 position-relative">
-                                        <label for="exampleFormControlInput1" class="form-label">Nombre</label>
-                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" required pattern="[A-Z ]{3,30}" value="{{empleados.nombre}}" > 
+                                        <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
+                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" minlength="3" maxlength="30" placeholder="Debe ingresar un nombre o ambos en mayusculas." required pattern="[A-Z ]{3,30}" value="{{empleados.nombre}}" > 
                                         <!--MENSAJE-->
                                         <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                     </div>
                                     <div class="row espacio_form">
                                         <div class="col position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Apellido Paterno</label>
-                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" pattern="[A-Z ]{4,30}" value="{{empleados.apellido_paterno}}" required>
+                                            <label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="Debe ingresar su apellido paterno en mayusculas." pattern="[A-Z ]{4,30}" value="{{empleados.apellido_paterno}}" required>
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                         </div>
                                         <div class="col position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Apellido Materno</label>
-                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" pattern="[A-Z ]{4,30}" value="{{empleados.apellido_materno}}"required>
+                                            <label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label>
+                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="Debe ingresar su apellido materno en mayusculas." pattern="[A-Z ]{4,30}" value="{{empleados.apellido_materno}}"required>
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Genero</label>
+                                            <label for="exampleFormControlInput1" class="form-label">GENERO</label>
                                             <div class="col">
                                             <div class="form-check form-check-inline col">
                                                 <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M" required>
@@ -76,7 +76,7 @@
                                             </div>
                                         </div>
                                         <div class="col position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Teléfono</label>
+                                            <label for="exampleFormControlInput1" class="form-label">TELÉFONO</label>
                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" min="11111111111" max="99999999999" value="{{empleados.telefono}}" required>
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">Ingrese un número de teléfono anteponiendo "569" y 8 digitos.</div>
@@ -84,11 +84,11 @@
                                     </div>
                                     <div class="row espacio_form">
                                         <div class="col position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Email</label>
+                                            <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
                                             <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" value="{{empleados.email}}" readonly required>
                                         </div>
                                         <div class="col position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Cargo</label>
+                                            <label for="exampleFormControlInput1" class="form-label">CARGO</label>
                                             <select id="cargo" name="cargo" class="form-select" required>
                                                 <option selected disabled value="">Seleccione...</option>
                                                 {% for c in cargos %}
@@ -99,7 +99,7 @@
                                             <div class="invalid-feedback">Complete los datos</div>
                                         </div>
                                     </div>
-                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Modificar</button>
+                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">MODIFICAR</button>
                                 </div>
                             </div>
                         </form>
