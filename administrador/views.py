@@ -78,7 +78,7 @@ def mantenedor_admin(request):
         else:
             data['mensaje'] = 'No se ha podido registrar' 
 
-    return render(request, 'agregar_empleado.html',data)
+    return render(request,'agregar_empleado.html',data)
 
 
 #METODOS
