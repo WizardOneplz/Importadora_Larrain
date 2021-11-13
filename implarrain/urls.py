@@ -50,6 +50,8 @@ urlpatterns = [
     path('editar_bodega/',editar_bodega),
     path('modificar_empleado/<rut>',modificar_empleado),
     path('editar_empleado/',editar_empleado),
+    path('modificar_orden/<id_orden>',modificar_orden),
+    path('editar_orden/',editar_orden),
     path('mantenedor_marca',mantenedor_marca),
     path('mantenedor_categorias',mantenedor_categorias),
     path('mantenedor_productos',mantenedor_productos),

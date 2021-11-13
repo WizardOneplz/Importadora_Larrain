@@ -1,0 +1,61 @@
+{%extends "base/navbar.html"%}
+{%load static%}
+
+{% block navbar%}
+<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="home">Bienvenido</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="">*nombre bodeguero*</a>
+      </li>
+  </ul>
+  <ul class="navbar-nav ms-auto">
+      <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">CERRAR SESIÓN</button>
+  </ul>
+  </div>
+{% endblock %}
+<body>
+    {% block content %}
+    <section>
+        <div class="container-fluid espacio2 gradient3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12 blanco">
+                    <div class="container espacio3">
+                        <div class="d-flex align-items-start">
+                                <!--Mantedor de Productos-->
+                                <form action="/editar_orden/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
+                                {% csrf_token %}                       
+                                <div class="row">
+                                <div class="col-md-">                                
+                                    <div class="row espacio_form">
+                                        <div class="col">
+                                            <label for="exampleFormControlInput1" class="form-label">ID Orden</label>
+                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="id_orden" value="{{orden.id_orden}}" placeholder="" readonly>    
+                                        </div>
+                                        <div class="col">
+                                            <div class="mb-3">
+                                            <label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label>
+                                                <select id="estado_orden" name="estado_orden" class="form-select">
+                                                    <option value="">Seleccionar</option>
+                                                    {% for c in estado %}
+                                                    <option value="{{ c.0 }}">{{c.1}}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
+                                </div>
+                            </div>
+                            </form>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>        
+    </section> 
+    {% endblock %}
+</body>
+</html>

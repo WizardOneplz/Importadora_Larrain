@@ -199,17 +199,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {%for p in listapedidos%}
+                                        {%for p in pedidoslistados%}
                                         <tr>
-                                        <th scope="row">{{ p.0 }}</th>
-                                        <td>{{ p.1 }}</td>
-                                        <td>{{ p.2 }}</td>
-                                        <td>{{ p.3 }}</td>
-                                        <td>{{ p.4 }}</td>
-                                        <td>{{ p.5 }}</td>
-                                        <td>{{ p.6 }}</td>
-                                        <td>{{ p.7 }}</td>
-                                        <td>{{ p.8 }}</td>
+                                        <th scope="row">{{ p.id_orden }}</th>
+                                        <td>{{ p.precio_total }}</td>
+                                        <td>{{ p.fecha_compra }}</td>
+                                        <td>{{ p.fecha_estimada }}</td>
+                                        <td>{{ p.estado_pago_id_estado_pago }}</td>
+                                        <td>{{ p.detalle_orden_id_detalle_orden }}</td>
+                                        <td>{{ p.estado_pedido_id_estado_pedido }}</td>
+                                        <td>{{ p.tipo_pago_id_tipo_pago }}</td>
+                                        <td>{{ p.tipo_orden_id_tipo_orden }}</td>
+                                        <td><a href="modificar_orden/{{ p.id_orden }}" class="btn btn-primary">MODIFICAR<a/></td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
