@@ -322,9 +322,6 @@ class Producto(models.Model):
         managed = False
         db_table = 'producto'
 
-    def __str__(self):
-        return self.pk
-
 class Region(models.Model):
     id_region = models.BigIntegerField(primary_key=True)
     nombre_region = models.CharField(max_length=30)
@@ -341,7 +338,6 @@ class Rol(models.Model):
     class Meta:
         managed = False
         db_table = 'rol'
-
 
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
