@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from home.views import *  #esto se debe hacer cada vez que se quiera importar una views de las otras APPS
 from registro.views import *
 from administrador.views import *
@@ -23,8 +25,13 @@ from cliente.views import *
 from agente.views import *
 
 urlpatterns = [
+    #TIENDA
     path('admin/', admin.site.urls),
-    path('home',home),
+    path('',home),
+    path('carrito', carrito),
+    path('store', store),
+    path('producto/<int:pk>/', producto, name='producto'),
+    #REGISTRO
     path('registro',registro,),
     path('agregar_empleado',mantenedor_admin),
     path('login', login), 
@@ -33,14 +40,22 @@ urlpatterns = [
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
     path('eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
     path('eliminar_bodega/<id_bodega>',eliminar_bodega),
+    path('eliminar_marca/<id_marca>',eliminar_marca),
+    path('eliminar_categoria/<id_categoria>',eliminar_categoria),
     #MODIFICAR
+    path('modificar_marca/<id_marca>',modificar_marca),
+    path('editar_marca/',editar_marca),
+    path('modificar_categoria/<id_categoria>',modificar_categoria),
+    path('editar_categoria/',editar_categoria),
     path('modificar_bodega/<id_bodega>',modificar_bodega),
     path('editar_bodega/',editar_bodega),
     path('modificar_empleado/<rut>',modificar_empleado),
     path('editar_empleado/',editar_empleado),
-    path('mantenedor_productos',mantenedor_productos),
+    path('modificar_orden/<id_orden>',modificar_orden),
+    path('editar_orden/',editar_orden),
+    path('mantenedor_marca',mantenedor_marca),
     path('mantenedor_categorias',mantenedor_categorias),
-    path('agregar_producto/',cargar_producto),
+    path('mantenedor_productos',mantenedor_productos),
     path('modificar_producto/<id_producto>',modificar_producto),
     path('modificar_solicitud/<id_solicitud>',modificar_solicitud),
     path('editar_producto/',editar_producto),
@@ -50,4 +65,5 @@ urlpatterns = [
     path('modificar_datos',modificar_datos),
     path('subir_oferta',subir_oferta),
     path('subir_oferta1/',subir_oferta_listado),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

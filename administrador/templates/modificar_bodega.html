@@ -24,10 +24,10 @@
             <div class="col-md-12 blanco">
                 <div class="container espacio3">
                     <div class="d-flex align-items-start">
-                        <form class="needs-validation" action="/editar_bodega/" method="POST" novalidate>
+                        <form class="needs-validation col-md-12" action="/editar_bodega/" method="POST" novalidate>
                             {% csrf_token %}
                             <div class="row">
-                                <div class="col-md-">
+                                <div class="col-md-12">
                                  <div class="row espacio_form"> 
                                     <div class="col position-relative">
                                         <label for="exampleFormControlInput1" class="form-label">ID BODEGA</label>
@@ -35,16 +35,17 @@
                                     </div>
                                      <div class="col position-relative">
                                          <label for="exampleFormControlInput1" class="form-label">CANTIDAD DE PASILLOS</label>
-                                         <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_pasillos" placeholder="" min="1" max="99" value="{{bodegas.num_pasillo}}" required>
+                                         <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_pasillos" placeholder="Ingresar un número de pasillos entre 1 y 99." min="1" max="99" value="{{bodegas.num_pasillo}}" required>
                                         <!--MENSAJE-->
                                         <div class="invalid-feedback">Ingrese una cantidad de pasillos valida. Entre 1 y 99 pasillos.</div>
                                     </div>
-                                     <div class="col position-relative">
-                                         <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
-                                         <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" placeholder="" minlength="5" maxlength="30" value="{{bodegas.direccion}}" required>
-                                        <!--MENSAJE-->
-                                        <div class="invalid-feedback">Ingrese una direccion de Bodega valida.</div>
-                                    </div>
+                                     
+                                 </div>
+                                 <div class="col position-relative">
+                                    <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
+                                    <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" minlenght="5" maxlength="30" placeholder="Ingresar una direccion de Bodega en mayusculas." pattern="[A-Z0-9.# ]{5,30}" value="{{bodegas.direccion}}" required>
+                                   <!--MENSAJE-->
+                                   <div class="invalid-feedback">Ingrese una direccion de Bodega valida en mayúsculas.</div>
                                  </div>
                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
                                 </div>

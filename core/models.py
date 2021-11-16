@@ -256,10 +256,9 @@ class Estanteria(models.Model):
         managed = False
         db_table = 'estanteria'
 
-
 class Marca(models.Model):
     id_marca = models.BigIntegerField(primary_key=True)
-    nombre_marca = models.CharField(max_length=30)
+    nombre_marca = models.CharField(max_length=30, unique=True) 
 
     class Meta:
         managed = False
@@ -323,7 +322,6 @@ class Producto(models.Model):
         managed = False
         db_table = 'producto'
 
-
 class Region(models.Model):
     id_region = models.BigIntegerField(primary_key=True)
     nombre_region = models.CharField(max_length=30)
@@ -340,7 +338,6 @@ class Rol(models.Model):
     class Meta:
         managed = False
         db_table = 'rol'
-
 
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
