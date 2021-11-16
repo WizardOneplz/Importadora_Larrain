@@ -27,6 +27,7 @@ urlpatterns = [
     path('home',home),
     path('registro',registro,),
     path('agregar_empleado',mantenedor_admin),
+    path('login', login), 
     #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
