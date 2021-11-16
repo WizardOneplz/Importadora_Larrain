@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.db import connection
 from core.models import Cliente, CuentaCliente, Rol
+from django.contrib import messages
 import getpass
 import cx_Oracle
+
 # Create your views here.
 
 def registro(request):
@@ -46,3 +48,22 @@ def listar_ciudad():
     for fila in out_cur:
         lista.append(fila) 
     return lista
+
+    #login 
+flag=False
+
+def login(request):
+    if request.method=='POST':
+        try:
+            usuario=CuentaCliente.objects.get(email = request.POST['correo'],
+            clave=request.POST['contraseña'])
+            request.session['email']=usuario.email
+            return render(request, 'perfil.html')
+        except CuentaCliente.DoesNotExist as e:
+            messages.success(request,'nombre de usuario o clave no correcto')
+    return render(request, 'login.html')
+        
+   
+
+
+
