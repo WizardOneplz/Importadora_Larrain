@@ -33,6 +33,7 @@
             <div class="row align-items-center justify-content-center">
                 <div class="col-md-10 blanco">
                     <div class="container espacio3">
+                        <h1 class="text-center">¡Regístrate!</h3>
                         <div class="d-flex align-items-start">
                         <!-- FORMULARIO DE REGISTRO DE CLIENTES-->
                             <form class="needs-validation col-md-12" action="" method="POST" novalidate>
@@ -49,20 +50,20 @@
                                         </div>
                                         <div class="mb-3 position-relative">
                                             <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
-                                            <input type="text" id="nombre" name="nombre" class="form-control" required pattern="[A-Z ]{3,30}"> 
+                                            <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Ingrese un nombre o ambos en mayúsculas." minlength="3" maxlength="30"required pattern="[A-Z ]{3,30}"> 
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                         </div>
                                         <div class="row espacio_form position-relative">
                                             <div class="col">
                                                 <label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label>
-                                                <input type="name" class="form-control" id="ap_paterno" name="ap_paterno" pattern="[A-Z ]{4,30}" placeholder="" required>
+                                                <input type="name" class="form-control" id="ap_paterno" name="ap_paterno" pattern="[A-Z ]{3,30}" minlength="3" maxlength="30" placeholder="Ingrese su apellido paterno en mayúsculas." required>
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                             </div>
                                             <div class="col position-relative">
                                                 <label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label>
-                                                <input type="name" class="form-control" id="ap_materno" name="ap_materno" pattern="[A-Z ]{4,30}" placeholder="" required>
+                                                <input type="name" class="form-control" id="ap_materno" name="ap_materno" minlength="3" maxlength="30" pattern="[A-Z ]{3,30}" placeholder="Ingrese su apellido materno en mayúsculas." required>
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                             </div>
@@ -91,14 +92,14 @@
                                         <div class="row espacio_form">
                                             <div class="col position-relative">
                                                 <label for="email">EMAIL</label>
-                                                <input type="email" class="form-control" id="email" name="email" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required>
+                                                <input type="email" class="form-control" id="email" name="email" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required>
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">Ingrese un Correo Válido.</div>
                                             </div>
                                             
                                             <div class="mb-3 position-relative">
                                                 <label for="exampleFormControlInput1" class="form-label">Dirección</label>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="Direccion" placeholder="" pattern="[A-Z0-9# ]{4,40}" required> 
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="Direccion" minlength="4" maxlength="40" placeholder="Ingrese una direccion de valida en mayúsculas." pattern="[A-Z0-9# ]{4,40}" required> 
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">Ingrese una direccion valida en mayúsculas.</div>
                                             </div>
@@ -118,7 +119,7 @@
                                         <div class="row espacio_form position-relative">
                                             <div class="col">
                                                 <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                                                <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
                                             </div>
