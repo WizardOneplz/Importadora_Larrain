@@ -32,9 +32,10 @@ urlpatterns = [
     path('store', store),
     path('producto/<int:pk>/', producto, name='producto'),
     #REGISTRO
-    path('registro',registro,),
+    path('registro',registro),
     path('agregar_empleado',mantenedor_admin),
     path('login', login), 
+    path('cerrarsesion',cerrarsesion),
     #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),

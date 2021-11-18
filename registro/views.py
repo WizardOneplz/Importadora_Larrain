@@ -58,12 +58,17 @@ def login(request):
             usuario=CuentaCliente.objects.get(email = request.POST['correo'],
             clave=request.POST['contraseña'])
             request.session['email']=usuario.email
-            return render(request, 'perfil.html')
+            return render(request, 'home.html')
         except CuentaCliente.DoesNotExist as e:
             messages.success(request,'nombre de usuario o clave no correcto')
     return render(request, 'login.html')
-        
-   
+
+def cerrarsesion(request):
+    try:
+        del request.session['email']
+    except:
+        return render(request, 'home.html')
+    return render(request, 'home.html')
 
 
 
