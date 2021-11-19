@@ -50,14 +50,25 @@ def listar_ciudad():
     return lista
 
     #login 
-flag=False
+
 
 def login(request):
     if request.method=='POST':
         try:
-            usuario=CuentaCliente.objects.get(email = request.POST['correo'],
+            Email=CuentaCliente.objects.get(email = request.POST['correo'],
             clave=request.POST['contraseña'])
-            request.session['email']=usuario.email
+            request.session['email']=Email.email
+            # para empleado 
+            # IF (si la credencial y clave es correcta)
+                #OBTENER EL ROL
+                    #IF ROL == 'ADMINISTRADOR' O el numero de rol ej: 4
+                        # href a agregar_empleado
+                    #ELSE IF ROL == 'BODEGUERO' O el numero de rol ej: 3
+                        #href a mantenedor_producto
+                    #ELSE IF ROL == 'AGENTE' O el numero de rol ej: 2
+                        #href a subir_oferta
+                    #ELSE IF ROL == 'VENDEDOR' O el numero de rol ej: 1
+                        #href a "por definir".
             return render(request, 'home.html')
         except CuentaCliente.DoesNotExist as e:
             messages.success(request,'nombre de usuario o clave no correcto')
