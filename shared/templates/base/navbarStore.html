@@ -1,0 +1,128 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{%static 'css/bootstrap.css'%}">
+    <link rel="stylesheet" href="{%static 'css/style.css'%}">
+    <title>Document</title>
+</head>
+<body class="fondo">
+
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand">
+            <img src="{%static 'img/larrain.gif'%}" alt="" width="40" height="40" class="d-inline-block align-text-center">
+            IMPORTADORA LARRAIN
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            <span></span>
+            <span></span>
+            <span></span>
+            </button>
+            
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="/">INICIO</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="/store">TIENDA</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="">OFERTAS</a>
+                  </li>
+                  <li class="nav-item">
+                  <a class="nav-link" href="seguimiento">SEGUIMIENTO COMPRA</a>
+                  </li>
+              </ul>
+              {% if request.session.email %}
+              <ul class="navbar-nav ms-auto">
+                <a href="cerrarsesion">
+                <button class="btn btn-outline-success me-2" type="button" >CERRAR SESIÓN</button></a>
+              </ul>
+              {% else %}
+              <ul class="navbar-nav ms-auto">
+                  <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">INICIAR SESIÓN</button>
+              </ul>
+              {% endif %}
+              <ul class="form-inline my-2 my-lg-0"> 
+                <a href="carrito">
+                    <img  id="cart-icon" src="{% static 'img/cart.png' %}">
+                </a>
+              <p id="cart-total">0</p>
+              </ul> 
+              </div>
+              
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">Inicio de sesión</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Cliente</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Empleado</button>
+                        </li>
+                      </ul>
+                      <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <form class="" action="login" method="POST">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-">
+                                <div class="mb-3">
+                                  <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
+                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="" required> 
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="" required>
+                                    
+                                </div>         
+                                <button type="submit" class="btn btn-secondary" >Ingresar</button>
+                                <a href="registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>
+                            </div>
+                        </div>                   
+                        </form>
+                        </div>
+                        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <form class="" action="" method="POST">
+                        <div class="row">
+                            <div class="col-md-">
+                                <div class="mb-3">
+                                  <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
+                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="Correo" placeholder="" required> 
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="Contraseña" placeholder="" required>
+                                    <a class="" href="restablecer.html">¿Olvidaste la contraseña?</a>
+                                </div>         
+                                <a href="menu_bodega.html"><button type="button" class="btn btn-secondary">Ingresar</button></a>
+                            </div>
+                        </div>                   
+                        </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        </div>
+        </nav>
+    {% block content %}
+    
+    {% endblock%}
+    <script src="{%static 'app/js/bootstrap.min.js'%}"></script>
+    
+</body>
+</html>

@@ -72,7 +72,7 @@ def login(request):
             return render(request, 'home.html')
         except CuentaCliente.DoesNotExist as e:
             messages.success(request,'nombre de usuario o clave no correcto')
-    return render(request, 'login.html')
+    return render(request, 'home.html')
 
 def cerrarsesion(request):
     try:
