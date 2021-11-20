@@ -64,20 +64,20 @@
                                                     </div>
                                                     <div class="col position-relative">
                                                         <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
-                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" pattern="[A-Z ]{3,30}" placeholder="" required>
+                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" placeholder="Debe ingresar un nombre en mayusculas." minlength="3" maxlength="30" required pattern="[A-Z ]{3,30}">
                                                         <!--MENSAJE-->
                                                         <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras Mayúsculas.</div>
                                                     </div>
                                                 </div>
                                                 <div class="mb-3 position-relative">
                                                     <label for="exampleFormControlInput1" class="form-label">Precio</label>
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" name="precio" placeholder="" min="1" max="3000000" required> 
+                                                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese un precio, entre 1000 y 3.000.000" min="1000" max="3000000" required> 
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">Ingresar un Precio valido. Entre 1 y 3.000.000.</div>
                                                 </div>
                                                 <div class="mb-3 position-relative">
                                                     <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                                    <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="" min="0" max="1000"required> 
+                                                    <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="Ingrese una cantidad, entre 0 y 1000." min="0" max="1000"required> 
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">Ingrese una cantidad valida. Entre 0 y 1000</div>
                                                 </div>
@@ -97,7 +97,7 @@
                                                     </div>
                                                     <div class="col position-relative">
                                                         <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
-                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="p_oferta" placeholder="" min="0" max="100" required>
+                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="p_oferta" placeholder="Ingrese un porcentaje de oferta, entre 0 y 100." min="0" max="100" required>
                                                         <!--MENSAJE-->
                                                         <div class="invalid-feedback">Ingrese un porcentaje de oferta valido. Entre 0 y 100.</div>
                                                     </div>

@@ -383,3 +383,13 @@ def eliminar_estanteria(request, id_estanteria):
     estanteria.delete()
     return redirect('/agregar_empleado')
 
+#login 
+
+def logemp(request):
+    if request.method =='POST':
+        if CuentaEmpleado.is_valid():
+            usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+            clave =request.POST['clave'],
+            rol_id_rol=request.POST['rol'])
+            request.session['rol']=usuario.rol
+            return render(request,'mantenedor_productos.html')
