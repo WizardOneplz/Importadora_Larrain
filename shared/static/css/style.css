@@ -53,6 +53,14 @@ html,body{
     margin-right: auto;
 }
 
+.select,
+#locale {
+  width: 100%;
+}
+.like {
+  margin-right: 10px;
+}
+
 /* REDES SOCIAL */
 .icon-bar {
     position: fixed;

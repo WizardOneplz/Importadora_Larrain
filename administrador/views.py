@@ -39,7 +39,28 @@ def mantenedor_admin(request):
             data['mensaje'] = 'Creado correctamente'
             data['empleados'] = listado_empleados()
         else:
-            data['mensaje'] = 'No se ha podido registrar'     
+            data['mensaje'] = 'No se ha podido registrar' 
+
+    return render(request,'agregar_empleado.html',data)
+
+#BODEGA
+def mantenedor_bodega(request):
+    data = {
+        'cargos':listar_cargos(),
+        'marcas':listar_marcas(),
+        'categorias':listar_categorias(),
+        'productos':listar_productos(),
+        'cliente':listado_clientes(),
+        'empleados':listado_empleados(),
+        'listar_empleados':Empleado.objects.all(),
+        'listado_bodega':Bodega.objects.all(),
+        'bodega':listado_bodega(),
+        'pasillo':listado_pasillo(),
+        'listar_pasillo':Pasillo.objects.all(),
+        'estanteria':listado_estanteria(),
+        'listar_estanteria':Estanteria.objects.all(),
+        
+    } 
 
 #AGREGAR BODEGA
     if request.method== 'POST':
@@ -53,6 +74,27 @@ def mantenedor_admin(request):
         else:
             data['mensaje'] = 'No se ha podido registrar' 
 
+    return render(request,'mantenedor_bodega.html',data)
+
+#PASILLO
+def mantenedor_pasillo(request):
+    data = {
+        'cargos':listar_cargos(),
+        'marcas':listar_marcas(),
+        'categorias':listar_categorias(),
+        'productos':listar_productos(),
+        'cliente':listado_clientes(),
+        'empleados':listado_empleados(),
+        'listar_empleados':Empleado.objects.all(),
+        'listado_bodega':Bodega.objects.all(),
+        'bodega':listado_bodega(),
+        'pasillo':listado_pasillo(),
+        'listar_pasillo':Pasillo.objects.all(),
+        'estanteria':listado_estanteria(),
+        'listar_estanteria':Estanteria.objects.all(),
+        
+    } 
+
 #AGREGAR PASILLO
     if request.method== 'POST':
         cant_estanterias = request.POST.get('cant_estanterias')
@@ -65,21 +107,39 @@ def mantenedor_admin(request):
         else:
             data['mensaje'] = 'No se ha podido registrar' 
 
-#AGREGAR ESTANTERIA
-    if request.method== 'POST':
-        capacidad = request.POST.get('capacidad')
-        id_pasillo = request.POST.get('id_pasillo')
-        id_producto = request.POST.get('id_producto')
+    return render(request,'mantenedor_pasillo.html',data)
 
-        salida = agregar_estanteria(capacidad,id_pasillo,id_producto)
+def mantenedor_estanteria(request):
+    data = {
+        'cargos':listar_cargos(),
+        'marcas':listar_marcas(),
+        'categorias':listar_categorias(),
+        'productos':listar_productos(),
+        'cliente':listado_clientes(),
+        'empleados':listado_empleados(),
+        'listar_empleados':Empleado.objects.all(),
+        'listado_bodega':Bodega.objects.all(),
+        'bodega':listado_bodega(),
+        'pasillo':listado_pasillo(),
+        'listar_pasillo':Pasillo.objects.all(),
+        'estanteria':listado_estanteria(),
+        'listar_estanteria':Estanteria.objects.all(),
+        
+    } 
+
+#AGREGAR PASILLO
+    if request.method== 'POST':
+        cant_estanterias = request.POST.get('cant_estanterias')
+        id_bodega = request.POST.get('id_bodega')
+
+        salida = agregar_pasillo(cant_estanterias,id_bodega)
         if salida==1:
             data['mensaje'] = 'Creado correctamente'
-            data['estanteria'] = listado_estanteria()
+            data['pasillo'] = listado_pasillo()
         else:
             data['mensaje'] = 'No se ha podido registrar' 
 
-    return render(request,'agregar_empleado.html',data)
-
+    return render(request,'mantenedor_estanteria.html',data)
 
 #METODOS
 
