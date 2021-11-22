@@ -76,17 +76,13 @@ TEMPLATES = [
     },
 ]
 
-
-
-
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1522/xe',
+        'NAME': '127.0.0.1:1521/xe',
         'USER': 'IMPLARRAIN',
         'PASSWORD': '123',
         'TEST': {

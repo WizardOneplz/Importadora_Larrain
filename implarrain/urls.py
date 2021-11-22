@@ -28,18 +28,18 @@ urlpatterns = [
     #TIENDA
     path('admin/', admin.site.urls),
     path('',home),
-    path('carrito', carrito),
+    path('cart', cart),
     path('store', store),
     path('producto/<int:pk>/', producto, name='producto'),
-<<<<<<< HEAD
+
     #REGISTRO
     path('registro',registro,),
-=======
+
     path('seguimiento', seguimiento),
     path('mostrar_info/', mostrarinfo),
     #REGISTRO
     path('registro',registro),
->>>>>>> c8b14b29c8aa073fa2cf32991b6beade94c0f916
+
     path('agregar_empleado',mantenedor_admin),
     path('login', login), 
     path('cerrarsesion',cerrarsesion),
