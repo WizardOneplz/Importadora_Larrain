@@ -1,0 +1,92 @@
+{%extends "base/navbar.html"%}
+{%load static%}
+{% block navbar %}
+<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/">INICIO</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="store">TIENDA</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">OFERTAS</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">FUNCION</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="">FUNCION</a>
+        </li>
+    </ul>
+    <ul class="navbar-nav ms-auto">
+        <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
+            data-bs-target="#exampleModal">INICIAR SESIÓN</button>
+    </ul>
+    <ul class="form-inline my-2 my-lg-0">
+        <a href="carrito">
+            <img id="cart-icon" src="{% static 'img/cart.png' %}">
+        </a>
+        <p id="cart-total">0</p>
+    </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<section>
+    <h2 class="blanco" style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos Disponibles</h2>
+    <div class="container">
+        <div class="row align-items-center justify-content-center row-cols-auto">
+            {% for product in page_obj %}
+            <div class="col-md-auto">
+                <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 280px;">
+                    {% if product.imagen %}
+                    <a href="producto/{{ product.data.0 }}"><img class="thumbnail"
+                            src="data:imagen/png;base64, {{product.imagen}}" alt=""/></a>
+                        {% endif %}
+                        <div class="card-text" style="margin-top: 5px;">
+                            <h4 style="color: black;">{{ product.data.1 }}</h4>
+                            <p>{{ product.data.2 }}$ CLP</p>
+                            <hr>
+                            <button class="btn btn-outline-secondary add-btn" style="margin-bottom: 10px;">Añadir al Carrito</button>
+                            <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
+                                Producto</a>
+                        </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div style="position: block;" class="d-flex justify-content-center">
+            <ul class="pagination">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a href="?page{{ page_obj.previous_page_number }}" class="page-link">Anterior</a>
+                    </li>
+                {% endif %}
+    
+    
+                {% for i in page_obj.paginator.page_range %}
+                    {% if page_obj.number == i %}
+                        <li class="page-item active">
+                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %} 
+    
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.next_page_number }}" class="page-link">Siguiente</a>
+                    </li>
+                {% endif %}
+    
+            </ul>
+        </div>
+    </div>
+    
+</section>
+
+{% endblock %}

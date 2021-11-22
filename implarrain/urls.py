@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 from home.views import *  #esto se debe hacer cada vez que se quiera importar una views de las otras APPS
 from registro.views import *
 from administrador.views import *
@@ -23,8 +25,13 @@ from cliente.views import *
 from agente.views import *
 
 urlpatterns = [
+    #TIENDA
     path('admin/', admin.site.urls),
-    path('home',home),
+    path('',home),
+    path('carrito', carrito),
+    path('store', store),
+    path('producto/<int:pk>/', producto, name='producto'),
+    #REGISTRO
     path('registro',registro,),
     path('agregar_empleado',mantenedor_admin),
     #ELIMINAR
@@ -48,4 +55,5 @@ urlpatterns = [
     path('modificar_datos',modificar_datos),
     path('subir_oferta',subir_oferta),
     path('subir_oferta1/',subir_oferta_listado),
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

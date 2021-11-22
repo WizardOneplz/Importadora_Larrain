@@ -1,17 +1,13 @@
 from django.urls import path
+from django.conf.urls.static import static
+from django.conf import settings
 from .views import *
 
-urlpatterns = [
-<<<<<<< HEAD
-    
-    path('', name='home'),
+urlpatterns = [  
+    path('', name='/'),
     path('', name='registro'),
     path('', name='agente'),
-    path('', home, name='home'),
-    path('', registro, name='registro')
-=======
     path('', name='home'),
     path('', name='registro'),
     path('', name='agente')
->>>>>>> e9f8a83ff2751a9cee1373dfb5eafd8d938c57ce
-]
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

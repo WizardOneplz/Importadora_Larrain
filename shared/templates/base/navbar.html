@@ -7,7 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{%static 'css/bootstrap.css'%}">
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
-    <title>Document</title>
+    <script src="{% static 'app/js/jquery-3.5.1.js' %}"></script>
+    <script src="{% static 'app/js/bootstrap.min.js'%}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>IMPORTADORA LARRAIN</title>
 </head>
 <body class="fondo">
 
@@ -87,9 +90,40 @@
               </div>
         </div>
         </nav>
-    {% block content %}
-    
-    {% endblock%}
-    <script src="{%static 'app/js/bootstrap.min.js'%}"></script>
+        <div id="secondary-wrap" class="secondary-wrap tipi-xs-0 clearfix font-3 mm-ani-1 secondary-menu-skin-3 secondary-menu-width-2">
+          <div class="menu-bg-area">
+              <div class="menu-content-wrap clearfix tipi-vertical-c">
+                  <nav id="secondary-navigation" class="secondary-navigation rotatable tipi-xs-0"> 
+                      <ul id="menu-secondary" class="menu-secondary horizontal-menu tipi-flex menu-secondary ul-padding row font-3">
+                          <li class="current-date menu-padding">
+                              <script>
+                              var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+                              var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+                              var f=new Date();
+                              document.write(diasSemana[f.getDay()] + ", " + f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear());
+                              </script> 
+                          </li> 
+                      </ul>
+                  </nav>
+              </div>
+          </div>
+      </div>
+      <br>
+      <br>
+        <div class="icon-bar">
+          <a href="https://www.facebook.com" target="_blank" class="facebook"><i class="fa fa-facebook"></i></a>
+          <a href="https://www.instagram.com/" target="_blank" class="instagram"><i class="fa fa-instagram"></i></a>
+          <a href="https://www.twitter.com" target="_blank" class="twitter"><i class="fa fa-twitter"></i></a>
+          <a href="https://www.youtube.com" target="_blank" class="youtube"><i class="fa fa-youtube"></i></a>
+        </div>
+        <div class="container">
+
+          {% block content %}
+
+          {% endblock %}
+
+        </div>
+
+
 </body>
 </html>
