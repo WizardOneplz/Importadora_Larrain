@@ -3,7 +3,34 @@
 
 <body>
     {% block content %}
-
+            <table class="table blanco espacio4 align-middle">                                     
+            <thead>
+                <tr>
+                <th scope="col">ID</th>
+                <th scope="col">PRECIO TOTAL</th>
+                <th scope="col">FECHA DE COMPRA</th>
+                <th scope="col">FECHA ESTIMADA</th>
+                <th scope="col">ID ESTADO PAGO</th>
+                <th scope="col">ID DETALLE ORDEN</th>
+                <th scope="col">ID ESTADO DE PEDIDO</th>
+                <th scope="col">ID TIPO DE PAGO</th>
+                <th scope="col">ID TIPO DE ORDEN</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <th scope="row">{{ orden.id_orden }}</th>
+                <td>{{ orden.precio_total }}</td>
+                <td>{{ orden.fecha_compra }}</td>
+                <td>{{ orden.fecha_estimada }}</td>
+                <td>{{ orden.estado_pago_id_estado_pago }}</td>
+                <td>{{ orden.detalle_orden_id_detalle_orden }}</td>
+                <td>{{ orden.estado_pedido_id_estado_pedido }}</td>
+                <td>{{ orden.tipo_pago_id_tipo_pago }}</td>
+                <td>{{ orden.tipo_orden_id_tipo_orden }}</td>
+                </tr>
+            </tbody>
+        </table>
     
     <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
