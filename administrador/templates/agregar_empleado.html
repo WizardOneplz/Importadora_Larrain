@@ -17,7 +17,7 @@
   </div>
 {% endblock%}
 
-</ul>
+
 <body>
     {% block content %}
     <section id="reserva">
@@ -30,9 +30,9 @@
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v-pills-empleados-tab" data-bs-toggle="pill" data-bs-target="#v-pills-empleados" type="button" role="tab" aria-controls="v-pills-empleados" aria-selected="true">Empleados</button>
                             <button class="nav-link" id="v-pills-cliente-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cliente" type="button" role="tab" aria-controls="v-pills-cliente" aria-selected="false">Cliente</button>
-                            <button class="nav-link" id="v-pills-bodega-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bodega" type="button" role="tab" aria-controls="v-pills-bodega" aria-selected="false">Bodega</button>
-                            <button class="nav-link" id="v-pills-pasillo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pasillo" type="button" role="tab" aria-controls="v-pills-pasillo" aria-selected="false">Pasillo</button>   
-                            <button class="nav-link" id="v-pills-estanteria-tab" data-bs-toggle="pill" data-bs-target="#v-pills-estanteria" type="button" role="tab" aria-controls="v-pills-estanteria" aria-selected="false">Estanteria</button>
+                            <a href="mantenedor_bodega" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-bodega-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bodega" type="button" role="tab" aria-controls="v-pills-bodega" aria-selected="false">Bodega</button></a>
+                            <a href="mantenedor_pasillo" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-pasillo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pasillo" type="button" role="tab" aria-controls="v-pills-pasillo" aria-selected="false">Pasillo</button></a> 
+                            <a href="mantenedor_estanteria" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-estanteria-tab" data-bs-toggle="pill" data-bs-target="#v-pills-estanteria" type="button" role="tab" aria-controls="v-pills-estanteria" aria-selected="false">Estanteria</button></a> 
                         </div>
                         <!-- CIERRE MENU-->
                         <div class="tab-content col-md-12" id="v-pills-tabContent">
@@ -48,62 +48,84 @@
                                 <!-- FORMULARIO DE CREACION DE EMPLEADOS-->
                                 <div class="tab-content espacio4" id="nav-tabContent">
                                      <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
-                                        <form action="" method="POST">
+                                        <form class="needs-validation" id="formulario" action="" method="POST" novalidate>
                                             {% csrf_token %}
                                             <div class="row">
                                                 <div class="col-md-">
-                                                    <div class="row espacio_form">
-                                                        <div class="col">
+                                                    <div class="row espacio_form ">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" maxlength="12" required>
+                                                            <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese su rut con guión y sin puntos." minlength="9" maxlength="10" required pattern="[0-9-K ]{9,10}">
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">El Rut debe ser Valido.</div>
                                                         </div>
-                                                      </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
-                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" placeholder="" required> 
                                                     </div>
-                                                    <div class="row espacio_form">
+                                                    <div class="mb-3 position-relative">
+                                                        <label for="exampleFormControlInput1" class="form-label">NOMBRE</label>
+                                                        <input type="text" id="nombre" name="nombre" class="form-control" placeholder="Debe ingresar un nombre o ambos en mayusculas." minlength="3" maxlength="30" required pattern="[A-Z ]{3,30}"> 
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
+                                                    </div>
+                                                    <div class="row espacio_form position-relative">
                                                         <div class="col">
                                                             <label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label>
-                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" placeholder="" required>
+                                                            <input type="name" class="form-control" id="ap_paterno" name="ap_paterno"  placeholder="Debe ingresar su apellido paterno en mayusculas." minlength="3" maxlength="30" pattern="[A-Z ]{4,30}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                         </div>
-                                                        <div class="col">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label>
-                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" placeholder="" required>
+                                                            <input type="name" class="form-control" id="ap_materno" name="ap_materno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido materno en mayusculas."pattern="[A-Z ]{4,30}"  required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
-                                                        <div class="col">
+                                                    <div class="row position-relative">
+                                                        <div class="col-md-6 ">
                                                             <label for="exampleFormControlInput1" class="form-label">GENERO</label>
                                                             <div class="col">
                                                             <div class="form-check form-check-inline col">
-                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M">
+                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M" required>
                                                                 <label class="form-check-label" for="inlineRadio1">MASCULINO</label>
-                                                              </div>
+                                                            </div>
                                                             <div class="form-check form-check-inline col">
                                                                 <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="F">
                                                                 <label class="form-check-label" for="inlineRadio2">FEMENINO</label>
                                                             </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col">
+                                                    
+
+                                                        <div class="col-md-1 position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">TELÉFONO</label>
-                                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678"  required>
+                                                            <h5><label for="">+569</label></h5>
+                                                           <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
+                                                        </div> 
+                                                        <div class="col-md-5 position-relative">
+                                                            <label for="exampleFormControlInput1" class="form-label" >TELÉFONO</label>
+                                                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="12345678" min="11111111" max="99999999" required>
+                                                           <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
                                                         </div> 
                                                     </div>
                                                     <div class="row espacio_form">
-                                                        <div class="col">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">EMAIL</label>
-                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" required>
-                                                          </div>
-                                                          <div class="col">
+                                                            <input type="email" class="form-control" id="email" name="email" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese un Correo Válido.</div>
+                                                        </div>
+                                                          <div class="col position-relative">
                                                               <label for="exampleFormControlInput1" class="form-label">CARGO</label>
-                                                              <select id="cargo" name="cargo" class="form-select">
-                                                                <option value="">Seleccionar</option>
+                                                              <select id="cargo" name="cargo" class="form-select" required>
+                                                                <option selected disabled value="">Seleccione...</option>
                                                                 {% for c in cargos %}
                                                                   <option value="{{ c.0 }}">{{c.1}}</option>
                                                                 {% endfor %}
                                                               </select>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Complete los datos</div>
                                                           </div>
                                                     </div>
                                                     
@@ -114,6 +136,7 @@
                                     </div>
                                     <!-- LISTADO DE EMPLEADOS-->
                                     <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
+                                        <input type="text" id="myInput" onkeyup="BuscaEmpleado()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
                                         <table class="table blanco align-middle text-center">                                     
                                         <thead>
                                             <tr>
@@ -221,173 +244,12 @@
                             </div>  
                             <!-- MENU HORIZONTAL BODEGA-->
                             <div class="tab-pane fade" id="v-pills-bodega" role="tabpanel" aria-labelledby="v-pills-bodega-tab">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                      <button class="nav-link active" id="nav-crearbod-tab" data-bs-toggle="tab" data-bs-target="#nav-crearbod" type="button" role="tab" aria-controls="nav-crearbod" aria-selected="true">Crear Bodega</button>
-                                      <button class="nav-link" id="nav-listarbod-tab" data-bs-toggle="tab" data-bs-target="#nav-listarbod" type="button" role="tab" aria-controls="nav-listarbod" aria-selected="false">Listar Bodega</button>
-                                      <button class="nav-link" id="nav-modificarbod-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarbod" type="button" role="tab" aria-controls="nav-modificarbod" aria-selected="false">Modificar/Eliminar Bodega</button>
-                                    </div>
-                                  </nav>
-                                  <div class="tab-content" id="nav-tabContent">
-                                    <!-- AGREGAR BODEGAS-->
-                                    <div class="tab-pane fade show active" id="nav-crearbod" role="tabpanel" aria-labelledby="nav-crearbod-tab">
-                                        <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
-                                            <form action="" method="POST">
-                                                {% csrf_token %}
-                                                <div class="row">
-                                                    <div class="col-md-">
-                                                     <div class="row espacio_form">
-                                                         <div class="col">
-                                                             <label for="exampleFormControlInput1" class="form-label">CANTIDAD DE PASILLOS</label>
-                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_pasillos" placeholder="" required>
-                                                         </div>
-                                                         <div class="col">
-                                                             <label for="exampleFormControlInput1" class="form-label">DIRECCION</label>
-                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="direccion" placeholder="" required>
-                                                         </div>
-                                                     </div>
-                                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
-                                                    </div>
-                                                </div>
-                                              </form>
-                                        </div>
-                                    </div>
-
-                                    <!-- LISTAR BODEGAS-->
-                                    <div class="tab-pane fade" id="nav-listarbod" role="tabpanel" aria-labelledby="nav-listarbod-tab">
-                                        <table class="table blanco align-middle">                                     
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">NUMERO PASILLOS</th>
-                                                    <th scope="col">DIRECCION</th>
-                                                </tr>
-                                            </thead>
-                                                <tbody>
-                                                {%for c in bodega%}
-                                                <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                        </table>
-                                    </div>
-
-                                    <!-- MODIFICAR BODEGAS-->
-                                    <div class="tab-pane fade" id="nav-modificarbod" role="tabpanel" aria-labelledby="nav-modificarbod-tab">
-                                        <table class="table blanco align-middle">                                     
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">NUMERO PASILLOS</th>
-                                                    <th scope="col">DIRECCION</th>
-                                                    <th colspan="2">OPCIONES</th>
-                                                </tr>
-                                            </thead>
-                                                <tbody>
-                                                {%for b in listado_bodega%}
-                                                <tr>
-                                                    <th scope="row">{{ b.id_bodega }}</th>
-                                                    <td>{{ b.num_pasillo }}</td>
-                                                    <td>{{ b.direccion }}</td>
-                                                    <td><a href="modificar_bodega/{{ b.id_bodega }}" class="btn btn-primary">MODIFICAR</a></td>
-                                                    <td><a href="eliminar_bodega/{{ b.id_bodega }}" class="btn btn-danger">ELIMINAR</a></td>
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                        </table>
-                                        {{alerta}}
-                                    </div>
-                                  </div>   
+                                
                             </div>   
 
                             <!-- MENU HORIZONTAL PASILLO-->
                             <div class="tab-pane fade" id="v-pills-pasillo" role="tabpanel" aria-labelledby="v-pills-pasillo-tab">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                        <button class="nav-link active" id="nav-crearpass-tab" data-bs-toggle="tab" data-bs-target="#nav-crearpass" type="button" role="tab" aria-controls="nav-crearpass" aria-selected="true">Crear Pasillo</button>
-                                        <button class="nav-link" id="nav-listarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-listarpass" type="button" role="tab" aria-controls="nav-listarpass" aria-selected="false">Listar Pasillo</button>
-                                        <button class="nav-link" id="nav-modificarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarpass" type="button" role="tab" aria-controls="nav-modificarpass" aria-selected="false">Eliminar Pasillo</button>
-                                    </div>
-                                </nav>
-                                    <div class="tab-content" id="nav-tabContent">
-                                    <!-- AGREGAR PASILLOS-->
-                                    <div class="tab-pane fade show active" id="nav-crearpass" role="tabpanel" aria-labelledby="nav-crearpass-tab">
-                                        <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
-                                            <form action="" method="POST">
-                                                {% csrf_token %}
-                                                <div class="row">
-                                                    <div class="col-md-">
-                                                     <div class="row espacio_form">
-                                                         <div class="col">
-                                                             <label for="exampleFormControlInput1" class="form-label">CANTIDAD DE ESTANTERIAS</label>
-                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="cant_estanterias" placeholder="" required>
-                                                         </div>
-                                                         <div class="col">
-                                                             <label for="exampleFormControlInput1" class="form-label">ID BODEGA</label>
-                                                             <select id="id_bodega" name="id_bodega" class="form-select">
-                                                                <option value="">Seleccionar</option>
-                                                                {% for b in bodega%}
-                                                                  <option value="{{ b.0 }}">{{b.0}}</option>
-                                                                {% endfor %}
-                                                            </select>
-                                                         </div>
-                                                     </div>
-                                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
-                                                    </div>
-                                                </div>
-                                              </form>
-                                        </div>
-                                    </div>
-
-                                    <!-- LISTAR PASILLOS-->
-                                    <div class="tab-pane fade" id="nav-listarpass" role="tabpanel" aria-labelledby="nav-listarpass-tab">
-                                        <table class="table blanco align-middle">                                     
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">CANTIDAD ESTANTERIAS</th>
-                                                    <th scope="col">ID BODEGA</th>
-                                                </tr>
-                                            </thead>
-                                                <tbody>
-                                                {%for c in pasillo%}
-                                                <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                        </table>
-                                    </div>
-
-                                    <!-- MODIFICAR PASILLOS-->
-                                    <div class="tab-pane fade" id="nav-modificarpass" role="tabpanel" aria-labelledby="nav-modificarpass-tab">
-                                        <table class="table blanco align-middle">                                     
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">CANTIDAD ESTANTERIAS</th>
-                                                    <th scope="col">ID BODEGA</th>
-                                                    <th colspan="2">OPCIONES</th>
-                                                </tr>
-                                            </thead>
-                                                <tbody>
-                                                {%for p in listar_pasillo%}
-                                                <tr>
-                                                    <th scope="row">{{ p.id_pasillo }}</th>
-                                                    <td>{{ p.num_estanteria }}</td>
-                                                    <td>{{ p.bodega_id_bodega }}</td>
-                                                    <td><a href="eliminar_pasillo/{{ p.id_pasillo }}" class="btn btn-danger">ELIMINAR</a></td>
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                        </table>
-                                    </div>
-                                  </div>   
+                                     
                             </div>  
 
                             <!-- MENU HORIZONTAL ESTANTERIA-->
@@ -403,29 +265,35 @@
                                       <!-- AGREGAR ESTANTERIA-->
                                     <div class="tab-pane fade show active" id="nav-crearest" role="tabpanel" aria-labelledby="nav-crearest-tab">
                                         <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
-                                            <form action="" method="POST">
+                                            <form class="needs-validation" action="" method="POST" novalidate>
                                                 {% csrf_token %}
                                                 <div class="row">
                                                     <div class="col-md-">
                                                      <div class="row espacio_form">
-                                                         <div class="col">
+                                                         <div class="col position-relative">
                                                              <label for="exampleFormControlInput1" class="form-label">CAPACIDAD</label>
-                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="capacidad" placeholder="" required>
-                                                         </div>
-                                                         <div class="col">
+                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="capacidad" min="100" max="200" placeholder="Ingrese una capacidad entre 100 y 200 unidades." required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese una capacidad valida. Entre 100 y 200 Unidades.</div>
+                                                            </div>
+                                                         <div class="col position-relative">
                                                              <label for="exampleFormControlInput1" class="form-label">ID PASILLO</label>
-                                                             <input type="text" class="form-control" id="exampleFormControlInput1" name="id_pasillo" placeholder="" required>
-                                                         </div>
+                                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="id_pasillo" min="1" placeholder="Ingrese un ID de pasillo segun estanteria deseada." required>
+                                                            <!--MENSAJE--> 
+                                                            <div class="invalid-feedback">Ingrese un ID de pasillo valido.</div>
+                                                        </div>
                                                      </div>
                                                     <div class="row espacio_form">
-                                                        <div class="col">
+                                                        <div class="col position-relative">
                                                             <label for="exampleFormControlInput1" class="form-label">NOMBRE PRODUCTO</label>
-                                                            <select id="id_producto" name="id_producto" class="form-select">
+                                                            <select id="id_producto" name="id_producto" class="form-select" required>
                                                                 <option value="">Seleccionar</option>
                                                                 {% for p in productos%}
                                                                   <option value="{{ p.0 }}">{{p.1}}</option>
                                                                 {% endfor %}
                                                             </select>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">El Rut debe ser Valido.</div>
                                                         </div>
                                                     </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
@@ -485,7 +353,7 @@
                                                 </tbody>
                                         </table>
                                     </div>
-                                  </div>   
+                                </div>   
                             </div>  
                         </div>
                     </div>             
@@ -493,7 +361,8 @@
             </div>
         </div>        
     </section> 
-        
+
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
 </body>
 </html>

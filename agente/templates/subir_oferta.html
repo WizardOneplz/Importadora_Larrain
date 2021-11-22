@@ -50,16 +50,20 @@
                                         </div>
                                         {%endfor%}
                                         {% endif %}
-                                        <form action="/subir_oferta1/" method="post" enctype="multipart/form-data">  
+                                        <form class="needs-validation espacio_form" action="/subir_oferta1/" method="post" enctype="multipart/form-data" novalidate>  
                                             {% csrf_token %}  
-                                            <inppload Excel file</h2>
+                                            <inppload Excel file></inppload>
                                             <h3>Subir Nueva Oferta</h3>
-                                            <input class="boton_subir" type="file" name="myfile">
-                                            <br>
-                                            <br>  
-                                            <button type="submit" class="btn btn-warning btn-lg">Subir</button>  
-                                            {{mensaje}}
+                                            <input class="boton_subir position-relative" type="file" name="myfile" required>
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">Debe Seleccionar un archivo .xlsx.</div>
+                                            <div >
+                                                <button type="submit" class="btn btn-warning btn-lg">Subir</button>  
+                                                {{mensaje}}
+                                            </div>
                                         </form>
+                                        
+                                        
                                     </div>
                                     <!-- FORMULARIO DE LISTADO DE OFERTAS-->
                                     <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
@@ -121,6 +125,7 @@
             </div>
         </div>        
     </section> 
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock %}
     </div>   
 </body>

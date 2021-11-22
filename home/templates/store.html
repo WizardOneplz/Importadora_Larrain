@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {%extends "base/navbar.html"%}
 {%load static%}
 {% block navbar %}
@@ -89,4 +90,33 @@
     
 </section>
 
+=======
+{%extends "base/navbarStore.html"%}
+{%load static%}
+
+{% block content %}
+<h1 class="blanco" style="text-align: center;">Productos Disponibles</h2>
+<br>
+<br>
+{% for productoss in productos %}
+<div class="row align-items-center justify-content-center flex-container" style="margin-bottom: 40px;">
+    <div class="col-md-12">
+        <div class="container">
+            <div style="text-align: center; width: 900px;">
+                <div class="col-lg-4">
+                    <img class="thumbnail" src="{{ producto.imagen.url }}">
+                    <div class="box-element product">
+                        <h4><strong>{{ productoss.nombre_producto }}</strong></h4>
+                        <h5 style="display: inline-block;"><strong>{{ productoss.precio }} $CLP</strong></h5>
+                        <hr>
+                        <button  class="btn btn-outline-secondary add-btn"><a href="">Añadir al Carrito</button></a>
+                        <a class="btn btn-outline-success" href="{% url 'producto' pk=productoss.pk %}">Ver Producto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+>>>>>>> c8b14b29c8aa073fa2cf32991b6beade94c0f916
 {% endblock %}

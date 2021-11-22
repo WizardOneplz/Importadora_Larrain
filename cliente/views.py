@@ -23,3 +23,4 @@ def listado_clientes():
     for fila in out_cur:
         lista.append(fila)
     return lista
+

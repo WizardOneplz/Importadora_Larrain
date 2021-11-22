@@ -1,0 +1,48 @@
+{%extends "base/navbarStore.html"%}
+{%load static%}
+
+<body>
+    {% block content %}
+    <section>
+        <div class="container-fluid espacio2 gradient3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-7">
+                    <div class="container espacio3">
+                        <div class="card row col-md-12">
+                            <div class="card-header">
+                                <h1 class="text-center">¡Ingresa tu numero de Orden!</h2>
+                            </div>
+                            <div class="card-body"> 
+                                <div class="d-flex align-items-start text-center">
+                                    <form class="needs-validation col-md-12" action="mostrar_info/" method="POST" novalidate>
+                                        {% csrf_token %}
+                                        <div class="row col-md-12">
+                                            <div class="row col-md-3">
+                                            </div>
+                                            <div class="col-md-7">
+                                                <div class="row espacio_form">
+                                                    <div class="col position-relative">
+                                                        <input type="number" class="form-control" id="id_orden" name="id_orden" placeholder="Ingresa tu numero de orden." min="1" max="99999999" required>
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">El numero de orden debe ser valido.</div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" value="Submit" class="btn btn-warning btn-lg">CONSULTAR</button>
+                                                {{mensaje}}
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                                
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{%static 'app/js/formulario.js'%}"></script>
+    {% endblock%}
+</body>

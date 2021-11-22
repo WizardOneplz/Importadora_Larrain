@@ -27,174 +27,161 @@
                         <div class="d-flex align-items-start">
                         <!--Menu Bodeguero-->
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <button class="nav-link active" id="v-pills-mantenedor-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mantenedor" type="button" role="tab" aria-controls="v-pills-mantenedor" aria-selected="true">Mantenedores</button>
-                            <button class="nav-link" id="v-pills-stock-tab" data-bs-toggle="pill" data-bs-target="#v-pills-stock" type="button" role="tab" aria-controls="v-pills-stock" aria-selected="false">Stock</button>
-                            <button class="nav-link" id="v-pills-pedidas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Pedidos</button>
+                            <a href="mantenedor_marca" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-marcas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marcas" type="button" role="tab" aria-controls="v-pills-marcas" aria-selected="true">Marcas</button></a>
+                            <a href="mantenedor_categorias" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-categorias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categorias" type="button" role="tab" aria-controls="v-pills-categorias" aria-selected="true">Categorias</button></a>
+                            <button class="nav-link active" id="v-pills-productos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-productos" type="button" role="tab" aria-controls="v-pills-productos" aria-selected="true">Productos</button>
+                            <button class="nav-link" id="v-pills-pedidos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Orden de Compra</button>
                             <button class="nav-link" id="v-pills-solicitud-tab" data-bs-toggle="pill" data-bs-target="#v-pills-solicitud" type="button" role="tab" aria-controls="v-pills-solicitud" aria-selected="false">Solicitudes</button>
                         </div>
                         <div class="tab-content col-md-10" id="v-pills-tabContent">
-                            <!--Opciones de mantenedor-->
-                            <div class="tab-pane fade show active" id="v-pills-mantenedor" role="tabpanel" aria-labelledby="v-pills-mantenedor-tab">
-                            <nav>
-                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                <button class="nav-link active" id="nav-marca-tab" data-bs-toggle="tab" data-bs-target="#nav-marca" type="button" role="tab" aria-controls="nav-marca" aria-selected="true">Crear Marca</button>
-                                <button class="nav-link" id="nav-categoria-tab" data-bs-toggle="tab" data-bs-target="#nav-categoria" type="button" role="tab" aria-controls="nav-categoria" aria-selected="false">Crear Categoria</button>
-                                <button class="nav-link" id="nav-producto-tab" data-bs-toggle="tab" data-bs-target="#nav-producto" type="button" role="tab" aria-controls="nav-producto" aria-selected="false">Crear Producto</button>
+                            <!--Opciones de Marcas-->
+                            <div class="tab-pane fade" id="v-pills-marcas" role="tabpanel" aria-labelledby="v-pills-marcas-tab">
                             </div>
-                            </nav>
-                            <div class="tab-content" id="nav-tabContent">
-                                <!--Mantedor de Marcas-->
-                                <div class="tab-pane fade show active" id="nav-marca" role="tabpanel" aria-labelledby="nav-marca-tab">
-                                <form action="" method="POST">
-                                    <div class="row espacio4">
-                                        {% csrf_token %}
-                                        <div class="col">
-                                            <label class="espacio_form" for="inputEmail4">ID de Marca</label>
-                                            <input type="number" class="form-control" name="id" id="id" placeholder="">
-                                        </div>
-                                        <div class="col">
-                                            <label class="espacio_form" for="inputEmail4">Nombre de Marca</label>
-                                            <input type="text" class="form-control" name="nombre_marca" id="nombre_marca" placeholder="">
-                                        </div>
+                            <!--Cierre Opciones de Marcas-->
+                            <!--Opciones de Categorias-->
+                            <div class="tab-pane fade " id="v-pills-categorias" role="tabpanel" aria-labelledby="v-pills-categorias-tab">
+                            </div>
+                            <!--Cierre Opciones de Categorias-->
+                            <!--Opciones de Productos-->
+                            <div class="tab-pane fade show active" id="v-pills-productos" role="tabpanel" aria-labelledby="v-pills-productos-tab">
+                                <nav>
+                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                        <button class="nav-link active" id="nav-crearproducto-tab" data-bs-toggle="tab" data-bs-target="#nav-crearproducto" type="button" role="tab" aria-controls="nav-crearproducto" aria-selected="true">Crear Producto</button>
+                                        <button class="nav-link" id="nav-editarproducto-tab" data-bs-toggle="tab" data-bs-target="#nav-editarproducto" type="button" role="tab" aria-controls="nav-editarproducto" aria-selected="false">Editar / Eliminar Producto</button>
                                     </div>
-                                    <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Marca</button>
-                                </form>
-                                </div>
-                                <!--Cierre Mantedor de Marcas-->
-                                <!--Mantedor de Categorias-->
-                                <div class="tab-pane fade" id="nav-categoria" role="tabpanel" aria-labelledby="nav-categoria-tab">
-                                <form action="" method="POST">
-                                    <div class="row espacio4">
-                                        {% csrf_token %}
-                                        <div class="col">
-                                            <label class="espacio_form" for="inputEmail4">ID de Categoria</label>
-                                            <input type="number" class="form-control" name="id_categoria" id="id_categoria" placeholder="">
-                                        </div>
-                                        <div class="col">
-                                            <label class="espacio_form" for="inputEmail4">Nombre de Categoria</label>
-                                            <input type="text" class="form-control" name="nombre_categoria" id="nombre_categoria" placeholder="">
-                                        </div>
-                                    </div>
-                                    <button type="submit" value="Guardar" class="btn btn-warning btn-lg espacio4">Crear Categoria</button>
-                                </form>
-                                </div>
-                                <!--Cierre Mantedor de Categorias-->
-                                <!--Mantedor de Productos-->
-                                <div class="tab-pane fade" id="nav-producto" role="tabpanel" aria-labelledby="nav-producto-tab">
-                                <form action="/agregar_producto/" method="POST" class="espacio4" enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <div class="row">
-                                <div class="col-md-">
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" placeholder="" required>
-                                        </div>
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Precio</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="precio" placeholder="" required> 
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
-                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="" required> 
-                                    </div>
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Oferta</label>
-                                            <div class="col">
-                                            <div class="form-check form-check-inline col">
-                                                <input class="form-check-input" type="radio" name="oferta" id="inlineRadio1" value="S">
-                                                <label class="form-check-label" for="inlineRadio1">Si</label>
+                                </nav>
+                                <div class="tab-content" id="nav-tabContent">
+                                    <!--Creacion de Productos-->
+                                    <div class="tab-pane fade show active" id="nav-crearproducto" role="tabpanel" aria-labelledby="nav-crearproducto-tab">
+                                        <form action="" method="POST" class="espacio4 needs-validation" enctype="multipart/form-data" novalidate>
+                                            {% csrf_token %}
+                                            <div class="row">
+                                            <div class="col-md-">
+                                                <div class="row espacio_form">
+                                                    <div class="col">
+                                                        <label for="exampleFormControlInput1" class="form-label">ID Producto</label>
+                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="id" placeholder="GENERADO AUTOMATICAMENTE"  readonly>
+                                                    </div>
+                                                    <div class="col position-relative">
+                                                        <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
+                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre_producto" placeholder="Debe ingresar un nombre en mayusculas." minlength="3" maxlength="30" required pattern="[A-Z ]{3,30}">
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras Mayúsculas.</div>
+                                                    </div>
                                                 </div>
-                                            <div class="form-check form-check-inline col">
-                                                <input class="form-check-input" type="radio" name="oferta" id="inlineRadio2" value="N">
-                                                <label class="form-check-label" for="inlineRadio2">No</label>
-                                            </div>
+                                                <div class="mb-3 position-relative">
+                                                    <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                                                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese un precio, entre 1000 y 3.000.000" min="1000" max="3000000" required> 
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">Ingresar un Precio valido. Entre 1 y 3.000.000.</div>
+                                                </div>
+                                                <div class="mb-3 position-relative">
+                                                    <label for="exampleFormControlInput1" class="form-label">Cantidad</label>
+                                                    <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" placeholder="Ingrese una cantidad, entre 0 y 1000." min="0" max="1000"required> 
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">Ingrese una cantidad valida. Entre 0 y 1000</div>
+                                                </div>
+                                                <div class="row espacio_form position-relative">
+                                                    <div class="col">
+                                                        <label for="exampleFormControlInput1" class="form-label">Oferta</label>
+                                                        <div class="col">
+                                                        <div class="form-check form-check-inline col">
+                                                            <input class="form-check-input" type="radio" name="oferta" id="inlineRadio1" value="S" required>
+                                                            <label class="form-check-label" for="inlineRadio1">Si</label>
+                                                            </div>
+                                                        <div class="form-check form-check-inline col">
+                                                            <input class="form-check-input" type="radio" name="oferta" id="inlineRadio2" value="N">
+                                                            <label class="form-check-label" for="inlineRadio2">No</label>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col position-relative">
+                                                        <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
+                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="p_oferta" placeholder="Ingrese un porcentaje de oferta, entre 0 y 100." min="0" max="100" required>
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">Ingrese un porcentaje de oferta valido. Entre 0 y 100.</div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3 position-relative">
+                                                    <label for="exampleFormControlInput1" class="form-label">Imagen referencial</label>
+                                                    <input type="file" class="form-control" id="exampleFormControlInput1" name="imagen" placeholder="" required> 
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">Insertar una Imagen.</div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="mb-3 position-relative">
+                                                            <label for="exampleFormControlInput1" class="form-label">Marca</label>
+                                                            <select id="id_marca" name="id_marca" class="form-select" required>
+                                                                <option selected disabled value="">Seleccione...</option>
+                                                                {% for m in marcas %}
+                                                                <option value="{{ m.id_marca }}">{{m.nombre_marca}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese una Marca.</div>
+                                                        </div>
+                                                </div>
+                                                    <div class="col">
+                                                        <div class="mb-3 position-relative">
+                                                        <label for="exampleFormControlInput1" class="form-label">Categoria</label>
+                                                            <select id="id_categoria" name="id_categoria" class="form-select" required>
+                                                                <option selected disabled value="">Seleccione...</option>
+                                                                {% for c in categorias %}
+                                                                <option value="{{ c.id_categoria }}">{{c.nombre_categoria}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese una Categoria.</div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <button type="submit" value="Submit" class="btn btn-warning btn-lg">Crear Producto</button>
+                                                {{MensajeProducto}}
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Porcentaje de Oferta</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="p_oferta" placeholder="">
-                                        </div>
+                                        </form>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="exampleFormControlInput1" class="form-label">Imagen referencial</label>
-                                        <input type="file" class="form-control" id="exampleFormControlInput1" name="imagen" placeholder="" required> 
+                                    <!--Cierre Creacion de Productos-->
+                                    <!--Editar Productos-->
+                                    <div class="tab-pane fade" id="nav-editarproducto" role="tabpanel" aria-labelledby="nav-editarproducto-tab">
+                                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                    <table id="myTable" class="table blanco espacio4 align-middle listaproductos">                                     
+                                        <thead>
+                                            <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">NOMBRE</th>
+                                            <th scope="col">PRECIO</th>
+                                            <th scope="col">STOCK</th>
+                                            <th scope="col">OFERTA</th>
+                                            <th scope="col">PORCENTAJE DE OFERTA</th>
+                                            <th scope="col">ID MARCA</th>
+                                            <th scope="col">ID CATEGORIA</th>
+                                            <th colspan="2">OPCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for p in productoslistados%}
+                                            <tr>
+                                            <th scope="row">{{ p.id_producto }}</th>
+                                            <td>{{ p.nombre_producto}}</td>
+                                            <td>{{ p.precio }}</td>
+                                            <td>{{ p.stock }}</td>
+                                            <td>{{ p.oferta }}</td>
+                                            <td>{{ p.porcentaje }}</td>
+                                            <td>{{ p.marca_id_marca }}</td>
+                                            <td>{{ p.categoria_id_categoria }}</td>
+                                            <td><a href="modificar_producto/{{ p.id_producto }}" class="btn btn-primary">MODIFICAR<a/></td>
+                                            <td><a href="eliminar_producto/{{ p.id_producto }}" class="btn btn-danger">ELIMINAR<a/></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
                                     </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <div class="mb-3">
-                                                <label for="exampleFormControlInput1" class="form-label">Marca</label>
-                                                <select id="id_marca" name="id_marca" class="form-select">
-                                                    <option value="">Seleccionar</option>
-                                                    {% for m in marcas %}
-                                                      <option value="{{ m.0 }}">{{m.1}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                    </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Categoria</label>
-                                                <select id="id_categoria" name="id_categoria" class="form-select">
-                                                    <option value="">Seleccionar</option>
-                                                    {% for c in categorias %}
-                                                    <option value="{{ c.0 }}">{{c.1}}</option>
-                                                    {% endfor %}
-                                                </select>
-                                            </div>
-                                        </div> 
-                                    </div>
-                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Crear Producto</button>
+                                    <!--Cierre Editar Producto-->
                                 </div>
                             </div>
-                            </form>
-                            </div>
-                            <!--Cierre Mantedor de Productos-->
-                            </div>
-                            </div>
-                            <!-- Cierre Opciones de mantenedor-->
-                            <!-- Entrada y Salida de productos-->
-                            <div class="tab-pane fade" id="v-pills-stock" role="tabpanel" aria-labelledby="v-pills-stock-tab">
-                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control"></input>
-                            <table id="myTable" class="table blanco espacio4 align-middle listaproductos">                                     
-                                    <thead>
-                                        <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">NOMBRE</th>
-                                        <th scope="col">PRECIO</th>
-                                        <th scope="col">STOCK</th>
-                                        <th scope="col">OFERTA</th>
-                                        <th scope="col">PORCENTAJE DE OFERTA</th>
-                                        <th scope="col">ID MARCA</th>
-                                        <th scope="col">ID CATEGORIA</th>
-                                        <th colspan="2">OPCIONES</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {%for p in productoslistados%}
-                                        <tr>
-                                        <th scope="row">{{ p.id_producto }}</th>
-                                        <td>{{ p.nombre_producto}}</td>
-                                        <td>{{ p.precio }}</td>
-                                        <td>{{ p.stock }}</td>
-                                        <td>{{ p.oferta }}</td>
-                                        <td>{{ p.porcentaje }}</td>
-                                        <td>{{ p.marca_id_marca }}</td>
-                                        <td>{{ p.categoria_id_categoria }}</td>
-                                        <td><a href="modificar_producto/{{ p.id_producto }}" class="btn btn-primary">MODIFICAR<a/></td>
-                                        <td><a href="eliminar_producto/{{ p.id_producto }}" class="btn btn-danger">ELIMINAR<a/></td>
-                                        </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- Cierre Entrada y Salida de productos-->
+                            <!--Cierre Opciones de Productos-->
                             <!-- Lista de Pedidos-->
                             <div class="tab-pane fade" id="v-pills-pedidos" role="tabpanel" aria-labelledby="v-pills-pedidos-tab">
                                 <table class="table blanco espacio4 align-middle">                                     
@@ -212,17 +199,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {%for p in listapedidos%}
+                                        {%for p in pedidoslistados%}
                                         <tr>
-                                        <th scope="row">{{ p.0 }}</th>
-                                        <td>{{ p.1 }}</td>
-                                        <td>{{ p.2 }}</td>
-                                        <td>{{ p.3 }}</td>
-                                        <td>{{ p.4 }}</td>
-                                        <td>{{ p.5 }}</td>
-                                        <td>{{ p.6 }}</td>
-                                        <td>{{ p.7 }}</td>
-                                        <td>{{ p.8 }}</td>
+                                        <th scope="row">{{ p.id_orden }}</th>
+                                        <td>{{ p.precio_total }}</td>
+                                        <td>{{ p.fecha_compra }}</td>
+                                        <td>{{ p.fecha_estimada }}</td>
+                                        <td>{{ p.estado_pago_id_estado_pago }}</td>
+                                        <td>{{ p.detalle_orden_id_detalle_orden }}</td>
+                                        <td>{{ p.estado_pedido_id_estado_pedido }}</td>
+                                        <td>{{ p.tipo_pago_id_tipo_pago }}</td>
+                                        <td>{{ p.tipo_orden_id_tipo_orden }}</td>
+                                        <td><a href="modificar_orden/{{ p.id_orden }}" class="btn btn-primary">MODIFICAR<a/></td>
                                         </tr>
                                         {% endfor %}
                                     </tbody>
@@ -296,6 +284,8 @@
         }
         }
     </script> 
+
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
 </body>
 </html>

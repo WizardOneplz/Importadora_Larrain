@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {%extends "base/navbar.html"%}
 {%load static%}
 {% block navbar %}
@@ -54,5 +55,21 @@
                 <button  class="btn btn-outline-secondary add-btn">Añadir al Carrito</button>
         </div>
         {% endfor %}
+=======
+{%extends "base/navbarStore.html"%}
+{%load static%}
+
+{% block content %}
+    <div class="row align-items-center justify-content-center" style="margin-bottom: 200px;">
+        <div class="col-md-9 blanco">
+            <img src="{{ productos.imagen.url}}" />
+            <h2>Producto: {{ productos.nombre_producto }}</h2>
+            <h4>Precio: {{ productos.precio}}</h4>
+            <h4>Stock: {{ productos.stock}}</h4>
+            <p>Marca: {{ marcas.nombre_marca|linebreaksbr }}</p>
+            <p>Categoria: {{ categorias.nombre_categoria }}</p>
+        
+        </div>
+>>>>>>> c8b14b29c8aa073fa2cf32991b6beade94c0f916
     </div>
 {% endblock %}

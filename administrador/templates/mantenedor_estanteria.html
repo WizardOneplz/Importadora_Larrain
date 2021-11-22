@@ -1,0 +1,183 @@
+{%extends "base/navbar.html"%}
+{%load static%}
+
+{% block navbar%}
+<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+      <li class="nav-item">
+      <a class="nav-link" aria-current="page" href="home">Bienvenido</a>
+      </li>
+      <li class="nav-item">
+      <a class="nav-link" href="">*nombre ADMIN*</a>
+      </li>
+  </ul>
+  <ul class="navbar-nav ms-auto">
+      <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">CERRAR SESIÓN</button>
+  </ul>
+  </div>
+{% endblock%}
+
+</ul>
+<body>
+    {% block content %}
+    <section id="reserva">
+        <div class="container-fluid espacio2 gradient3">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12 blanco">
+                    <div class="container espacio3">
+                    <div class="d-flex align-items-start">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                        <a href="agregar_empleado" style="text-decoration:none"><button class="nav-link" id="v-pills-empleados-tab" data-bs-toggle="pill" data-bs-target="#v-pills-empleados" type="button" role="tab" aria-controls="v-pills-empleados" aria-selected="false">Empleados</button></a>
+                        <button class="nav-link" id="v-pills-cliente-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cliente" type="button" role="tab" aria-controls="v-pills-cliente" aria-selected="false">Cliente</button>
+                        <a href="mantenedor_bodega" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-bodega-tab" data-bs-toggle="pill" data-bs-target="#v-pills-bodega" type="button" role="tab" aria-controls="v-pills-bodega" aria-selected="false">Bodega</button></a>
+                        <a href="mantenedor_pasillo" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-pasillo-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pasillo" type="button" role="tab" aria-controls="v-pills-pasillo" aria-selected="false">Pasillo</button></a>
+                        <button class="nav-link active" id="v-pills-estanteria-tab" data-bs-toggle="pill" data-bs-target="#v-pills-estanteria" type="button" role="tab" aria-controls="v-pills-estanteria" aria-selected="true">Estanteria</button>
+                    </div>
+                    <div class="tab-content col-md-12" id="v-pills-tabContent">
+                        <!-- Listado CLIENTES-->
+                        <div class="tab-pane fade" id="v-pills-cliente" role="tabpanel" aria-labelledby="v-pills-cliente-tab">
+                            <table class="table blanco align-middle">                                     
+                                <thead>
+                                    <tr>
+                                        <th scope="col">RUT</th>
+                                        <th scope="col">NOMBRE</th>
+                                        <th scope="col">APELLIDO PATERNO</th>
+                                        <th scope="col">APELLIDO MATERNO</th>
+                                        <th scope="col">GENERO</th>
+                                        <th scope="col">TELÉFONO</th>
+                                        <th scope="col">EMAIL</th>
+                                        <th scope="col">DIRECCION</th>
+                                        <th scope="col">CIUDAD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for c in cliente%}
+                                    <tr>
+                                        <th scope="row">{{ c.0 }}</th>
+                                        <td>{{ c.1 }}</td>
+                                        <td>{{ c.2 }}</td>
+                                        <td>{{ c.3 }}</td>
+                                        <td>{{ c.4 }}</td>
+                                        <td>{{ c.5 }}</td>
+                                        <td>{{ c.6 }}</td>
+                                        <td>{{ c.7 }}</td>
+                                        <td>{{ c.8 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- Cierre Listado CLIENTES-->
+                        <!-- Mantenedor Estanteria-->
+                        <div class="tab-pane fade show active" id="v-pills-pasillo" role="tabpanel" aria-labelledby="v-pills-pasillo-tab">
+                            <nav>
+                            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                <button class="nav-link active" id="nav-crearest-tab" data-bs-toggle="tab" data-bs-target="#nav-crearest" type="button" role="tab" aria-controls="nav-crearest" aria-selected="true">Crear Estanteria</button>
+                                <button class="nav-link" id="nav-listarest-tab" data-bs-toggle="tab" data-bs-target="#nav-listarest" type="button" role="tab" aria-controls="nav-listarest" aria-selected="false">Listar Estanteria</button>
+                                <button class="nav-link" id="nav-modificarest-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarest" type="button" role="tab" aria-controls="nav-modificarest" aria-selected="false">Eliminar Estanteria</button>
+                            </div>
+                            </nav>
+                            <div class="tab-content" id="nav-tabContent">
+                                <!-- Crear Estanteria-->
+                                <div class="tab-pane fade show active espacio4" id="nav-crearest" role="tabpanel" aria-labelledby="nav-crearest-tab">
+                                    <form class="needs-validation" action="" method="POST" novalidate>
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-">
+                                                <div class="row espacio_form">
+                                                    <div class="col position-relative">
+                                                        <label for="exampleFormControlInput1" class="form-label">CAPACIDAD</label>
+                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="capacidad" min="100" max="200" placeholder="Ingrese una capacidad entre 100 y 200 unidades." required>
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">Ingrese una capacidad valida. Entre 100 y 200 Unidades.</div>
+                                                    </div>
+                                                    <div class="col position-relative">
+                                                        <label for="exampleFormControlInput1" class="form-label">ID PASILLO</label>
+                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="id_pasillo" min="1" placeholder="Ingrese un ID de pasillo segun estanteria deseada." required>
+                                                    <!--MENSAJE--> 
+                                                    <div class="invalid-feedback">Ingrese un ID de pasillo valido.</div>
+                                                </div>
+                                                </div>
+                                            <div class="row espacio_form">
+                                                <div class="col position-relative">
+                                                    <label for="exampleFormControlInput1" class="form-label">NOMBRE PRODUCTO</label>
+                                                    <select id="id_producto" name="id_producto" class="form-select" required>
+                                                        <option value="">Seleccionar</option>
+                                                        {% for p in productos%}
+                                                            <option value="{{ p.0 }}">{{p.1}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                    <!--MENSAJE-->
+                                                    <div class="invalid-feedback">El Rut debe ser Valido.</div>
+                                                </div>
+                                            </div>
+                                                <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- Cierre Crear Estanteria-->
+                                <!-- Lista Estanteria-->
+                                <div class="tab-pane fade" id="nav-listarest" role="tabpanel" aria-labelledby="nav-listarest-tab">
+                                    <table class="table blanco align-middle">                                     
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">CAPACIDAD</th>
+                                                <th scope="col">ID PASILLO</th>
+                                                <th scope="col">NOMBRE PRODUCTO</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        {%for e in estanteria%}
+                                        <tr>
+                                            <th scope="row">{{ e.0}}</th>
+                                            <td>{{ e.1 }}</td>
+                                            <td>{{ e.2 }}</td>
+                                            <td>{{ e.3 }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Cierre Lista Estanteria-->
+                                <!-- Editar Estanteria-->
+                                <div class="tab-pane fade" id="nav-modificarest" role="tabpanel" aria-labelledby="nav-modificarest-tab">
+                                    <table class="table blanco align-middle">                                     
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">CAPACIDAD</th>
+                                                <th scope="col">ID PASILLO</th>
+                                                <th scope="col">NOMBRE PRODUCTO</th>
+                                                <th colspan="2">OPCIONES</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {%for e in listar_estanteria%}
+                                            <tr>
+                                                <th scope="row">{{ e.id_estanteria }}</th>
+                                                <td>{{ e.capacidad }}</td>
+                                                <td>{{ e.pasillo_id_pasillo }}</td>
+                                                <td>{{ e.producto_id_producto }}</td>
+                                                <td><a href="eliminar_estanteria/{{ e.id_estanteria }}" class="btn btn-danger">ELIMINAR</a></td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!-- Cierre Editar Estanteria-->
+                            </div>
+                        </div>
+                        <!-- Cierre Mantenedor Estanteria-->
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="{%static 'app/js/formulario.js'%}"></script>
+    {% endblock%}
+</body>
+</html>
