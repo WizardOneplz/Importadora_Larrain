@@ -306,7 +306,6 @@ class Pasillo(models.Model):
         managed = False
         db_table = 'pasillo'
 
-
 class Producto(models.Model):
     id_producto = models.BigIntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=30)

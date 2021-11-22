@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
-from core.models import Producto, Marca, Categoria
+from core.models import Producto, Marca, Categoria  
 
 # Create your views here.
 
@@ -23,5 +23,9 @@ def producto(request, pk):
     return render(request, 'producto.html',{'productos': productos, 'marcas':marcas, 'categorias':categorias})
 
 def seguimiento(request):
-
+  
     return render(request,'seguimiento.html')
+
+def info_orden(request):
+
+    return render(request,'info_orden.html')
