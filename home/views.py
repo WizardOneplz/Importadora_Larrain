@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
-from core.models import Producto, Marca, Categoria  
+from core.models import OrdenCompra, Producto, Marca, Categoria  
 
 # Create your views here.
 
@@ -26,6 +26,11 @@ def seguimiento(request):
   
     return render(request,'seguimiento.html')
 
-def info_orden(request):
 
-    return render(request,'info_orden.html')
+def mostrarinfo(request):
+    
+    id_orden = request.POST.get('id_orden')
+    
+    ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
+    
+    return render(request,'info_orden.html', {"orden": ordencompra})
