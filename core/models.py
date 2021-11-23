@@ -226,6 +226,10 @@ class EstadoPago(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_pago'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_estado_pago)
 
 
 class EstadoPedido(models.Model):
@@ -235,6 +239,10 @@ class EstadoPedido(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_pedido'
+    
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_estado_pedido)
 
 
 class EstadoSolicitud(models.Model):
@@ -244,6 +252,10 @@ class EstadoSolicitud(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_solicitud'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_estado)
 
 
 class Estanteria(models.Model):
@@ -263,6 +275,10 @@ class Marca(models.Model):
     class Meta:
         managed = False
         db_table = 'marca'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_marca)
 
 
 class Oferta(models.Model):
@@ -328,6 +344,10 @@ class Region(models.Model):
     class Meta:
         managed = False
         db_table = 'region'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_region) 
 
 
 class Rol(models.Model):
@@ -337,6 +357,10 @@ class Rol(models.Model):
     class Meta:
         managed = False
         db_table = 'rol'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_rol) 
 
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
