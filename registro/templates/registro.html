@@ -19,7 +19,7 @@
                                         <div class="row espacio_form">
                                             <div class="col position-relative">
                                                 <label for="exampleFormControlInput1" class="form-label">RUT</label>
-                                                <input type="text" class="form-control" id="rut" name="rut" placeholder="12.345.678-9" min="111111111" max="999999999" required>
+                                                <input type="text" id="rut" name="rut" class="form-control" placeholder="Ingrese su rut con guión y sin puntos." minlength="9" maxlength="10" required pattern="[0-9-K ]{9,10}">
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">El Rut debe ser Valido.</div>
                                             </div>
@@ -58,12 +58,18 @@
                                                 </div>
                                                 </div>
                                             </div>
-                                            <div class="col position-relative">
+                                            <div class="col-md-1 position-relative">
                                                 <label for="exampleFormControlInput1" class="form-label">TELÉFONO</label>
-                                                    <input type="number" class="form-control" id="telefono" name="telefono" placeholder="56912345678" min="11111111111" max="99999999999" required>
-                                                    <!--MENSAJE-->
-                                                    <div class="invalid-feedback">Ingrese un número de teléfono anteponiendo "569" y 8 digitos.</div>
-                                            </div> 
+                                                <h5><label for="">+569</label></h5>
+                                               <!--MENSAJE-->
+                                                <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
+                                            </div>  
+                                            <div class="col-md-5 position-relative">
+                                                <label for="exampleFormControlInput1" class="form-label" >TELÉFONO</label>
+                                                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="12345678" min="11111111" max="99999999" required>
+                                               <!--MENSAJE-->
+                                                <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
+                                            </div>
                                         </div>
                                         <div class="row espacio_form">
                                             <div class="col position-relative">
