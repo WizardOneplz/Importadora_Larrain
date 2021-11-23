@@ -155,6 +155,10 @@ class DetalleOrden(models.Model):
     class Meta:
         managed = False
         db_table = 'detalle_orden'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_detalle_orden)
 
 
 class DjangoAdminLog(models.Model):
@@ -217,6 +221,9 @@ class Empleado(models.Model):
         managed = False
         db_table = 'empleado'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.rut)
 
 class EstadoPago(models.Model):
     id_estado_pago = models.BigIntegerField(primary_key=True)
