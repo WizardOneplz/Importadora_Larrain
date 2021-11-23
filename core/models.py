@@ -97,6 +97,10 @@ class Categoria(models.Model):
     class Meta:
         managed = False
         db_table = 'categoria'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_categoria)
 
 
 class Ciudad(models.Model):
