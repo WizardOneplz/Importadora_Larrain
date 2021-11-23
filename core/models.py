@@ -392,6 +392,10 @@ class TipoOrden(models.Model):
         managed = False
         db_table = 'tipo_orden'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_orden)
+
 
 class TipoPago(models.Model):
     id_tipo_pago = models.BigIntegerField(primary_key=True)
@@ -400,6 +404,10 @@ class TipoPago(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_pago'
+
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_pago)
 
 
 class Valoracion(models.Model):
