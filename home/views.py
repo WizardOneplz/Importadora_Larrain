@@ -105,4 +105,5 @@ def mostrarinfo(request):
         return render(request,'info_orden.html', {"orden": ordencompra})
     except:
         return redirect('/seguimiento')
+        
 

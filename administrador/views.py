@@ -36,10 +36,10 @@ def mantenedor_admin(request):
         cargo = request.POST.get('cargo')
         salida = agregar_empleado(rut, nombre, ap_paterno, ap_materno, genero, telefono, email, cargo)
         if salida==1:
-            data['mensaje'] = 'Creado correctamente'
+            data['MensajeEmpleadoCorrecto'] = 'Empleado registrado correctamente.'
             data['empleados'] = listado_empleados()
         else:
-            data['mensaje'] = 'No se ha podido registrar' 
+            data['MensajeEmpleadoError'] = 'Rut o Correo ya registrado.' 
 
     return render(request,'agregar_empleado.html',data)
 
@@ -69,10 +69,10 @@ def mantenedor_bodega(request):
 
         salida = agregar_bodega(cant_pasillos,direccion)
         if salida==1:
-            data['mensaje'] = 'Creado correctamente'
+            data['MensajeBodegaCorrecto'] = 'Bodega registrada correctamente.'
             data['bodega'] = listado_bodega()
         else:
-            data['mensaje'] = 'No se ha podido registrar' 
+            data['MensajeBodegaError'] = 'Direccion de bodega ya registrado.' 
 
     return render(request,'mantenedor_bodega.html',data)
 
@@ -102,13 +102,14 @@ def mantenedor_pasillo(request):
 
         salida = agregar_pasillo(cant_estanterias,id_bodega)
         if salida==1:
-            data['mensaje'] = 'Creado correctamente'
+            data['MensajePasilloCorrecto'] = 'Pasillo registrado correctamente.'
             data['pasillo'] = listado_pasillo()
-        else:
-            data['mensaje'] = 'No se ha podido registrar' 
+        
 
     return render(request,'mantenedor_pasillo.html',data)
 
+
+#ESTANTERIA
 def mantenedor_estanteria(request):
     data = {
         'cargos':listar_cargos(),
@@ -127,17 +128,15 @@ def mantenedor_estanteria(request):
         
     } 
 
-#AGREGAR PASILLO
+#AGREGAR ESTANTERIA
     if request.method== 'POST':
         cant_estanterias = request.POST.get('cant_estanterias')
         id_bodega = request.POST.get('id_bodega')
 
         salida = agregar_pasillo(cant_estanterias,id_bodega)
         if salida==1:
-            data['mensaje'] = 'Creado correctamente'
+            data['MensajeEstanteriaCorrecto'] = 'Estantería registrada correctamente.'
             data['pasillo'] = listado_pasillo()
-        else:
-            data['mensaje'] = 'No se ha podido registrar' 
 
     return render(request,'mantenedor_estanteria.html',data)
 

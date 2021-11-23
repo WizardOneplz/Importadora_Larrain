@@ -98,6 +98,10 @@ class Categoria(models.Model):
         managed = False
         db_table = 'categoria'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_categoria)
+
 
 class Ciudad(models.Model):
     id_ciudad = models.BigIntegerField(primary_key=True)
