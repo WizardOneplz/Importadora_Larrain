@@ -76,9 +76,9 @@ def mantenedor_productos(request):
         imagen = request.FILES['imagen'].read()
         salida = agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
         if salida==1:
-            data['MensajeProducto'] = 'Producto registrado correctamente'
+            data['MensajeProductoCorrecto'] = 'Producto registrado correctamente'
         else:
-            data['MensajeProducto'] = 'El nombre del producto ya esta siendo utilizado' 
+            data['MensajeProductoError'] = 'El nombre del producto ya esta siendo utilizado' 
             
     return render(request, 'mantenedor_productos.html', data)             
 
