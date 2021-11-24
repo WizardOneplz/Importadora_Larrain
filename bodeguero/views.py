@@ -174,13 +174,15 @@ def editar_producto(request):
     stock = request.POST.get('stock')
     oferta = request.POST.get('oferta')
     poferta = request.POST.get('p_oferta')
-
+    imagen = request.FILES['imagen'].read()
+    
     producto = Producto.objects.get(id_producto=id_producto)
     producto.id_producto = id_producto
     producto.nombre_producto = nombre_producto
     producto.stock = stock
     producto.oferta = oferta
     producto.porcentaje = poferta
+    producto.imagen = imagen
     producto.save() 
     
     return redirect('/mantenedor_productos')
