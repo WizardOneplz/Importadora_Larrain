@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="col">
                                                 <h4><label for="exampleFormControlInput1" class="form-label">Nombre Producto</label></h4>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{productos.nombre_producto}}"  name="nombre_producto" placeholder="Debe ingresar un nombre o ambos en mayusculas." minlength="3" maxlength="30" required pattern="[A-Z0-9-]{3,30}">
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{productos.nombre_producto}}"  name="nombre_producto" placeholder="Debe ingresar un nombre o ambos en mayusculas." minlength="3" maxlength="30" required pattern="[A-Z0-9- ]{3,30}">
                                             </div>
                                         </div>
                                         <div class="mb-3 position-relative">
@@ -49,6 +49,12 @@
                                             <input type="number" class="form-control" id="exampleFormControlInput1" name="stock" value="{{productos.stock}}" min="0" max="1000" placeholder="Ingrese una cantidad, entre 0 y 1000." required> 
                                             <!--MENSAJE-->
                                             <div class="invalid-feedback">Ingrese una cantidad valida. Entre 0 y 1000.</div>
+                                        </div>
+                                        <div class="mb-3 position-relative">
+                                            <label for="exampleFormControlInput1" class="form-label">Precio</label>
+                                            <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese un precio, entre 1000 y 3.000.000" min="1000" max="3000000" required> 
+                                            <!--MENSAJE-->
+                                            <div class="invalid-feedback">Ingresar un Precio valido. Entre 1.000 y 3.000.000.</div>
                                         </div>
                                         <div class="row espacio_form position-relative">
                                             <div class="col">

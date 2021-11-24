@@ -175,6 +175,7 @@ def editar_producto(request):
     oferta = request.POST.get('oferta')
     poferta = request.POST.get('p_oferta')
     imagen = request.FILES['imagen'].read()
+    precio = request.POST.get('precio')
     
     producto = Producto.objects.get(id_producto=id_producto)
     producto.id_producto = id_producto
@@ -183,6 +184,7 @@ def editar_producto(request):
     producto.oferta = oferta
     producto.porcentaje = poferta
     producto.imagen = imagen
+    producto.precio = precio
     producto.save() 
     
     return redirect('/mantenedor_productos')
