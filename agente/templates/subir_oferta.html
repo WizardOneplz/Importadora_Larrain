@@ -67,33 +67,41 @@
                                     </div>
                                     <!-- FORMULARIO DE LISTADO DE OFERTAS-->
                                     <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
-                                        <h2 >Ofertas</h2>
-                                        <table class="table blanco align-middle text-center">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID Oferta</th>
-                                                    <th>RUT Proveedor</th>
-                                                    <th>Nombre</th>
-                                                    <th>Apellido</th>
-                                                    <th>Email</th>
-                                                    <th>Oferta</th>
-                                                    <th>Fecha</th>
-                                                    <th>RUT Empleado</th>
-                                                </tr>
-                                            </thead> 
-                                            {% for p in ofertas %}
-                                            <tr>
-                                                <td>{{ p.0 }}</td>
-                                                <td>{{ p.1 }}</td>
-                                                <td>{{ p.2 }}</td>
-                                                <td>{{ p.3 }}</td>
-                                                <td>{{ p.4 }}</td>
-                                                <td>{{ p.5 }}</td>
-                                                <td>{{ p.6 }}</td>
-                                                <td>{{ p.7 }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                        </table>
+                                        <div class="card row col-md-12" >
+                                            <div class="card-header ">
+                                                <h1 class="text-center negro">Modificacion de empleado</h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table align-middle text-center">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID OFERTA</th>
+                                                            <th>RUT PROVEEDOR</th>
+                                                            <th>NOMBRE</th>
+                                                            <th>APELLIDO</th>
+                                                            <th>EMAIL</th>
+                                                            <th>OFERTA</th>
+                                                            <th>FECHA</th>
+                                                            <th>RUT EMPLEADO</th>
+                                                        </tr>
+                                                    </thead> 
+                                                    {% for p in ofertas %}
+                                                    <tr>
+                                                        <td>{{ p.0 }}</td>
+                                                        <td>{{ p.1 }}</td>
+                                                        <td>{{ p.2 }}</td>
+                                                        <td>{{ p.3 }}</td>
+                                                        <td>{{ p.4 }}</td>
+                                                        <td>{{ p.5 }}</td>
+                                                        <td>{{ p.6 }}</td>
+                                                        <td>{{ p.7 }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </table>                                            
+                                            </div>
+                                        </div>
+                            
+                                        
 
                                     </div>
                                     <!-- FORMULARIO DE MODIFICACION DE OFERTAS-->
