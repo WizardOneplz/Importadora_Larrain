@@ -70,11 +70,15 @@ def cerrarsesion(request):
     return render(request, 'home.html')
 
 def modificar_cliente(request, cliente_rut):
-    
     data={
+<<<<<<< HEAD
         'cliente' : Cliente.objects.get(rut=cliente_rut),
         'cuentacliente': CuentaCliente.objects.get(cliente_rut=cliente_rut),
         'CIUDAD':listar_ciudad() 
+=======
+        'cliente' : Cliente.objects.get(rut= cliente_rut),
+        'cuentacliente': CuentaCliente.objects.get(cliente_rut= cliente_rut)
+>>>>>>> 9b0781526347261675032c3659d6ca0ae4a4f4a4
     }
     return render(request, "perfil.html", data)
 
