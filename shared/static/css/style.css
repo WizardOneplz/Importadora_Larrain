@@ -3,7 +3,7 @@
 /*NAVBAR*/
 
 .azul{
-    color:blue
+    color:rgb(0, 0, 255)
 }
 
 .blanco{
@@ -12,6 +12,10 @@
 
 .negro{
     color: black;
+}
+
+.negro2{
+  background: black;
 }
 
 .fondoblanco{

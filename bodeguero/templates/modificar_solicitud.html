@@ -21,46 +21,53 @@
     <section>
         <div class="container-fluid espacio2 gradient3">
             <div class="row align-items-center justify-content-center">
-                <div class="col-md-12 blanco">
+                <div class="col-md-12">
                     <div class="container espacio3">
-                        <div class="d-flex align-items-start">
-                                <!--Mantedor de Productos-->
-                                <form action="/editar_solicitud/" method="POST" class="espacio4 col-md-12 needs-validation" enctype="multipart/form-data" novalidate>
-                                {% csrf_token %}                       
-                                <div class="row">
-                                <div class="col-md-">                                
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">ID Solicitud</label>
-                                            <input type="number" class="form-control" id="exampleFormControlInput1" value="{{solicitudes.id_solicitud}}" name="id_solicitud" placeholder="" readonly required>
-                                        </div>
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Nombre Producto</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" value="{{solicitudes.nombre_producto}}"  name="nombre_producto" placeholder="" readonly required>
-                                        </div>
-                                    </div>
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">Observación</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="observacion" value="{{solicitudes.observacion}}" placeholder="">    
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3 position-relative">
-                                            <label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label>
-                                                <select id="id_estado" name="id_estado" class="form-select">
-                                                    <option selected disabled value="">Seleccione...</option>
-                                                    {% for c in solicitud %}
-                                                    <option value="{{ c.0 }}">{{c.1}}</option>
-                                                    {% endfor %}
-                                                </select>
+                        <div class="card row col-md-12" >
+                            <div class="card-header ">
+                                <h1 class="text-center">Modificacion de Solicitud</h1>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <!--Mantedor de Productos-->
+                                    <form action="/editar_solicitud/" method="POST" class="espacio4 col-md-12 needs-validation" enctype="multipart/form-data" novalidate>
+                                    {% csrf_token %}                       
+                                    <div class="row">
+                                    <div class="col-md-">                                
+                                        <div class="row espacio_form">
+                                            <div class="col">
+                                                <h4><label for="exampleFormControlInput1" class="form-label">ID Solicitud</label></h4>
+                                                <input type="number" class="form-control" id="exampleFormControlInput1" value="{{solicitudes.id_solicitud}}" name="id_solicitud" placeholder="" readonly required>
+                                            </div>
+                                            <div class="col">
+                                                <h4><label for="exampleFormControlInput1" class="form-label">Nombre Producto</label></h4>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" value="{{solicitudes.nombre_producto}}"  name="nombre_producto" placeholder="" readonly required>
                                             </div>
                                         </div>
+                                        <div class="row espacio_form">
+                                            <div class="col">
+                                                <h4><label for="exampleFormControlInput1" class="form-label">Observación</label></h4>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="observacion" value="{{solicitudes.observacion}}" placeholder="">    
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3 position-relative">
+                                                <h4><label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label></h4>
+                                                    <select id="id_estado" name="id_estado" class="form-select">
+                                                        <option selected disabled value="">Seleccione...</option>
+                                                        {% for c in solicitud %}
+                                                        <option value="{{ c.0 }}">{{c.1}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
                                     </div>
-                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
-                                </div>
+                                    </div>
+                                    </form>
+                                </div> 
                             </div>
-                            </form>
-                        </div>  
+                        </div>
                     </div>
                 </div>
             </div>
