@@ -24,3 +24,15 @@ def listado_clientes():
         lista.append(fila)
     return lista
 
+def listar_ciudad():
+     
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("LISTAR_CIUDAD", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila) 
+    return lista

@@ -2,8 +2,6 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from core.models import AuthGroup, Cliente, CuentaCliente, Rol
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-import getpass
 import cx_Oracle
 
 # Create your views here.
@@ -75,12 +73,13 @@ def modificar_cliente(request, cliente_rut):
     
     data={
         'cliente' : Cliente.objects.get(rut=cliente_rut),
-        'cuentacliente': CuentaCliente.objects.get(cliente_rut=cliente_rut)
+        'cuentacliente': CuentaCliente.objects.get(cliente_rut=cliente_rut),
+        'CIUDAD':listar_ciudad() 
     }
     return render(request, "perfil.html", data)
 
-@login_required(login_url='home.html')
-def perfil (request):
+
+def perfil(request):
 
     rut = request.POST.get('rut')
     nombre = request.POST.get('nombre')
@@ -106,4 +105,4 @@ def perfil (request):
     cliente.clave = clave
     cliente.save()
 
-    return render(request, 'perfil.html')
+    return redirect('/')

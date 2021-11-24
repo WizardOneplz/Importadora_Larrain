@@ -72,10 +72,6 @@
           <br>
           <h2 class="blanco" style="text-align: center; margin-bottom: 20px;">Productos en Oferta</h2>
           <hr>
-          <form class="col-md-12 " action="" method="POST" >
-          {% csrf_token %}
-          <input type="text" name="email"  value="{{cliente.cliente_rut}}"></input>
-          </form>
           <div class="row align-items-center justify-content-center row-cols-auto">
             {% for product in page_obj %}
             <div class="col-md-auto">
