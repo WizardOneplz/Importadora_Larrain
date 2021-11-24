@@ -117,7 +117,7 @@ class Cliente(models.Model):
     email = models.CharField(max_length=40)
     direccion = models.CharField(max_length=40)
     ciudad_id_ciudad = models.ForeignKey(Ciudad, models.DO_NOTHING, db_column='ciudad_id_ciudad')
-
+    
     class Meta:
         managed = False
         db_table = 'cliente'

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.db import connection
-from core.models import Cliente, CuentaCliente, Rol
+from core.models import AuthGroup, Cliente, CuentaCliente, Rol
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 import getpass
 import cx_Oracle
 
@@ -58,20 +59,9 @@ def login(request):
             Email=CuentaCliente.objects.get(email = request.POST['correo'],
             clave=request.POST['contraseña'])
             request.session['email']=Email.email
-            # para empleado 
-            # IF (si la credencial y clave es correcta)
-                #OBTENER EL ROL
-                    #IF ROL == 'ADMINISTRADOR' O el numero de rol ej: 4
-                        # href a agregar_empleado
-                    #ELSE IF ROL == 'BODEGUERO' O el numero de rol ej: 3
-                        #href a mantenedor_producto
-                    #ELSE IF ROL == 'AGENTE' O el numero de rol ej: 2
-                        #href a subir_oferta
-                    #ELSE IF ROL == 'VENDEDOR' O el numero de rol ej: 1
-                        #href a "por definir".
-            return render(request, 'home.html')
+            return render(request, 'home.html' ,{ "cliente":Email})
         except CuentaCliente.DoesNotExist as e:
-            messages.success(request,'nombre de usuario o clave no correcto')
+            messages.success(request,'correo  o clave no es correcto')
     return render(request, 'home.html')
 
 def cerrarsesion(request):
@@ -81,5 +71,39 @@ def cerrarsesion(request):
         return render(request, 'home.html')
     return render(request, 'home.html')
 
+def modificar_cliente(request, email):
+    email=request.POST.get('email')
+    data={
+        'cliente' : Cliente.objects.get(email=email),
+        'cuentacliente': CuentaCliente.objects.get(email=email)
+    }
+    return render(request, "perfil.html", data)
 
+@login_required(login_url='home.html')
+def perfil (request):
 
+    rut = request.POST.get('rut')
+    nombre = request.POST.get('nombre')
+    ap_paterno = request.POST.get('ap_paterno')
+    ap_materno = request.POST.get('ap_materno')
+    genero = request.POST.get('genero')
+    telefono = request.POST.get('telefono')
+    email = request.POST.get('email')
+    direccion = request.POST.get('Direccion')
+    ciudad = request.POST.get('ciudad')
+    clave= request.POST.get('clave')
+      
+    cliente = Cliente.objects.get(rut=rut)
+    cliente.rut = rut
+    cliente.nombre = nombre
+    cliente.apellido_paterno = ap_paterno
+    cliente.apellido_materno = ap_materno
+    cliente.genero = genero
+    cliente.telefono = telefono
+    cliente.email = email
+    cliente.direccion = direccion
+    cliente.ciudad = ciudad
+    cliente.clave = clave
+    cliente.save()
+
+    return render(request, 'perfil.html')

@@ -387,9 +387,28 @@ def eliminar_estanteria(request, id_estanteria):
 
 def logemp(request):
     if request.method =='POST':
-        if CuentaEmpleado.is_valid():
-            usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
-            clave =request.POST['clave'],
-            rol_id_rol=request.POST['rol'])
-            request.session['rol']=usuario.rol
-            return render(request,'mantenedor_productos.html')
+        try:
+            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+            clave =request.POST['clave'])
+            request.session['usuario']=Usuario.usuario 
+            #OBTENER EL ROL
+            if Usuario.rol_id_rol== 1:
+                return render(request,'agregar_empleado.html')
+            elif Usuario.rol_id_rol == 3:
+                return render(request,'subir_oferta.html')
+            elif Usuario.rol_id_rol == 4:
+                return render(request,'registro.html')
+            elif Usuario.rol_id_rol == 5:
+                return render(request,'mantenedor_marca.html')
+            else:
+                return render(request,'home.html')      
+        except:
+            return render(request, 'mantenedor_productos.html')
+
+
+def logout(request):
+    try:
+        del request.session['usuario']
+    except:
+        return render(request, 'home.html')
+    return render(request, 'home.html')

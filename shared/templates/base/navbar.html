@@ -67,19 +67,19 @@
                         </form>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <form class="" action="" method="POST">
+                        <form class="" action="logemp/" method="POST">
+                        {% csrf_token %}
                         <div class="row">
                             <div class="col-md-">
                                 <div class="mb-3">
-                                  <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="Correo" placeholder="" required> 
+                                  <label for="exampleFormControlInput1" class="form-label espacio4">USUARIO</label>
+                                  <input type="text" class="form-control" id="exampleFormControlInput1" name="empleado" placeholder="" required> 
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="Contraseña" placeholder="" required>
-                                    <a class="" href="restablecer.html">¿Olvidaste la contraseña?</a>
+                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="" required>
                                 </div>         
-                                <a href="menu_bodega.html"><button type="button" class="btn btn-secondary">Ingresar</button></a>
+                                <button type="submit" class="btn btn-secondary">Ingresar</button></a>
                             </div>
                         </div>                   
                         </form>
