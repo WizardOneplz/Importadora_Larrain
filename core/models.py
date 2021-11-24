@@ -128,10 +128,15 @@ class Cliente(models.Model):
     email = models.CharField(max_length=40)
     direccion = models.CharField(max_length=40)
     ciudad_id_ciudad = models.ForeignKey(Ciudad, models.DO_NOTHING, db_column='ciudad_id_ciudad')
+    clave = models.CharField(max_length=30)
     
     class Meta:
         managed = False
         db_table = 'cliente'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.rut)
 
 
 class CuentaCliente(models.Model):
@@ -172,9 +177,6 @@ class DetalleOrden(models.Model):
         titulo = "{0}"
         return titulo.format(self.id_detalle_orden)
 
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.id_detalle_orden)
 
 
 class DjangoAdminLog(models.Model):
