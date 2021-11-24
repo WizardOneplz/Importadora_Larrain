@@ -22,4 +22,8 @@ admin.site.register(Rol)
 admin.site.register(SolicitudProductos)
 admin.site.register(TipoOrden)
 admin.site.register(TipoPago)
+<<<<<<< HEAD
 admin.site.register(Valoracion)
+=======
+admin.site.register(Valoracion)
+>>>>>>> e8cf305f87cd4b73a5c9035443d27a21ea0189ca

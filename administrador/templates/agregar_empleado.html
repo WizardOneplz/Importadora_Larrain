@@ -97,7 +97,7 @@
                                                     
 
                                                         <div class="col-md-1 position-relative">
-                                                            <label for="exampleFormControlInput1" class="form-label">TELÉFONO</label>
+                                                            <label for="exampleFormControlInput1" class="form-label" style="visibility:hidden">TELÉFONO</label>
                                                             <h5><label for="">+569</label></h5>
                                                            <!--MENSAJE-->
                                                             <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
@@ -130,117 +130,157 @@
                                                     </div>
                                                     
                                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
+                                                    {%if MensajeEmpleadoCorrecto %}
+                                                    <div class="alert alert-success d-flex align-items-center espacio4" role="alert" id="mensajecorrecto">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                                            </symbol>
+                                                        </svg>
+                                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                                            <div>
+                                                                {{MensajeEmpleadoCorrecto}}
+                                                            </div>
+                                                    </div>
+                                                    {% endif %}
+                                                    {%if MensajeEmpleadoError %}
+                                                    <div class="alert alert-danger d-flex align-items-center espacio4" role="alert" id="mensajeerror">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                            </symbol>
+                                                        </svg>
+                                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                            <div>
+                                                                {{MensajeEmpleadoError}}
+                                                            </div>
+                                                    </div>
+                                                    {% endif %}
                                                 </div>
                                             </div>
-                                          </form>
+                                        </form>
                                     </div>
                                     <!-- LISTADO DE EMPLEADOS-->
                                     <div class="tab-pane fade" id="nav-listar" role="tabpanel" aria-labelledby="nav-listar-tab">
-                                        <input type="text" id="myInput" onkeyup="BuscaEmpleado()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                        <table class="table blanco align-middle text-center">                                     
-                                        <thead>
-                                            <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">RUT</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">AP PATERNO</th>
-                                            <th scope="col">AP MATERNO</th>
-                                            <th scope="col">GENERO</th>
-                                            <th scope="col">TELÉFONO</th>
-                                            <th scope="col">EMAIL</th>
-                                            <th scope="col">CARGO</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {%for p in empleados%}
-                                            <tr>
-                                            <th scope="row">{{ p.0 }}</th>
-                                            <td>{{ p.1 }}</td>
-                                            <td>{{ p.2 }}</td>
-                                            <td>{{ p.3 }}</td>
-                                            <td>{{ p.4 }}</td>
-                                            <td>{{ p.5 }}</td>
-                                            <td>{{ p.6 }}</td>
-                                            <td>{{ p.7 }}</td>
-                                            <td>{{ p.8 }}</td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                        </table>
-                                        <!-- LISTADO DE EMPLEADOS-->
+                                        <div class="card row col-md-12" >  
+                                            <div class="card-header ">
+                                                <h1 class="text-center negro">Listado de Empleados</h2>
+                                            </div>
+                                            <div class="card-body">
+                                                <table class="table align-middle text-center">                                     
+                                                <thead>
+                                                    <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">RUT</th>
+                                                    <th scope="col">NOMBRE</th>
+                                                    <th scope="col">AP PATERNO</th>
+                                                    <th scope="col">AP MATERNO</th>
+                                                    <th scope="col">GENERO</th>
+                                                    <th scope="col">TELÉFONO</th>
+                                                    <th scope="col">EMAIL</th>
+                                                    <th scope="col">CARGO</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {%for p in empleados%}
+                                                    <tr>
+                                                    <th scope="row">{{ p.0 }}</th>
+                                                    <td>{{ p.1 }}</td>
+                                                    <td>{{ p.2 }}</td>
+                                                    <td>{{ p.3 }}</td>
+                                                    <td>{{ p.4 }}</td>
+                                                    <td>{{ p.5 }}</td>
+                                                    <td>{{ p.6 }}</td>
+                                                    <td>{{ p.7 }}</td>
+                                                    <td>{{ p.8 }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
+                                                </table>
+                                            <!-- LISTADO DE EMPLEADOS-->
+                                            </div>
+                                        </div> 
+                                        
                                     </div>
                                     <!-- TABLA DE MODIFICACION DE EMPLEADOS-->
                                     <div class="tab-pane fade" id="nav-modificar" role="tabpanel" aria-labelledby="nav-modificar-tab">
-                                        <table class="table blanco align-middle text-center">                                     
-                                        <thead>
-                                            <tr class="">
-                                            <th scope="col">ID</th>
-                                            <th scope="col">RUT</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">AP PATERNO</th>
-                                            <th scope="col">AP MATERNO</th>
-                                            <th scope="col">GENERO</th>
-                                            <th scope="col">TELÉFONO</th>
-                                            <th scope="col">EMAIL</th>
-                                            <th scope="col">CARGO</th>
-                                            <th colspan="2">OPCIONES</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {%for p in listar_empleados%}
-                                            <tr>
-                                            <th scope="row">{{ p.id }}</th>
-                                            <td>{{ p.rut }}</td>
-                                            <td>{{ p.nombre }}</td>
-                                            <td>{{ p.apellido_paterno }}</td>
-                                            <td>{{ p.apellido_materno }}</td>
-                                            <td>{{ p.genero }}</td>
-                                            <td>{{ p.telefono }}</td>
-                                            <td>{{ p.email }}</td>
-                                            <td>{{ p.cargo }}</td>
-                                            <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary">MODIFICAR</a></td>
-                                            <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger">ELIMINAR</a></td>
-                                            </tr>
-                                            {% endfor %}
-                                        </tbody>
-                                        </table>
-                                        <!-- CIERRE FORMULARIO DE LISTADO DE EMPLEADOS-->
+                                        <div class="card row col-md-12" >  
+                                            <div class="card-header col">
+                                                <h1 class="text-center negro">Listado de Empleados</h2>
+                                            </div>
+                                            <div class="card-body col">
+                                                <table class="table align-middle text-center col-md">                                     
+                                                    <thead>
+                                                        <th scope="col">ID</th>
+                                                        <th scope="col">RUT</th>
+                                                        <th scope="col">Nombre</th>
+                                                        <th scope="col">AP PATERNO</th>
+                                                        <th scope="col">GENERO</th>
+                                                        <th scope="col">TELÉFONO</th>
+                                                        <th scope="col">EMAIL</th>
+                                                        <th colspan="2">OPCIONES</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {%for p in listar_empleados%}
+                                                        <tr>
+                                                        <th scope="row">{{ p.id }}</th>
+                                                        <td>{{ p.rut }}</td>
+                                                        <td>{{ p.nombre }}</td>
+                                                        <td>{{ p.apellido_paterno }}</td>
+                                                        <td>{{ p.genero }}</td>
+                                                        <td>{{ p.telefono }}</td>
+                                                        <td>{{ p.email }}</td>
+                                                        <td><a href="modificar_empleado/{{ p.rut }}" class="btn btn-primary col">MODIFICAR</a></td>
+                                                        <td><a href="eliminar_empleado/{{ p.rut }}" class="btn btn-danger col">ELIMINAR</a></td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                    </tbody>
+                                                </table>
+                                                <!-- CIERRE FORMULARIO DE LISTADO DE EMPLEADOS-->
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- CIERRE MENU EMPLEADOS-->
                             <!-- MENU HORIZONTAL CLIENTES-->
                             <div class="tab-pane fade" id="v-pills-cliente" role="tabpanel" aria-labelledby="v-pills-cliente-tab">
-                                <table class="table blanco align-middle">                                     
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">RUT</th>
-                                            <th scope="col">NOMBRE</th>
-                                            <th scope="col">APELLIDO PATERNO</th>
-                                            <th scope="col">APELLIDO MATERNO</th>
-                                            <th scope="col">GENERO</th>
-                                            <th scope="col">TELÉFONO</th>
-                                            <th scope="col">EMAIL</th>
-                                            <th scope="col">DIRECCION</th>
-                                            <th scope="col">CIUDAD</th>
-                                        </tr>
-                                    </thead>
-                                        <tbody>
-                                        {%for c in cliente%}
-                                        <tr>
-                                            <th scope="row">{{ c.0 }}</th>
-                                            <td>{{ c.1 }}</td>
-                                            <td>{{ c.2 }}</td>
-                                            <td>{{ c.3 }}</td>
-                                            <td>{{ c.4 }}</td>
-                                            <td>{{ c.5 }}</td>
-                                            <td>{{ c.6 }}</td>
-                                            <td>{{ c.7 }}</td>
-                                            <td>{{ c.8 }}</td>
-                                        </tr>
-                                        {% endfor %}
-                                        </tbody>
-                                </table>
+                                <div class="card row col-md-12" >  
+                                    <div class="card-header col">
+                                        <h1 class="text-center negro">Listado de Clientes</h2>
+                                    </div>
+                                    <div class="card-body col">
+                                        <table class="table align-middle">                                     
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">RUT</th>
+                                                    <th scope="col">NOMBRE</th>
+                                                    <th scope="col">APELLIDO PATERNO</th>
+                                                    <th scope="col">APELLIDO MATERNO</th>
+                                                    <th scope="col">GENERO</th>
+                                                    <th scope="col">TELÉFONO</th>
+                                                    <th scope="col">EMAIL</th>
+                                                    <th scope="col">CIUDAD</th>
+                                                </tr>
+                                            </thead>
+                                                <tbody>
+                                                {%for c in cliente%}
+                                                <tr>
+                                                    <th scope="row">{{ c.0 }}</th>
+                                                    <td>{{ c.1 }}</td>
+                                                    <td>{{ c.2 }}</td>
+                                                    <td>{{ c.3 }}</td>
+                                                    <td>{{ c.4 }}</td>
+                                                    <td>{{ c.5 }}</td>
+                                                    <td>{{ c.6 }}</td>
+                                                    <td>{{ c.8 }}</td>
+                                                </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>  
                             <!-- MENU HORIZONTAL BODEGA-->
                             <div class="tab-pane fade" id="v-pills-bodega" role="tabpanel" aria-labelledby="v-pills-bodega-tab">
@@ -254,13 +294,7 @@
 
                             <!-- MENU HORIZONTAL ESTANTERIA-->
                             <div class="tab-pane fade" id="v-pills-estanteria" role="tabpanel" aria-labelledby="v-pills-estanteria-tab">
-                                <nav>
-                                    <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                      <button class="nav-link active" id="nav-crearest-tab" data-bs-toggle="tab" data-bs-target="#nav-crearest" type="button" role="tab" aria-controls="nav-crearest" aria-selected="true">Crear Estanteria</button>
-                                      <button class="nav-link" id="nav-listarest-tab" data-bs-toggle="tab" data-bs-target="#nav-listarest" type="button" role="tab" aria-controls="nav-listarest" aria-selected="false">Listar Estanteria</button>
-                                      <button class="nav-link" id="nav-modificarest-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarest" type="button" role="tab" aria-controls="nav-modificarest" aria-selected="false">Eliminar Estanteria</button>
-                                    </div>
-                                  </nav>
+                            
                                   <div class="tab-content" id="nav-tabContent">
                                       <!-- AGREGAR ESTANTERIA-->
                                     <div class="tab-pane fade show active" id="nav-crearest" role="tabpanel" aria-labelledby="nav-crearest-tab">
@@ -293,7 +327,7 @@
                                                                 {% endfor %}
                                                             </select>
                                                             <!--MENSAJE-->
-                                                            <div class="invalid-feedback">El Rut debe ser Valido.</div>
+                                                            <div class="invalid-feedback">Debe elegir un producto.</div>
                                                         </div>
                                                     </div>
                                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>

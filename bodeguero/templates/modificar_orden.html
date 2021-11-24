@@ -21,36 +21,44 @@
     <section>
         <div class="container-fluid espacio2 gradient3">
             <div class="row align-items-center justify-content-center">
-                <div class="col-md-12 blanco">
+                <div class="col-md-12">
                     <div class="container espacio3">
-                        <div class="d-flex align-items-start">
-                                <!--Mantedor de Productos-->
-                                <form action="/editar_orden/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
-                                {% csrf_token %}                       
-                                <div class="row">
-                                <div class="col-md-">                                
-                                    <div class="row espacio_form">
-                                        <div class="col">
-                                            <label for="exampleFormControlInput1" class="form-label">ID Orden</label>
-                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="id_orden" value="{{orden.id_orden}}" placeholder="" readonly>    
-                                        </div>
-                                        <div class="col">
-                                            <div class="mb-3">
-                                            <label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label>
-                                                <select id="estado_orden" name="estado_orden" class="form-select">
-                                                    <option value="">Seleccionar</option>
-                                                    {% for c in estado %}
-                                                    <option value="{{ c.0 }}">{{c.1}}</option>
-                                                    {% endfor %}
-                                                </select>
+                        <div class="card row col-md-12" >
+                            <div class="card-header ">
+                                <h1 class="text-center">Modificacion de Orden</h1>
+                            </div>
+                            <div class="card-body">
+                                <div class="d-flex align-items-start">
+                                    <!--Mantedor de Productos-->
+                                    <form action="/editar_orden/" method="POST" class="espacio4 col-md-12" enctype="multipart/form-data">
+                                    {% csrf_token %}                       
+                                    <div class="row">
+                                    <div class="col-md-">                                
+                                        <div class="row espacio_form">
+                                            <div class="col">
+                                                <h4><label for="exampleFormControlInput1" class="form-label">ID Orden</label></h4>
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="id_orden" value="{{orden.id_orden}}" placeholder="" readonly>    
+                                            </div>
+                                            <div class="col">
+                                                <div class="mb-3">
+                                                <h4><label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label></h4>
+                                                    <select id="estado_orden" name="estado_orden" class="form-select">
+                                                        <option value="">Seleccionar</option>
+                                                        {% for c in estado %}
+                                                        <option value="{{ c.0 }}">{{c.1}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
+                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
                                     </div>
-                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
                                 </div>
+                                </form>
+                            </div>  
                             </div>
-                            </form>
-                        </div>  
+                        </div>
+                        
                     </div>
                 </div>
             </div>

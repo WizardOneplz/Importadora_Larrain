@@ -37,7 +37,6 @@ class AuthPermission(models.Model):
         db_table = 'auth_permission'
         unique_together = (('content_type', 'codename'),)
 
-
 class AuthUser(models.Model):
     password = models.CharField(max_length=128, blank=True, null=True)
     last_login = models.DateTimeField(blank=True, null=True)
@@ -86,6 +85,10 @@ class Bodega(models.Model):
         managed = False
         db_table = 'bodega'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_bodega)
+
 
 class Categoria(models.Model):
     id_categoria = models.BigIntegerField(primary_key=True)
@@ -94,6 +97,14 @@ class Categoria(models.Model):
     class Meta:
         managed = False
         db_table = 'categoria'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_categoria)
+
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_categoria)
 
 
 class Ciudad(models.Model):
@@ -156,6 +167,14 @@ class DetalleOrden(models.Model):
     class Meta:
         managed = False
         db_table = 'detalle_orden'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_detalle_orden)
+
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_detalle_orden)
 
 
 class DjangoAdminLog(models.Model):
@@ -218,6 +237,9 @@ class Empleado(models.Model):
         managed = False
         db_table = 'empleado'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.rut)
 
 class EstadoPago(models.Model):
     id_estado_pago = models.BigIntegerField(primary_key=True)
@@ -226,6 +248,10 @@ class EstadoPago(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_pago'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_estado_pago)
 
 
 class EstadoPedido(models.Model):
@@ -235,6 +261,10 @@ class EstadoPedido(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_pedido'
+    
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_estado_pedido)
 
 
 class EstadoSolicitud(models.Model):
@@ -244,6 +274,10 @@ class EstadoSolicitud(models.Model):
     class Meta:
         managed = False
         db_table = 'estado_solicitud'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_estado)
 
 
 class Estanteria(models.Model):
@@ -263,6 +297,10 @@ class Marca(models.Model):
     class Meta:
         managed = False
         db_table = 'marca'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_marca)
 
 
 class Oferta(models.Model):
@@ -306,6 +344,10 @@ class Pasillo(models.Model):
         managed = False
         db_table = 'pasillo'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_pasillo)
+
 class Producto(models.Model):
     id_producto = models.BigIntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=30)
@@ -328,6 +370,10 @@ class Region(models.Model):
     class Meta:
         managed = False
         db_table = 'region'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_region) 
 
 
 class Rol(models.Model):
@@ -337,6 +383,10 @@ class Rol(models.Model):
     class Meta:
         managed = False
         db_table = 'rol'
+        
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_rol) 
 
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
@@ -362,6 +412,10 @@ class TipoOrden(models.Model):
         managed = False
         db_table = 'tipo_orden'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_orden)
+
 
 class TipoPago(models.Model):
     id_tipo_pago = models.BigIntegerField(primary_key=True)
@@ -370,6 +424,10 @@ class TipoPago(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_pago'
+
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_pago)
 
 
 class Valoracion(models.Model):

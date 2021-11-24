@@ -99,10 +99,11 @@ def seguimiento(request):
     return render(request,'seguimiento.html')
 
 def mostrarinfo(request):
-    
-    id_orden = request.POST.get('id_orden')
-    
-    ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
-    
-    return render(request,'info_orden.html', {"orden": ordencompra})
+    try:
+        id_orden = request.POST.get('id_orden')
+        ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
+        return render(request,'info_orden.html', {"orden": ordencompra})
+    except:
+        return redirect('/seguimiento')
+        
 

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
 from core.models import EstadoPedido, EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria, DetalleOrden
+from django.contrib import messages
 import cx_Oracle
 
 # Create your views here.
@@ -23,9 +24,9 @@ def mantenedor_marca(request):
         nombre_marca = request.POST.get('nombre_marca')
         salida = agregar_marca(nombre_marca)
         if salida==1:
-            data['MensajeMarca'] = 'Marca registrada correctamente'
+            data['MensajeMarcaCorrecto'] = 'Marca registrada correctamente'
         else:
-            data['MensajeMarca'] = 'El nombre de la marca ya esta siendo utilizado'
+            data['MensajeMarcaError'] = 'El nombre de la marca ya esta siendo utilizado'
 
     return render(request, 'mantenedor_marca.html', data)
 
@@ -45,9 +46,9 @@ def mantenedor_categorias(request):
         nombre_categoria = request.POST.get('nombre_categoria')
         salida = agregar_categoria(nombre_categoria)
         if salida==1:
-            data['MensajeCategoria'] = 'Categoria registrada correctamente'
+            data['MensajeCategoriaCorrecto'] = 'Categoria registrada correctamente'
         else:
-            data['MensajeCategoria'] = 'El nombre de la categoria ya esta siendo utilizado'  
+            data['MensajeCategoriaError'] = 'El nombre de la categoria ya esta siendo utilizado'  
 
 
     return render(request, 'mantenedor_categorias.html', data)
@@ -75,9 +76,9 @@ def mantenedor_productos(request):
         imagen = request.FILES['imagen'].read()
         salida = agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marca, id_categoria, imagen)
         if salida==1:
-            data['MensajeProducto'] = 'Producto registrado correctamente'
+            data['MensajeProductoCorrecto'] = 'Producto registrado correctamente'
         else:
-            data['MensajeProducto'] = 'El nombre del producto ya esta siendo utilizado' 
+            data['MensajeProductoError'] = 'El nombre del producto ya esta siendo utilizado' 
             
     return render(request, 'mantenedor_productos.html', data)             
 
