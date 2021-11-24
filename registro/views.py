@@ -71,11 +71,11 @@ def cerrarsesion(request):
         return render(request, 'home.html')
     return render(request, 'home.html')
 
-def modificar_cliente(request, email):
-    email=request.POST.get('email')
+def modificar_cliente(request, cliente_rut):
+    rut=request.POST.get('email')
     data={
-        'cliente' : Cliente.objects.get(email=email),
-        'cuentacliente': CuentaCliente.objects.get(email=email)
+        'cliente' : Cliente.objects.get(rut=rut),
+        'cuentacliente': CuentaCliente.objects.get(cliente_rut=rut)
     }
     return render(request, "perfil.html", data)
 

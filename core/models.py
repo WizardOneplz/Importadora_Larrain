@@ -126,12 +126,17 @@ class Cliente(models.Model):
     genero = models.CharField(max_length=1)
     telefono = models.BigIntegerField()
     email = models.CharField(max_length=40)
+    clave = models.CharField(max_length=30)
     direccion = models.CharField(max_length=40)
     ciudad_id_ciudad = models.ForeignKey(Ciudad, models.DO_NOTHING, db_column='ciudad_id_ciudad')
     
     class Meta:
         managed = False
         db_table = 'cliente'
+
+    def str(self):
+        titulo = "{0}"
+        return titulo.format(self.rut)
 
 
 class CuentaCliente(models.Model):
@@ -142,6 +147,10 @@ class CuentaCliente(models.Model):
     class Meta:
         managed = False
         db_table = 'cuenta_cliente'
+    
+    def str(self):
+        titulo = "{0}"
+        return titulo.format(self.cliente_rut)
 
 
 class CuentaEmpleado(models.Model):

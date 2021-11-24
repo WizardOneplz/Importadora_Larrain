@@ -43,7 +43,7 @@ urlpatterns = [
     path('cerrarsesion',cerrarsesion),
     path('logemp/',logemp),
     path('logout',logout),
-    path('perfil/<email>',modificar_cliente),
+    path('perfil/<cliente_rut>',modificar_cliente),
     #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),

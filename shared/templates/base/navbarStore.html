@@ -45,10 +45,10 @@
                 <button class="btn btn-outline-success me-2" type="button" >CERRAR SESIÓN</button></a>
               </ul>
               <ul class="navbar-nav ms-auto">
-                <a href="perfil/{{cliente.email}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
+                <a href="perfil/{{cliente.cliente_rut}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
               </ul>
               <ul class="blanco">
-              <p id="email" name="email"> {{ cliente.email}}</p> 
+              <p id="email" name="email"> {{ cliente.cliente_rut}}</p> 
               </ul>
               {% else %}
               <ul class="navbar-nav ms-auto">
