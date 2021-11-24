@@ -102,10 +102,6 @@ class Categoria(models.Model):
         titulo = "{0}"
         return titulo.format(self.nombre_categoria)
 
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.id_categoria)
-
 
 class Ciudad(models.Model):
     id_ciudad = models.BigIntegerField(primary_key=True)
@@ -126,7 +122,6 @@ class Cliente(models.Model):
     genero = models.CharField(max_length=1)
     telefono = models.BigIntegerField()
     email = models.CharField(max_length=40)
-    clave = models.CharField(max_length=30)
     direccion = models.CharField(max_length=40)
     ciudad_id_ciudad = models.ForeignKey(Ciudad, models.DO_NOTHING, db_column='ciudad_id_ciudad')
     clave = models.CharField(max_length=30)
@@ -139,11 +134,6 @@ class Cliente(models.Model):
         titulo = "{0}"
         return titulo.format(self.rut)
 
-    def str(self):
-        titulo = "{0}"
-        return titulo.format(self.rut)
-
-
 class CuentaCliente(models.Model):
     email = models.CharField(primary_key=True, max_length=40)
     clave = models.CharField(max_length=20)
@@ -152,8 +142,8 @@ class CuentaCliente(models.Model):
     class Meta:
         managed = False
         db_table = 'cuenta_cliente'
-    
-    def str(self):
+        
+    def __str__(self):
         titulo = "{0}"
         return titulo.format(self.cliente_rut)
 
