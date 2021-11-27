@@ -130,13 +130,14 @@ def mantenedor_estanteria(request):
 
 #AGREGAR ESTANTERIA
     if request.method== 'POST':
-        cant_estanterias = request.POST.get('cant_estanterias')
-        id_bodega = request.POST.get('id_bodega')
+        capacidad = request.POST.get('capacidad')
+        id_pasillo = request.POST.get('id_pasillo')
+        id_producto = request.POST.get('id_producto')
 
-        salida = agregar_pasillo(cant_estanterias,id_bodega)
+        salida = agregar_estanteria(capacidad,id_pasillo,id_producto)
         if salida==1:
             data['MensajeEstanteriaCorrecto'] = 'Estantería registrada correctamente.'
-            data['pasillo'] = listado_pasillo()
+            data['pasillo'] = listado_estanteria()
 
     return render(request,'mantenedor_estanteria.html',data)
 
@@ -297,7 +298,7 @@ def eliminar_bodega(request, id_bodega):
     except:
         return redirect('/agregar_empleado')
     
-    return redirect('/agregar_empleado')
+    return redirect('/mantenedor_bodega')
 
 
 def modificar_bodega(request, id_bodega):
@@ -354,7 +355,7 @@ def eliminar_pasillo(request, id_pasillo):
         'pasillo':listado_pasillo()
     }
 
-    return redirect('/agregar_empleado',data)
+    return redirect('/mantenedor_pasillo',data)
 
 #ESTANTERIA
 
@@ -380,7 +381,7 @@ def listado_estanteria():
 def eliminar_estanteria(request, id_estanteria):
     estanteria = Estanteria.objects.get(id_estanteria=id_estanteria)
     estanteria.delete()
-    return redirect('/agregar_empleado')
+    return redirect('/mantenedor_estanteria')
 
 #login 
 
