@@ -92,28 +92,28 @@
                                                                 <!--MENSAJE-->
                                                                 <div class="invalid-feedback">Ingrese una direccion valida en mayúsculas.</div>
                                                         </div>
-                                                            <div class="mb-3 position-relative espacio_form">
-                                                                <h4><label for="exampleFormControlInput1" class="form-label">CIUDAD</label></h4>
-                                                                <select id="ciudad" name="ciudad" class="form-select" required>
-                                                                    <option selected disabled value="">Seleccione..</option>
-                                                                    {% for c in CIUDAD %}
-                                                                        <option value="{{ c.0 }}">{{c.1}}</option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                                <!--MENSAJE-->
-                                                                <div class="invalid-feedback">Complete los datos</div>
-                                                            </div>   
-                                                        </div>
+                                                        <div class="mb-3 position-relative espacio_form">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">CIUDAD</label></h4>
+                                                            <select id="ciudad" name="ciudad" class="form-select" required>
+                                                                <option selected disabled value="">Seleccione..</option>
+                                                                {% for c in CIUDAD %}
+                                                                    <option value="{{ c.0 }}">{{c.1}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Complete los datos</div>
+                                                        </div>   
                                                     </div>
-                                                        <div class="row espacio_form position-relative">
-                                                            <div class="col">
-                                                                <h4><label for="exampleFormControlInput1" class="form-label">Contraseña</label></h4>
-                                                                <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  value="{{cliente.clave}}" required>
-                                                                <!--MENSAJE-->
-                                                                <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
-                                                            </div>
-                                                        </div>
-                                                        <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
+                                                </div>
+                                                <div class="row espacio_form position-relative">
+                                                    <div class="col">
+                                                        <h4><label for="exampleFormControlInput1" class="form-label">Contraseña</label></h4>
+                                                        <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  value="{{cliente.clave}}" required>
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
                                             </div>
                                         </form>
                                     </div>
