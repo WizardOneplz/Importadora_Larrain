@@ -167,10 +167,10 @@
                                                 <h1 class="text-center negro">Listado de Empleados</h2>
                                             </div>
                                             <div class="card-body">
-                                                <table class="table align-middle text-center">                                     
+                                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                                <table class="table align-middle text-center" id="myInput">                                     
                                                 <thead>
                                                     <tr>
-                                                    <th scope="col">ID</th>
                                                     <th scope="col">RUT</th>
                                                     <th scope="col">NOMBRE</th>
                                                     <th scope="col">AP PATERNO</th>
@@ -184,7 +184,6 @@
                                                 <tbody>
                                                     {%for p in empleados%}
                                                     <tr>
-                                                    <th scope="row">{{ p.0 }}</th>
                                                     <td>{{ p.1 }}</td>
                                                     <td>{{ p.2 }}</td>
                                                     <td>{{ p.3 }}</td>
@@ -209,9 +208,9 @@
                                                 <h1 class="text-center negro">Listado de Empleados</h2>
                                             </div>
                                             <div class="card-body col">
-                                                <table class="table align-middle text-center col-md">                                     
+                                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                                <table class="table align-middle text-center col-md" id="myInput">                                     
                                                     <thead>
-                                                        <th scope="col">ID</th>
                                                         <th scope="col">RUT</th>
                                                         <th scope="col">Nombre</th>
                                                         <th scope="col">AP PATERNO</th>
@@ -224,7 +223,6 @@
                                                     <tbody>
                                                         {%for p in listar_empleados%}
                                                         <tr>
-                                                        <th scope="row">{{ p.id }}</th>
                                                         <td>{{ p.rut }}</td>
                                                         <td>{{ p.nombre }}</td>
                                                         <td>{{ p.apellido_paterno }}</td>
@@ -251,7 +249,8 @@
                                         <h1 class="text-center negro">Listado de Clientes</h2>
                                     </div>
                                     <div class="card-body col">
-                                        <table class="table align-middle">                                     
+                                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                        <table class="table align-middle" id="myInput">                                     
                                             <thead>
                                                 <tr>
                                                     <th scope="col">RUT</th>
@@ -339,7 +338,8 @@
 
                                     <!-- LISTAR ESTANTERIA-->
                                     <div class="tab-pane fade" id="nav-listarest" role="tabpanel" aria-labelledby="nav-listarest-tab">
-                                        <table class="table blanco align-middle">                                     
+                                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                        <table class="table blanco align-middle" id="myInput">                                     
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
@@ -364,7 +364,8 @@
                                     
                                     <!-- MODIFICAR ESTANTERIA-->
                                     <div class="tab-pane fade" id="nav-modificarest" role="tabpanel" aria-labelledby="nav-modificarest-tab">
-                                        <table class="table blanco align-middle">                                     
+                                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                        <table class="table blanco align-middle" id="myInput">                                     
                                             <thead>
                                                 <tr>
                                                     <th scope="col">ID</th>
@@ -395,7 +396,29 @@
             </div>
         </div>        
     </section> 
+    <script>
+        function myFunction() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
 
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
+        }
+    </script> 
     <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
 </body>

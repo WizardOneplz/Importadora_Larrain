@@ -50,7 +50,7 @@
                                         <button class="nav-link" id="nav-editarproducto-tab" data-bs-toggle="tab" data-bs-target="#nav-editarproducto" type="button" role="tab" aria-controls="nav-editarproducto" aria-selected="false">Editar / Eliminar Producto</button>
                                     </div>
                                 </nav>
-                                <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-content espacio4" id="nav-tabContent">
                                     <!--Creacion de Productos-->
                                     <div class="tab-pane fade show active" id="nav-crearproducto" role="tabpanel" aria-labelledby="nav-crearproducto-tab">
                                         <form action="" method="POST" class="espacio4 needs-validation" enctype="multipart/form-data" novalidate>
@@ -179,7 +179,6 @@
                                                 <table id="myTable" class="table espacio4 align-middle listaproductos">                                     
                                                     <thead>
                                                         <tr>
-                                                        <th scope="col">ID</th>
                                                         <th scope="col">NOMBRE</th>
                                                         <th scope="col">PRECIO</th>
                                                         <th scope="col">STOCK</th>
@@ -193,7 +192,6 @@
                                                     <tbody>
                                                         {%for p in productoslistados%}
                                                         <tr>
-                                                        <th scope="row">{{ p.id_producto }}</th>
                                                         <td>{{ p.nombre_producto}}</td>
                                                         <td>{{ p.precio }}</td>
                                                         <td>{{ p.stock }}</td>
