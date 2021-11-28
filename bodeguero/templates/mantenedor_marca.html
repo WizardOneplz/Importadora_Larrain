@@ -42,7 +42,7 @@
                                         <button class="nav-link" id="nav-editarmarca-tab" data-bs-toggle="tab" data-bs-target="#nav-editarmarca" type="button" role="tab" aria-controls="nav-editarmarca" aria-selected="false">Editar / Eliminar Marca</button>
                                     </div>
                                 </nav>
-                                <div class="tab-content" id="nav-tabContent">
+                                <div class="tab-content espacio4" id="nav-tabContent">
                                     <!--Creacion de Marca-->
                                     <div class="tab-pane fade show active" id="nav-crearmarca" role="tabpanel" aria-labelledby="nav-crearmarca-tab">
                                         <form class="needs-validation" id="formulario" action="" method="POST" novalidate>
@@ -100,15 +100,13 @@
                                         <table id="myTable" class="table espacio4 align-middle listaproductos">                                     
                                             <thead>
                                                 <tr>
-                                                <th scope="col">ID</th>
-                                                <th scope="col">NOMBRE</th>
+                                                <th scope="col" >NOMBRE</th>
                                                 <th colspan="2">OPCIONES</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {%for p in marcas%}
                                                 <tr>
-                                                <th scope="row">{{ p.id_marca }}</th>
                                                 <td>{{ p.nombre_marca }}</td>
                                                 <td><a href="modificar_marca/{{ p.id_marca }}" class="btn btn-primary">MODIFICAR<a/></td>
                                                 <td><a href="eliminar_marca/{{ p.id_marca }}" class="btn btn-danger">ELIMINAR<a/></td>
