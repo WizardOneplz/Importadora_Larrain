@@ -16,10 +16,14 @@
                         {% endif %}
                         <div class="card-text" style="margin-top: 5px;">
                             <h4 style="color: black;">{{ product.data.1 }}</h4>
-                            <p>CLP ${{ product.data.2 }}</p>
+
 
                             {% if product.data.7 %}
+                                <p style="text-decoration: line-through;">CLP ${{ product.data.2 }}</p>
                                 <p style="color: red;">OFERTA ${{ product.data.7 }}</p>
+                            {% else %}
+                            <p>CLP ${{ product.data.2 }}</p>
+                            
                             {% endif %}
                             
                             <hr>
