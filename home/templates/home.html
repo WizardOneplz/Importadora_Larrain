@@ -146,24 +146,23 @@
       <!--Menu secundario-->
       </section>
       <section>
+        <br>
+        <h2 class="blanco" style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos en Oferta</h2>
         <div class="container" style="margin-top: 20px;">
-          <br>
-          <h2 class="blanco" style="text-align: center; margin-bottom: 20px;">PRODUCTOS EN OFERTA</h2>
-          <hr>
           <div class="row align-items-center justify-content-center row-cols-auto">
             {% for product in page_obj %}
             <div class="col-md-auto">
-              <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 280px;">
+              <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 300px; height: 465px;">
                 {% if product.imagen %}
-                <a href="producto/{{ product.data.0 }}"><img class="thumbnail"
+                <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                     src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>
                 {% endif %}
                 <div class="card-text" style="margin-top: 5px;">
                   <h4 style="color: black;">{{ product.data.1 }}</h4>
                   <p>{{ product.data.2 }}$ CLP</p>
                   <hr>
-                  <button class="btn btn-outline-secondary add-btn" style="margin-bottom: 10px;">Añadir al
-                    Carrito</button>
+                  <a href=""><button class="btn btn-outline-secondary add-btn" style="margin-bottom: 10px;">Añadir al
+                    Carrito</button></a>
                   <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
                     Producto</a>
                 </div>
