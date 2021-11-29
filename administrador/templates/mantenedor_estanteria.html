@@ -41,8 +41,8 @@
                                     <h1 class="text-center negro">Listado de Clientes</h2>
                                 </div>
                                 <div class="card-body col">
-                                    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                    <table class="table align-middle" id="myInput">                                     
+                                    <input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                    <table class="table align-middle" id="myTable3">                                     
                                         <thead>
                                             <tr>
                                                 <th scope="col">RUT</th>
@@ -58,7 +58,7 @@
                                             <tbody>
                                             {%for c in cliente%}
                                             <tr>
-                                                <th scope="row">{{ c.0 }}</th>
+                                                <td>{{ c.0 }}</td>
                                                 <td>{{ c.1 }}</td>
                                                 <td>{{ c.2 }}</td>
                                                 <td>{{ c.3 }}</td>
@@ -130,8 +130,8 @@
                                             <h1 class="text-center negro">Listado de Estanterías</h2>
                                         </div>
                                         <div class="card-body">
-                                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                            <table class="table align-middle" id="myInput">                                     
+                                            <input type="text" id="myInput8" onkeyup="myFunction8()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                            <table class="table align-middle" id="myTable8">                                     
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">ID</th>
@@ -143,7 +143,7 @@
                                                 <tbody>
                                                 {%for e in estanteria%}
                                                 <tr>
-                                                    <th scope="row">{{ e.0}}</th>
+                                                    <td>{{ e.0 }}</td>
                                                     <td>{{ e.1 }}</td>
                                                     <td>{{ e.2 }}</td>
                                                     <td>{{ e.3 }}</td>
@@ -163,8 +163,8 @@
                                             <h1 class="text-center negro">Listado de Estanterías</h2>
                                         </div>
                                         <div class="card-body">
-                                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                            <table class="table align-middle" id="myInput">                                     
+                                            <input type="text" id="myInput9" onkeyup="myFunction9()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                            <table class="table align-middle" id="myTable9">                                     
                                                 <thead>
                                                     <tr>
                                                         <th scope="col">ID</th>
@@ -177,7 +177,7 @@
                                                 <tbody>
                                                     {%for e in listar_estanteria%}
                                                     <tr>
-                                                        <th scope="row">{{ e.id_estanteria }}</th>
+                                                        <td>{{ e.id_estanteria }}</td>
                                                         <td>{{ e.capacidad }}</td>
                                                         <td>{{ e.pasillo_id_pasillo }}</td>
                                                         <td>{{ e.producto_id_producto }}</td>
@@ -203,28 +203,74 @@
         </div>
     </section>
     <script>
-    function myFunction() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    table = document.getElementById("myTable");
-    tr = table.getElementsByTagName("tr");
-
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-        txtValue = td.textContent || td.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-        } else {
-            tr[i].style.display = "none";
+        function myFunction3() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput3");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable3");
+        tr = table.getElementsByTagName("tr");
+    
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
         }
         }
-    }
-    }
-    </script> 
+    </script>
+    <script>
+        function myFunction8() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput8");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable8");
+        tr = table.getElementsByTagName("tr");
+    
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
+        }
+    </script>
+    <script>
+        function myFunction9() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput9");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable9");
+        tr = table.getElementsByTagName("tr");
+    
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
+        }
+    </script>   
     <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
 </body>
