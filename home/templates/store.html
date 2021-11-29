@@ -1,54 +1,30 @@
-{%extends "base/navbar.html"%}
+{%extends "base/navbarStore.html"%}
 {%load static %}
-{% block navbar %}
-<div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/">INICIO</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="store">TIENDA</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">OFERTAS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">FUNCION</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="">FUNCION</a>
-        </li>
-    </ul>
-    <ul class="navbar-nav ms-auto">
-        <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">INICIAR SESIÓN</button>
-    </ul>
-    <ul class="form-inline my-2 my-lg-0">
-        <a href="carrito">
-            <img id="cart-icon" src="{% static 'img/cart.png' %}">
-        </a>
-        <p id="cart-total">0</p>
-    </ul>
-</div>
-{% endblock %}
 
 {% block content %}
+{%include "busqueda.html"%}
 <section>
     <h2 class="blanco" style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos Disponibles</h2>
     <div class="container">
         <div class="row align-items-center justify-content-center row-cols-auto">
             {% for product in page_obj %}
             <div class="col-md-auto">
-                <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 280px;">
+                <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 310px; height: 525px;">
                     {% if product.imagen %}
-                    <a href="producto/{{ product.data.0 }}"><img class="thumbnail"
+                    <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                             src="data:imagen/png;base64, {{product.imagen}}" alt=""/></a>
                         {% endif %}
                         <div class="card-text" style="margin-top: 5px;">
                             <h4 style="color: black;">{{ product.data.1 }}</h4>
-                            <p>{{ product.data.2 }}$ CLP</p>
+                            {% if product.data.7 %}
+                                <p style="text-decoration: line-through;">CLP ${{ product.data.2 }}</p>
+                                <p style="color: red;">OFERTA ${{ product.data.7 }}</p>
+                            {% else %}
+                            <p>CLP ${{ product.data.2 }}</p>
+                            {% endif %}
                             <hr>
-                            <button class="btn btn-outline-secondary add-btn" style="margin-bottom: 10px;">Añadir al Carrito</button>
+                            <a href=""><button class="btn btn-outline-secondary add-btn" style="margin-bottom: 10px;">Añadir al
+                                Carrito</button></a>
                             <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
                                 Producto</a>
                         </div>

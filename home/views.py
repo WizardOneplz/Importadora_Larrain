@@ -23,7 +23,7 @@ def home(request):
         }
         arreglo.append(data)
 
-    paginator = Paginator(arreglo, 4)
+    paginator = Paginator(arreglo, 3)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -51,7 +51,7 @@ def store(request):
         }
         arreglo.append(data)
 
-    paginator = Paginator(arreglo, 4)
+    paginator = Paginator(arreglo, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -105,5 +105,41 @@ def mostrarinfo(request):
         return render(request,'info_orden.html', {"orden": ordencompra})
     except:
         return redirect('/seguimiento')
+
+def oferta(request):
+    datos_productos = listado_oferta()
+    arreglo = []
+
+    for i in datos_productos:
+        data = {
+            'data':i,   
+            'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+        }
+        arreglo.append(data)
+
+    paginator = Paginator(arreglo, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'productos':arreglo,
+        'page_obj': page_obj,
+    }
+    return render(request, 'oferta.html', data)
+
+def listado_oferta():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("SP_PRODUCTO_OFERTA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        data = {
+            'data':fila,
+            'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
+        }
+        lista.append(fila)
+    return lista
         
 
