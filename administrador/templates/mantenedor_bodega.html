@@ -41,8 +41,8 @@
                                         <h1 class="text-center negro">Listado de Clientes</h2>
                                     </div>
                                     <div class="card-body col">
-                                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                        <table class="table align-middle" id="myInput">                                     
+                                        <input type="text" id="myInput3" onkeyup="myFunction3()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                        <table class="table align-middle" id="myTable3">                                     
                                             <thead>
                                                 <tr>
                                                     <th scope="col">RUT</th>
@@ -58,7 +58,7 @@
                                                 <tbody>
                                                 {%for c in cliente%}
                                                 <tr>
-                                                    <th scope="row">{{ c.0 }}</th>
+                                                    <td>{{ c.0 }}</td>
                                                     <td>{{ c.1 }}</td>
                                                     <td>{{ c.2 }}</td>
                                                     <td>{{ c.3 }}</td>
@@ -143,24 +143,24 @@
                                                 <h1 class="text-center negro">Listado de Bodegas</h2>
                                             </div>
                                             <div class="card-body">
-                                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                                <table class="table align-middle" id="myInput">                                     
-                                                    <thead>
-                                                        <tr>
-                                                            <th scope="col">ID</th>
-                                                            <th scope="col">NUMERO PASILLOS</th>
-                                                            <th scope="col">DIRECCION</th>
-                                                        </tr>
-                                                    </thead>
-                                                        <tbody>
-                                                        {%for c in bodega%}
-                                                        <tr>
-                                                            <th scope="row">{{ c.0 }}</th>
-                                                            <td>{{ c.1 }}</td>
-                                                            <td>{{ c.2 }}</td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                    </tbody>
+                                                <input type="text" id="myInput4" onkeyup="myFunction4()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                                <table class="table align-middle" id="myTable4">                                     
+                                                <thead>
+                                                    <tr>
+                                                    <th scope="col">ID</th>
+                                                    <th scope="col">NUMERO PASILLOS</th>
+                                                    <th scope="col">DIRECCION</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {%for c in bodega%}
+                                                    <tr>
+                                                    <td>{{ c.0 }}</td>
+                                                    <td>{{ c.1 }}</td>
+                                                    <td>{{ c.2 }}</td>
+                                                    </tr>
+                                                    {% endfor %}
+                                                </tbody>
                                                 </table>
                                             </div>
                                         </div>
@@ -174,8 +174,8 @@
                                                 <h1 class="text-center negro">Listado de Bodegas</h2>
                                             </div>
                                             <div class="card-body">
-                                                <input type="text" id="myInput" onkeyup="myFunction()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                                <table class="table align-middle" id="myInput">                                     
+                                                <input type="text" id="myInput5" onkeyup="myFunction5()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
+                                                <table class="table align-middle" id="myTable5">                                     
                                                     <thead>
                                                         <tr>
                                                             <th scope="col">ID</th>
@@ -187,7 +187,7 @@
                                                     <tbody>
                                                     {%for b in listado_bodega%}
                                                     <tr>
-                                                        <th scope="row">{{ b.id_bodega }}</th>
+                                                        <td>{{ b.id_bodega }}</td>
                                                         <td>{{ b.num_pasillo }}</td>
                                                         <td>{{ b.direccion }}</td>
                                                         <td><a href="modificar_bodega/{{ b.id_bodega }}" class="btn btn-primary">MODIFICAR</a></td>
@@ -213,12 +213,35 @@
         </div>
     </section>
     <script>
-        function myFunction() {
+        function myFunction3() {
         // Declare variables
         var input, filter, table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
+        input = document.getElementById("myInput3");
         filter = input.value.toUpperCase();
-        table = document.getElementById("myTable");
+        table = document.getElementById("myTable3");
+        tr = table.getElementsByTagName("tr");
+    
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
+        }
+    </script>
+    <script>
+        function myFunction4() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput4");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable4");
         tr = table.getElementsByTagName("tr");
 
         // Loop through all table rows, and hide those who don't match the search query
@@ -234,7 +257,30 @@
             }
         }
         }
-    </script> 
+    </script>
+    <script>
+        function myFunction5() {
+        // Declare variables
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput5");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable5");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+            }
+        }
+        }
+    </script>  
     <script src="{%static 'app/js/formulario.js'%}"></script>
     {% endblock%}
 </body>
