@@ -1,4 +1,4 @@
-{%extends "base/navbar.html"%}
+{%extends "base/navbarStore.html"%}
 {%load static%}
 {% block navbar %}
 <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
@@ -46,7 +46,7 @@
     <div class="row align-items-center justify-content-center" style="margin-bottom: 200px; ">
         <div class="col-md-9 blanco">
                 <h2>Producto: {{ product.data.1 }}</h2>
-                <h4>Precio: {{ product.data.2}} $CLP</h4>
+                <h4>Precio: CLP ${{ product.data.2}}</h4>
                 <h4>Stock: {{ product.data.3}} Unidades</h4>
                 <p>Marca: {{ product.data.8 }}</p>
                 <p>Categoría: {{ product.data.7 }}</p>
