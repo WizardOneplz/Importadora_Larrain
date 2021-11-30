@@ -316,16 +316,18 @@ def editar_bodega(request):
     bodega.id_bodega = id_bodega
     bodega.num_pasillo = num_pasillo
     bodega.direccion = direccion
+
     bodega.save()
 
     return redirect('/agregar_empleado')
 
 #PASILLO
 
-def agregar_pasillo(cant_estanterias,id_bodega):
+def agregar_pasillo(request,cant_estanterias,id_bodega):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
+    id_bodega = request.POST.get('id_bodega')   
     cursor.callproc('ADM_AGREGAR_PASILLO',[cant_estanterias,id_bodega, salida])
     return salida.getvalue()
 

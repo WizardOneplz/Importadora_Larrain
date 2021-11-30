@@ -156,15 +156,19 @@ def agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marc
     return salida.getvalue()
 
 def eliminar_producto(request, id_producto):
-    producto = Producto.objects.get(id_producto=id_producto)
-    producto.delete()
-
-    return redirect('/mantenedor_productos')
-
+    try:
+        producto = Producto.objects.get(id_producto=id_producto)
+        producto.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Producto eliminado con éxito.")
+        return redirect('/mantenedor_productos')
+    except:
+        messages.add_message(request=request, level=messages.ERROR, message="Primero debe eliminar las estanterias con este producto.")
+        return redirect('/mantenedor_productos')
+        
+    
 def modificar_producto(request, id_producto):
 
     producto = Producto.objects.get(id_producto=id_producto)
-
     return render(request, "modificar_producto.html", {"productos": producto})
 
 def editar_producto(request):
@@ -172,10 +176,10 @@ def editar_producto(request):
     id_producto = request.POST.get('id')  
     nombre_producto = request.POST.get('nombre_producto')
     stock = request.POST.get('stock')
+    precio = request.POST.get('precio')
     oferta = request.POST.get('oferta')
     poferta = request.POST.get('p_oferta')
     imagen = request.FILES['imagen'].read()
-    precio = request.POST.get('precio')
     
     producto = Producto.objects.get(id_producto=id_producto)
     producto.id_producto = id_producto

@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="mb-3 position-relative">
                                                     <label for="exampleFormControlInput1" class="form-label">Precio</label>
-                                                    <input type="number" class="form-control" id="precio" name="precio" placeholder="Ingrese un precio, entre 1000 y 3.000.000" min="1000" max="3000000" required> 
+                                                    <input type="number" class="form-control" id="exampleFormControlInput1" name="precio" placeholder="Ingrese un precio, entre 1000 y 3.000.000" min="1000" max="3000000" required> 
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">Ingresar un Precio valido. Entre 1.000 y 3.000.000.</div>
                                                 </div>
@@ -162,7 +162,16 @@
                                                         {{MensajeProductoError}}
                                                     </div>
                                                 </div>
-                                                {% endif %}  
+                                                {% endif %}
+                                                
+                                                {%if messages %}
+                                                <ul class="messages"> 
+                                                    {%for message in messages %}
+                                                    <li{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+                                                    {% endfor %}
+                                                </ul>
+                                                {% endif %}
+
                                                 </div>
                                         </div>
                                         </form>

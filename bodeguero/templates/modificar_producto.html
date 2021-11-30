@@ -84,6 +84,13 @@
                                             <div class="invalid-feedback">Insertar una Imagen.</div>
                                         </div>
                                         <button type="submit" value="Submit" class="btn btn-warning btn-lg">Guardar</button>
+                                        {%if messages %}
+                                            <ul class="messages"> 
+                                                {%for message in messages %}
+                                                <li{% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>{{ message }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 </form>

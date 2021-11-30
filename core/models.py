@@ -338,6 +338,9 @@ class Producto(models.Model):
         managed = False
         db_table = 'producto'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_producto)
 
 class Region(models.Model):
     id_region = models.BigIntegerField(primary_key=True)
