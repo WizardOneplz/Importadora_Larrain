@@ -99,10 +99,10 @@
                                                     </div>
                                                     <div class="col position-relative">
                                                         <label for="exampleFormControlInput1" class="form-label">ID BODEGA</label>
-                                                        <select id="id_bodega" name="id_bodega" class="form-select" required>
+                                                        <select id="exampleFormControlInput1" name="id_bodega" class="form-select" required>
                                                             <option selected disabled value="">Seleccione...</option>
                                                             {% for b in bodega%}
-                                                            <option value="{{ b.0 }}">{{b.0}}</option>
+                                                            <option value="{{ b.0 }}">{{b.2}}</option>
                                                             {% endfor %}
                                                         </select>
                                                         <!--MENSAJE-->

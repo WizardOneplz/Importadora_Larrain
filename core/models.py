@@ -116,6 +116,7 @@ class CuentaCliente(models.Model):
         return titulo.format(self.cliente_rut)
 
 
+
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
     clave = models.CharField(max_length=20)

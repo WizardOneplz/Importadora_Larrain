@@ -109,6 +109,7 @@ def mantenedor_pasillo(request):
     return render(request,'mantenedor_pasillo.html',data)
 
 
+
 #ESTANTERIA
 def mantenedor_estanteria(request):
     data = {
@@ -116,6 +117,7 @@ def mantenedor_estanteria(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
+        'pasillos':listar_pasillos(),
         'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
@@ -245,6 +247,18 @@ def listar_productos():
         lista.append(fila)
     return lista
 
+def listar_pasillos():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("ADM_LISTAR_PASILLOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
 def listar_marcas():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -276,6 +290,7 @@ def agregar_bodega(cant_pasillos,direccion):
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('ADM_AGREGAR_BODEGA',[cant_pasillos, direccion, salida])
+    
     return salida.getvalue()
 
 def listado_bodega():
@@ -323,19 +338,18 @@ def editar_bodega(request):
 
 #PASILLO
 
-def agregar_pasillo(request,cant_estanterias,id_bodega):
+def agregar_pasillo(cant_estanterias,id_bodega):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
-    salida = cursor.var(cx_Oracle.NUMBER)
-    id_bodega = request.POST.get('id_bodega')   
+    salida = cursor.var(cx_Oracle.NUMBER)   
     cursor.callproc('ADM_AGREGAR_PASILLO',[cant_estanterias,id_bodega, salida])
     return salida.getvalue()
+
 
 def listado_pasillo():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
-
     cursor.callproc("LISTAR_PASILLO", [out_cur])
 
     lista = []

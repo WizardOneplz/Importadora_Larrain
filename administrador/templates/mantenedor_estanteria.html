@@ -75,7 +75,7 @@
                         </div>
                         <!-- Cierre Listado CLIENTES-->
                         <!-- Mantenedor Estanteria-->
-                        <div class="tab-pane fade show active" id="v-pills-pasillo" role="tabpanel" aria-labelledby="v-pills-pasillo-tab">
+                        <div class="tab-pane fade show active" id="v-pills-estanteria" role="tabpanel" aria-labelledby="v-pills-estanteria-tab">
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <button class="nav-link active" id="nav-crearest-tab" data-bs-toggle="tab" data-bs-target="#nav-crearest" type="button" role="tab" aria-controls="nav-crearest" aria-selected="true">Crear Estanteria</button>
@@ -98,13 +98,29 @@
                                                     <div class="invalid-feedback">Ingrese una capacidad valida. Entre 100 y 200 Unidades.</div>
                                                     </div>
                                                     <div class="col position-relative">
-                                                        <label for="exampleFormControlInput1" class="form-label">ID PASILLO</label>
-                                                        <input type="number" class="form-control" id="exampleFormControlInput1" name="id_pasillo" min="1" placeholder="Ingrese un ID de pasillo segun estanteria deseada." required>
-                                                    <!--MENSAJE--> 
-                                                    <div class="invalid-feedback">Ingrese un ID de pasillo valido.</div>
-                                                </div>
+                                                        <label for="exampleFormControlInput1" class="form-label">ID BODEGA</label>
+                                                        <select id="exampleFormControlInput1" name="id_bodega" class="form-select" required>
+                                                            <option selected disabled value="">Seleccione...</option>
+                                                            {% for b in bodega%}
+                                                            <option value="{{ b.0 }}">{{b.2}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">Seleccione una ID de Bodega.</div>
+                                                    </div>
                                                 </div>
                                             <div class="row espacio_form">
+                                                <div class="col position-relative">
+                                                    <label for="exampleFormControlInput1" class="form-label">ID PASILLO</label>
+                                                    <select id="id_producto" name="id_pasillo" class="form-select" required>
+                                                        <option value="">Seleccionar</option>
+                                                        {% for p in pasillos%}
+                                                            <option value="{{ p.0 }}">{{p.0}}</option>
+                                                        {% endfor %}
+                                                    </select>
+                                                <!--MENSAJE--> 
+                                                <div class="invalid-feedback">Ingrese un ID de pasillo valido.</div>
+                                                </div>
                                                 <div class="col position-relative">
                                                     <label for="exampleFormControlInput1" class="form-label">NOMBRE PRODUCTO</label>
                                                     <select id="id_producto" name="id_producto" class="form-select" required>
@@ -116,6 +132,7 @@
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">Debe elegir un producto.</div>
                                                 </div>
+                                                
                                             </div>
                                                 <button type="submit" value="Submit" class="btn btn-warning btn-lg">AGREGAR</button>
                                             </div>
