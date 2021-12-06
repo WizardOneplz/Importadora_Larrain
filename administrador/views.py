@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 from core.models import Empleado,CuentaEmpleado, Rol, Estanteria, Bodega, Pasillo
+from django.contrib import messages
 import cx_Oracle 
 
 # Create your views here.
@@ -179,11 +180,14 @@ def listar_cargos():
     return lista
 
 def eliminar_empleado(request, rut):
-    cuentaempleado = CuentaEmpleado.objects.get(empleado_rut=rut)
-    cuentaempleado.delete()
-    empleado = Empleado.objects.get(rut=rut)
-    empleado.delete()
-
+    try:
+        cuentaempleado = CuentaEmpleado.objects.get(empleado_rut=rut)
+        cuentaempleado.delete()
+        empleado = Empleado.objects.get(rut=rut)
+        empleado.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Empleado eliminado con Éxito.")
+    except:
+        messages.add_message(request=request, level=messages.ERROR, message="Imposible Eliminar, empleado se relaciona con otras tablas.")    
     return redirect('/agregar_empleado')
 
 def modificar_empleado(request, rut):
@@ -217,6 +221,7 @@ def editar_empleado(request):
     empleado.email = email
     empleado.cargo = cargo
     empleado.save()
+    messages.add_message(request=request, level=messages.SUCCESS, message="Empleado modificado con Éxito.")
 
     return redirect('/agregar_empleado')
 #CLIENTE
@@ -310,8 +315,10 @@ def eliminar_bodega(request, id_bodega):
     try:
         bodega = Bodega.objects.get(id_bodega=id_bodega)
         bodega.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Bodega eliminada con éxito.")
     except:
-        return redirect('/agregar_empleado')
+        messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar bodega, para realizar esta accion debe eliminar los pasillos de la bodega.")
+        return redirect('/mantenedor_bodega')
     
     return redirect('/mantenedor_bodega')
 
@@ -333,8 +340,9 @@ def editar_bodega(request):
     bodega.direccion = direccion
 
     bodega.save()
+    messages.add_message(request=request, level=messages.SUCCESS, message="Bodega modificada con Éxito.")
 
-    return redirect('/agregar_empleado')
+    return redirect('/mantenedor_bodega')
 
 #PASILLO
 
@@ -361,11 +369,14 @@ def eliminar_pasillo(request, id_pasillo):
     try:
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Pasillo eliminado con Éxito.Las estanterías asociadas tambien se eliminaron.")
+        return redirect('/mantenedor_pasillo')
     except:
         estanteria = Estanteria.objects.get(pasillo_id_pasillo=id_pasillo)
         estanteria.delete()
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
+        return redirect('/mantenedor_pasillo')
     
     data={
         'pasillo':listado_pasillo()
@@ -397,6 +408,7 @@ def listado_estanteria():
 def eliminar_estanteria(request, id_estanteria):
     estanteria = Estanteria.objects.get(id_estanteria=id_estanteria)
     estanteria.delete()
+    messages.add_message(request=request, level=messages.SUCCESS, message="Estantería eliminada con Éxito.")
     return redirect('/mantenedor_estanteria')
 
 #login 
@@ -404,8 +416,7 @@ def eliminar_estanteria(request, id_estanteria):
 def logemp(request):
     if request.method =='POST':
         try:
-            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
-            clave =request.POST['clave'])
+            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],clave =request.POST['clave'])
             request.session['usuario']=Usuario.usuario 
             #OBTENER EL ROL
             if Usuario.rol_id_rol== 1:
