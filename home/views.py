@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 from core.models import Producto, Marca, Categoria
 from django.core.files.base import ContentFile
 import base64
+import cx_Oracle
 
 # Create your views here.
 def home(request):
@@ -64,6 +65,7 @@ def store(request):
 
 
 def producto(request, pk):
+    
     datos_productos = listado_productos(id_pro = pk)
     productos = Producto.objects.filter(pk=pk)
     
@@ -74,10 +76,26 @@ def producto(request, pk):
             'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
         }
         arreglo.append(data)
+        
     data = {
         'productos': arreglo,
     }
-    return render(request, 'producto.html', data)
+    
+    if request.method== 'POST':
+        valoracion = request.POST.get('valoracion')
+        id_producto = request.POST.get('id_producto')
+        comentario = request.POST.get('comentario')
+        email = request.POST.get('email')
+        salida = agregar_valoracion(valoracion, id_producto, comentario, email)
+        
+    return render(request, 'producto.html', data)      
+
+def agregar_valoracion(valoracion,id_producto, comentario, email):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_AGREGAR_VALORACION',[valoracion, id_producto, comentario, email, salida])
+    return salida.getvalue()
 
 
 def listado_productos(id_pro):

@@ -12,7 +12,6 @@
 
     </div>
 </div>
-
 <div class="row align-items-center justify-content-center" style="margin-bottom: 200px; margin-top: 50px ">
     <div class="col-md-5 blanco">
         <h2>Producto: {{ product.data.1 }}</h2>
@@ -26,9 +25,54 @@
 
         <p>Stock: {{ product.data.3}} Unidades</p>
         <p>Marca: {{ product.data.8 }}</p>
-        <p>Categoría: {{ product.data.7 }}</p>
+        <p>Categoría: {{ product.data.9 }}</p>
         <hr>
         <button class="btn btn-outline-secondary add-btn">Añadir al Carrito</button>
+        <!-- Boton Valoración -->
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#valoracion">
+            VALORAR PRODUCTO
+        </button>
+        <!-- Cierre Boton Valoración -->   
+        <!-- Modal -->
+        <div class="modal fade" id="valoracion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content negro">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Valoración de producto</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                <form action="" method="POST" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <h5 class="centrartexto">Selecciona de 1 a 5 estrellas</h5>
+                    <div class="container">
+                        <div class="star-widget">
+                            <input type="radio" name="valoracion" id="rate-5" value="5" required>
+                            <label for="rate-5" class="fas fa-star"></label>
+                            <input type="radio" name="valoracion" id="rate-4" value="4">
+                            <label for="rate-4" class="fas fa-star"></label>
+                            <input type="radio" name="valoracion" id="rate-3" value="3">
+                            <label for="rate-3" class="fas fa-star"></label>
+                            <input type="radio" name="valoracion" id="rate-2" value="2">
+                            <label for="rate-2" class="fas fa-star"></label>
+                            <input type="radio" name="valoracion" id="rate-1" value="1">
+                            <label for="rate-1" class="fas fa-star"></label>
+                        </div>
+                    </div>
+                    <h5 class="centrartexto3">Email</h5>
+                    <input type="email" class="form-control espacio_form" id="exampleFormControlInput1" name="email" placeholder="" required>
+                    <h5 class="centrartexto2">Cuéntanos tu experiencia</h5>
+                    <input type="text" class="form-control espacio_form" id="exampleFormControlInput1" name="comentario" placeholder="">
+                    </div>
+                    <input type="number" class="form-control d-none" id="exampleFormControlInput1" name="id_producto" value={{product.data.0}} readonly>
+                    <div class="d-grid col-10 mx-auto espacio_form">
+                        <button class="btn btn-warning btn-lg" type="submit" value="Submit">Valorar</button>
+                    </div>
+                </form>
+            </div>
+            </div>
+        </div>
+        <!-- Cierre Modal -->
     </div>
     {% endfor %}
 </div>
