@@ -2,37 +2,7 @@
 {%load static%}
 
 <body>
-  {% block navbar %}
-  <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-      <li class="nav-item">
-        <a class="nav-link" aria-current="page" href="/">INICIO</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/store">TIENDA</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">OFERTAS</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">FUNCION</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="">FUNCION</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ms-auto">
-      <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal"
-        data-bs-target="#exampleModal">INICIAR SESIÓN</button>
-    </ul>
-    <ul class="form-inline my-2 my-lg-0">
-      <a href="carrito">
-        <img id="cart-icon" src="{% static 'img/cart.png' %}">
-      </a>
-      <p id="cart-total">0</p>
-    </ul>
-  </div>
-  {% endblock%}
+
   {% block content %}
   <div class="row align-items-center justify-content-center espacio4">
     <div class="col-md-9">
@@ -169,7 +139,7 @@
           <div class="row align-items-center justify-content-center row-cols-auto">
             {% for product in page_obj %}
             <div class="col-md-auto">
-              <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 300px; height: 465px;">
+              <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 300px; height: 525px;">
                 {% if product.imagen %}
                 <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                     src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>
@@ -183,8 +153,11 @@
                   <p>CLP ${{ product.data.2 }}</p>
                   {% endif %}
                   <hr>
-                  <a href=""><button class="btn btn-outline-secondary add-btn" style="margin-bottom: 10px;">Añadir al
-                      Carrito</button></a>
+                  <form action="{% url 'cart:Add' product.data.0 %}" method="post">
+                    {{ cart_product_form }}
+                    <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Añadir al Carrito</button>
+                    {% csrf_token %}
+                  </form>
                   <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
                     Producto</a>
                 </div>
