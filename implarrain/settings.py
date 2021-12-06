@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'shared',
     'agente',
     'import_export',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -82,7 +83,7 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.oracle',
-        'NAME': '127.0.0.1:1522/xe',
+        'NAME': '127.0.0.1:1521/xe',
         'USER': 'IMPLARRAIN',
         'PASSWORD': '123',
         'TEST': {
@@ -139,3 +140,5 @@ MEDIA_URL = 'shared/static/img/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 IMPORT_EXPORT_USE_TRANSACTIONS = True  
+
+CART_SESSION_ID = 'cart'

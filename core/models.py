@@ -75,7 +75,6 @@ class Ciudad(models.Model):
     nombre_ciudad = models.CharField(unique=True, max_length=30)
     codigo_postal = models.BigIntegerField()
     region_id_region = models.ForeignKey('Region', models.DO_NOTHING, db_column='region_id_region')
-
     class Meta:
         managed = False
         db_table = 'ciudad'
@@ -101,7 +100,6 @@ class Cliente(models.Model):
         titulo = "{0}"
         return titulo.format(self.rut)
 
-
 class CuentaCliente(models.Model):
     email = models.CharField(primary_key=True, max_length=40)
     clave = models.CharField(max_length=20)
@@ -114,9 +112,7 @@ class CuentaCliente(models.Model):
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.cliente_rut)
-
-
-
+        
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
     clave = models.CharField(max_length=20)
@@ -129,20 +125,17 @@ class CuentaEmpleado(models.Model):
 
 
 class DetalleOrden(models.Model):
-    id_detalle_orden = models.BigIntegerField(primary_key=True)
-    cantidad = models.BigIntegerField()
+    producto_id_producto = models.ForeignKey('Producto', related_name='order_items', on_delete=models.CASCADE, db_column='producto_id_producto')
+    cantidad = models.BigIntegerField(default=1)
     precio = models.BigIntegerField()
-    cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
-    empleado_rut = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_rut')
-    producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
+    orden_id_orden = models.ForeignKey('OrdenCompra', related_name='items', on_delete=models.CASCADE, db_column='orden_id_orden')
+
+    def get_cost(self):
+        return self.precio * self.cantidad
 
     class Meta:
         managed = False
         db_table = 'detalle_orden'
-
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.id_detalle_orden)
 
 
 class DjangoAdminLog(models.Model):
@@ -293,20 +286,32 @@ class Oferta(models.Model):
 
 
 class OrdenCompra(models.Model):
-    id_orden = models.BigIntegerField(primary_key=True)
-    precio_total = models.BigIntegerField()
-    fecha_compra = models.DateField()
-    fecha_estimada = models.DateField()
-    estado_pago_id_estado_pago = models.ForeignKey(EstadoPago, models.DO_NOTHING, db_column='estado_pago_id_estado_pago')
-    detalle_orden_id_detalle_orden = models.ForeignKey(DetalleOrden, models.DO_NOTHING, db_column='detalle_orden_id_detalle_orden')
-    estado_pedido_id_estado_pedido = models.ForeignKey(EstadoPedido, models.DO_NOTHING, db_column='estado_pedido_id_estado_pedido')
+    def number():
+        no = OrdenCompra.objects.count()
+        if no == None:
+            return 1
+        else:
+            return no + 1
+        
+    id_orden = models.BigIntegerField(primary_key=True, default=number)
+    nombre_comprador = models.CharField(max_length=40)
+    apellido_comprador = models.CharField(max_length=40)
+    precio_total = models.BigIntegerField(default=20)
+    fecha_compra = models.DateField(auto_now_add=True)
+    fecha_estimada = models.DateField(auto_now=True)
     tipo_pago_id_tipo_pago = models.ForeignKey('TipoPago', models.DO_NOTHING, db_column='tipo_pago_id_tipo_pago')
-    id_tipo_pago = models.BigIntegerField()
     tipo_orden_id_tipo_orden = models.ForeignKey('TipoOrden', models.DO_NOTHING, db_column='tipo_orden_id_tipo_orden')
+    cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
 
     class Meta:
         managed = False
         db_table = 'orden_compra'
+    
+    def get_total_cost(self):
+        return sum(item.get_cost() for item in self.items.all())
+    
+    def __str__(self):
+        return f'OrdenCompra {self.id_orden}'
 
 
 class Pasillo(models.Model):
