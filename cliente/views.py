@@ -25,7 +25,6 @@ def listado_clientes():
     return lista
 
 def listar_ciudad():
-     
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()

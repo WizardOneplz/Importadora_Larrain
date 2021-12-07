@@ -28,9 +28,10 @@ urlpatterns = [
     #TIENDA
     path('admin/', admin.site.urls),
     path('',home),
-    path('cart', cart),
     path('store', store),
+    path('cart/', include('cart.urls', namespace='cart')),
     path('producto/<int:pk>/', producto, name='producto'),
+    path('oferta', oferta),
 
     #REGISTRO
     path('registro',registro,),

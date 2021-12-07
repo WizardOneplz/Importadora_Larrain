@@ -1,0 +1,16 @@
+{%extends "base/navbarStore.html"%}
+{% block title %}
+¡MUCHAS GRACIAS!
+{% endblock %}
+{% block content %}
+<div class="row justify-content-center" >
+  <div class="col-md-9">
+      <div class="card" style="text-align: center; margin-top: 40px;">
+  <h1>¡Gracias por Tu Compra!</h1>
+  <p>Tu Compra ha sido Exitosamente Ingresada. Tu número de orden es
+  <strong>{{ order.id_orden }}</strong>.</p>
+  <button class="btn btn-outline-secondary"><a class="nav-link" aria-current="page" href="/">Volver a la Tienda</a></button>
+      </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{%extends "base/navbarStore.html"%}
+{%load static%}
+{% block content%}
+<div class="row justify-content-center">
+    <div class="col-md-9">
+        <div class="card" style="margin-top:30px; padding-right: 20px;">
+            <div class="card-header">
+                <a style="margin-bottom: 20px;" class="btn btn-outline-dark" href="/">&#x2190; Continuar Comprando</a>
+
+                <a  style="float:right; margin:0 auto; font-size: 18px;" class="btn btn-success" href="{% url "cart:order_create" %}">Pagar</a>
+            </div>
+            {% if cart %}
+            <div class="row justify-content-center" style="margin-top: 20px;">
+                <div class="cart-row" style="text-align: center;width: 1150px;">
+                    <div style="flex:1"><strong>Producto</strong></div>
+                    <div style="flex:2"><strong>Cantidad</strong></div>
+                    <div style="flex:3"><strong>Precio</strong></div>
+                </div>
+
+                {% for item in cart %}
+                    {% with producto=item.id_producto %}
+                        <div class="cart-row" style="text-align: center; width: 1150px;">
+                            <div style="flex:1;"><p>{{item.id_producto}}</p></div>
+                            <div style="flex:2;">
+                                <p class="quantity">{{item.cantidad}}</p>
+                                <div class="quantity">
+                                    <form action="{% url 'cart:Add' producto.id_producto %}" method="post">
+                                        {{ item.update_quantity_form.cantidad }}
+                                        {{ item.update_quantity_form.override }}
+                                        <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Actualizar</button>
+                                        {% csrf_token %}
+                                    </form>
+                                </div>
+                            </div>
+                            <div style="flex:3; "><p>{{item.precio_total}}$</p></div>
+                            <form action="{% url 'cart:Del' producto.id_producto %}" method="post">
+                                <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">X</button>
+                            {% csrf_token %}
+                            </form>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+                <h5 style="text-align: right; margin: 10 auto; margin-right: 50px; font-weight: bold;">Total de la Compra:<strong> {{ cart.get_total_price }}$</strong></h5>
+            </div>
+        </div>
+                {% else %}
+        <div class="box-element justify-content-center">
+            <tr>
+                <td>
+                    <div class="alert alert-dange text-center">Sin Productos</div>
+                </td>
+            </tr>
+            <div style="flex:1"><p></p></div>
+        </div>
+                {% endif %}
+        {% csrf_token %}
+    </div>
+{% endblock %}

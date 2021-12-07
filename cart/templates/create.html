@@ -1,0 +1,39 @@
+{%extends "base/navbarStore.html"%}
+{% block content %}
+{% if cart %}
+<div class="row justify-content-center" >
+  <div class="col-md-9">
+      <div class="card" style="margin-top: 40px;">
+        <h2 style="text-align: center;">Pago de la Orden</h2>
+        <div class="order-info">
+          <h4 style="text-align: center;">Tu Orden</h4>
+          <ul style="text-align: center; padding-right: 30px;">
+            {% for item in cart %}
+                <li>
+                  <h5>{{ item.cantidad }}x {{ item.id_producto }}: 
+                  <span>${{ item.precio_total }}</span></h5>
+                </li>
+            {% endfor %}
+          </ul>
+          <h3 style="text-align: center;">Total: ${{cart.get_total_price }}</h3>
+        </div>
+        <form method="post" class="order-form">
+          {{ form.as_p }}
+          <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Realizar Orden</button>
+          {% csrf_token %}
+        </form>
+      </div>
+  </div>
+</div>
+{% else %}
+<div class="row justify-content-center" >
+  <div class="col-md-9">
+      <div class="card" style="text-align: center; margin-top: 40px;">
+        <div class="alert alert-dange text-center">NO HAY PRODUCTOS PARA REALIZAR ORDEN</div>
+      </div>
+  </div>
+
+</div>
+{% endif %}
+  
+{% endblock %}

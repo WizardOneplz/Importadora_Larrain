@@ -45,20 +45,20 @@
                                             </div>
                                             <div class="mb-3 position-relative">
                                                 <h4><label for="exampleFormControlInput1" class="form-label">NOMBRE</label></h4>
-                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" minlength="3" maxlength="30" placeholder="Debe ingresar un nombre o ambos en mayusculas." required pattern="[A-Z ]{3,30}" value="{{empleados.nombre}}" > 
+                                                <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" minlength="3" maxlength="30" placeholder="Debe ingresar un nombre o ambos en mayusculas." required pattern="[A-ZÑ ]{3,30}" value="{{empleados.nombre}}" > 
                                                 <!--MENSAJE-->
                                                 <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                             </div>
                                             <div class="row espacio_form">
                                                 <div class="col position-relative">
                                                     <h4><label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label></h4>
-                                                    <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido paterno en mayusculas." pattern="[A-Z ]{3,30}" value="{{empleados.apellido_paterno}}" required>
+                                                    <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido paterno en mayusculas." pattern="[A-ZÑ ]{3,30}" value="{{empleados.apellido_paterno}}" required>
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                 </div>
                                                 <div class="col position-relative">
                                                     <h4><label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label></h4>
-                                                    <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido materno en mayusculas." pattern="[A-Z ]{3,30}" value="{{empleados.apellido_materno}}"required>
+                                                    <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido materno en mayusculas." pattern="[A-ZÑ ]{3,30}" value="{{empleados.apellido_materno}}"required>
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
                                                 </div>
@@ -104,6 +104,7 @@
                                                 </div>
                                             </div>
                                             <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
+
                                         </div>
                                     </div>
                                 </form>

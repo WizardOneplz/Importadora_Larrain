@@ -1,20 +1,19 @@
-from typing import List
 from django.db import connection
+from bodeguero.views import listar_productos
 from django.shortcuts import redirect, render, get_object_or_404
-from bodeguero.views import agregar_producto, listar_productos
-from django.shortcuts import redirect, render, get_object_or_404
-from core.models import OrdenCompra, Producto, Marca, Categoria  
+from core.models import OrdenCompra
 from django.core.paginator import Paginator
-from core.models import Producto, Marca, Categoria
-from django.core.files.base import ContentFile
+from cart.forms import CartAddProductForm
+from cart.Carrito import Carrito
 import base64
+import cx_Oracle
 
 # Create your views here.
 def home(request):
-
+    cart = Carrito(request)
+    cart_product_form = CartAddProductForm()
     datos_productos = listar_productos()
     arreglo = []
-    productos = Producto.objects.filter()
 
     for i in datos_productos:
         data = {
@@ -28,19 +27,17 @@ def home(request):
     page_obj = paginator.get_page(page_number)
 
     data = {
-        'productoss':productos,
         'productos':arreglo,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'cart_product_form':cart_product_form,
+        'cart':cart
     }
     return render(request, 'home.html', data)
 
 
-def cart(request):
-    productos = Producto.objects.all()
-    return render(request, 'cart.html', {'productos': productos})
-
-
 def store(request):
+    cart = Carrito(request)
+    cart_product_form = CartAddProductForm()
     datos_productos = listar_productos()
     arreglo = []
 
@@ -51,21 +48,49 @@ def store(request):
         }
         arreglo.append(data)
 
-    paginator = Paginator(arreglo, 4)
+    paginator = Paginator(arreglo, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
     data = {
         'productos':arreglo,
-        'page_obj': page_obj
+        'page_obj': page_obj,
+        'cart_product_form':cart_product_form,
+        'cart':cart
     }
 
     return render(request, 'store.html', data)
 
+def oferta(request):
+    cart = Carrito(request)
+    cart_product_form = CartAddProductForm()
+    datos_productos = listado_oferta()
+    arreglo = []
+
+    for i in datos_productos:
+        data = {
+            'data':i,   
+            'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+        }
+        arreglo.append(data)
+
+    paginator = Paginator(arreglo, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'productos':arreglo,
+        'page_obj': page_obj,
+        'cart_product_form':cart_product_form,
+        'cart':cart
+    }
+    return render(request, 'oferta.html', data)
+
 
 def producto(request, pk):
+    cart = Carrito(request)
     datos_productos = listado_productos(id_pro = pk)
-    productos = Producto.objects.filter(pk=pk)
+    cart_product_form = CartAddProductForm()
     
     arreglo = []
     for i in datos_productos:
@@ -74,10 +99,40 @@ def producto(request, pk):
             'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
         }
         arreglo.append(data)
+        
     data = {
         'productos': arreglo,
+        'cart':cart,
+        'cart_product_form':cart_product_form,
     }
-    return render(request, 'producto.html', data)
+    
+    if request.method== 'POST':
+        valoracion = request.POST.get('valoracion')
+        id_producto = request.POST.get('id_producto')
+        comentario = request.POST.get('comentario')
+        email = request.POST.get('email')
+        salida = agregar_valoracion(valoracion, id_producto, comentario, email)
+        
+    return render(request, 'producto.html', data)      
+
+def seguimiento(request):
+    cart = Carrito(request)
+    return render(request,'seguimiento.html', {'cart':cart})
+
+def mostrarinfo(request):
+    try:
+        id_orden = request.POST.get('id_orden')
+        ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
+        return render(request,'info_orden.html', {"orden": ordencompra})
+    except:
+        return redirect('/seguimiento')
+
+def agregar_valoracion(valoracion,id_producto, comentario, email):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    salida = cursor.var(cx_Oracle.NUMBER)
+    cursor.callproc('SP_AGREGAR_VALORACION',[valoracion, id_producto, comentario, email, salida])
+    return salida.getvalue()
 
 
 def listado_productos(id_pro):
@@ -95,15 +150,30 @@ def listado_productos(id_pro):
         lista.append(fila)
     return lista
 
-def seguimiento(request):
-    return render(request,'seguimiento.html')
 
-def mostrarinfo(request):
-    try:
-        id_orden = request.POST.get('id_orden')
-        ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
-        return render(request,'info_orden.html', {"orden": ordencompra})
-    except:
-        return redirect('/seguimiento')
+def listado_oferta():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("SP_PRODUCTO_OFERTA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        data = {
+            'data':fila,
+            'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
+        }
+        lista.append(fila)
+    return lista
+
+def search(request):
+    q = request.GET['q']
+    data = Producto.objects.filter(nombre_producto__icontains=q).order_by('-id_producto')
+    
+    paginator = Paginator(data, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render (request, 'search.html', {'data':data, 'page_obj':page_obj})
         
 
