@@ -156,15 +156,19 @@ def agregar_producto(nombre_producto, precio, stock, oferta, porcentaje, id_marc
     return salida.getvalue()
 
 def eliminar_producto(request, id_producto):
-    producto = Producto.objects.get(id_producto=id_producto)
-    producto.delete()
-
-    return redirect('/mantenedor_productos')
-
+    try:
+        producto = Producto.objects.get(id_producto=id_producto)
+        producto.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Producto eliminado con éxito.")
+        return redirect('/mantenedor_productos')
+    except:
+        messages.add_message(request=request, level=messages.ERROR, message="Primero debe eliminar las estanterias con este producto.")
+        return redirect('/mantenedor_productos')
+        
+    
 def modificar_producto(request, id_producto):
 
     producto = Producto.objects.get(id_producto=id_producto)
-
     return render(request, "modificar_producto.html", {"productos": producto})
 
 def editar_producto(request):
@@ -172,10 +176,10 @@ def editar_producto(request):
     id_producto = request.POST.get('id')  
     nombre_producto = request.POST.get('nombre_producto')
     stock = request.POST.get('stock')
+    precio = request.POST.get('precio')
     oferta = request.POST.get('oferta')
     poferta = request.POST.get('p_oferta')
     imagen = request.FILES['imagen'].read()
-    precio = request.POST.get('precio')
     
     producto = Producto.objects.get(id_producto=id_producto)
     producto.id_producto = id_producto
@@ -186,6 +190,7 @@ def editar_producto(request):
     producto.imagen = imagen
     producto.precio = precio
     producto.save() 
+    messages.add_message(request=request, level=messages.SUCCESS, message="Producto modificado con éxito.")
     
     return redirect('/mantenedor_productos')
 
@@ -218,12 +223,18 @@ def editar_solicitud(request):
     solicitud.observacion = observacion
     solicitud.estado_solicitud_id_estado = EstadoSolicitud.objects.get(id_estado = estado)
     solicitud.save() 
+    messages.add_message(request=request, level=messages.SUCCESS, message="Solicitud modificada con éxito.")
     
     return redirect('/mantenedor_productos')
 
 def eliminar_marca(request, id_marca):
-    marca = Marca.objects.get(id_marca=id_marca)
-    marca.delete()
+
+    try:
+        marca = Marca.objects.get(id_marca=id_marca)
+        marca.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Marca eliminada con éxito.")
+    except:
+        messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar la marca, existen productos asociados a la marca.")
 
     return redirect('/mantenedor_marca')
 
@@ -242,12 +253,19 @@ def editar_marca(request):
     marca.id_marca = id_marca
     marca.nombre_marca = nombre_marca
     marca.save() 
+    messages.add_message(request=request, level=messages.SUCCESS, message="Marca modificada con éxito.")
     
     return redirect('/mantenedor_marca')
 
 def eliminar_categoria(request, id_categoria):
-    categoria = Categoria.objects.get(id_categoria=id_categoria)
-    categoria.delete()
+
+    try:
+        categoria = Categoria.objects.get(id_categoria=id_categoria)
+        categoria.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Categoría eliminada con éxito.")
+    except:
+        messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar la categoría, existen productos asociados a la categoría.")
+    
 
     return redirect('/mantenedor_categorias')
 
@@ -266,6 +284,7 @@ def editar_categoria(request):
     categoria.id_categoria = id_categoria
     categoria.nombre_categoria = nombre_categoria
     categoria.save() 
+    messages.add_message(request=request, level=messages.SUCCESS, message="Categoría modificada con éxito.")
     
     return redirect('/mantenedor_categorias')
 
@@ -287,5 +306,6 @@ def editar_orden(request):
     orden.id_orden = id_orden
     orden.estado_pedido_id_estado_pedido = EstadoPedido.objects.get(id_estado_pedido = estado_pedido)
     orden.save() 
+    messages.add_message(request=request, level=messages.SUCCESS, message="Orden de compra modificada con éxito.")
     
     return redirect('/mantenedor_marca')

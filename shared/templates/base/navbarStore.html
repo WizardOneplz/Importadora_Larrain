@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{%static 'css/bootstrap.css'%}">
     <link rel="stylesheet" href="{%static 'css/style.css'%}">
     <script src="https://kit.fontawesome.com/5b148a6610.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>IMPORTADORA LARRAIN</title>
 </head>
 <body class="fondo">
 
@@ -36,7 +36,7 @@
                   <a class="nav-link" href="/oferta">OFERTAS</a>
                   </li>
                   <li class="nav-item">
-                  <a class="nav-link" href="seguimiento">SEGUIMIENTO COMPRA</a>
+                  <a class="nav-link" href="/seguimiento">SEGUIMIENTO COMPRA</a>
                   </li>
               </ul>
               {% if request.session.email %}
@@ -56,11 +56,15 @@
               </ul>
               {% endif %}
               <ul class="form-inline my-2 my-lg-0"> 
-                <a href="carrito">
+                <a href="/cart/">
                     <img  id="cart-icon" src="{% static 'img/cart.png' %}">
                 </a>
+              {% if cart %}
+              <p id="cart-total">{{cart.get_cantidad}}</p>
+              {% else %}
               <p id="cart-total">0</p>
               </ul> 
+              {% endif %}
               </div>
               
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

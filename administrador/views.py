@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.db import connection
 from core.models import Empleado,CuentaEmpleado, Rol, Estanteria, Bodega, Pasillo
+from django.contrib import messages
 import cx_Oracle 
 
 # Create your views here.
@@ -109,6 +110,7 @@ def mantenedor_pasillo(request):
     return render(request,'mantenedor_pasillo.html',data)
 
 
+
 #ESTANTERIA
 def mantenedor_estanteria(request):
     data = {
@@ -116,6 +118,7 @@ def mantenedor_estanteria(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
+        'pasillos':listar_pasillos(),
         'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
@@ -177,11 +180,14 @@ def listar_cargos():
     return lista
 
 def eliminar_empleado(request, rut):
-    cuentaempleado = CuentaEmpleado.objects.get(empleado_rut=rut)
-    cuentaempleado.delete()
-    empleado = Empleado.objects.get(rut=rut)
-    empleado.delete()
-
+    try:
+        cuentaempleado = CuentaEmpleado.objects.get(empleado_rut=rut)
+        cuentaempleado.delete()
+        empleado = Empleado.objects.get(rut=rut)
+        empleado.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Empleado eliminado con Éxito.")
+    except:
+        messages.add_message(request=request, level=messages.ERROR, message="Imposible Eliminar, empleado se relaciona con otras tablas.")    
     return redirect('/agregar_empleado')
 
 def modificar_empleado(request, rut):
@@ -215,6 +221,7 @@ def editar_empleado(request):
     empleado.email = email
     empleado.cargo = cargo
     empleado.save()
+    messages.add_message(request=request, level=messages.SUCCESS, message="Empleado modificado con Éxito.")
 
     return redirect('/agregar_empleado')
 #CLIENTE
@@ -239,6 +246,18 @@ def listar_productos():
     out_cur = django_cursor.connection.cursor()
 
     cursor.callproc("SP_LISTAR_PRODUCTOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+    return lista
+
+def listar_pasillos():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("ADM_LISTAR_PASILLOS", [out_cur])
 
     lista = []
     for fila in out_cur:
@@ -276,6 +295,7 @@ def agregar_bodega(cant_pasillos,direccion):
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('ADM_AGREGAR_BODEGA',[cant_pasillos, direccion, salida])
+    
     return salida.getvalue()
 
 def listado_bodega():
@@ -295,8 +315,10 @@ def eliminar_bodega(request, id_bodega):
     try:
         bodega = Bodega.objects.get(id_bodega=id_bodega)
         bodega.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Bodega eliminada con éxito.")
     except:
-        return redirect('/agregar_empleado')
+        messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar bodega, para realizar esta accion debe eliminar los pasillos de la bodega.")
+        return redirect('/mantenedor_bodega')
     
     return redirect('/mantenedor_bodega')
 
@@ -316,24 +338,26 @@ def editar_bodega(request):
     bodega.id_bodega = id_bodega
     bodega.num_pasillo = num_pasillo
     bodega.direccion = direccion
-    bodega.save()
 
-    return redirect('/agregar_empleado')
+    bodega.save()
+    messages.add_message(request=request, level=messages.SUCCESS, message="Bodega modificada con Éxito.")
+
+    return redirect('/mantenedor_bodega')
 
 #PASILLO
 
 def agregar_pasillo(cant_estanterias,id_bodega):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
-    salida = cursor.var(cx_Oracle.NUMBER)
+    salida = cursor.var(cx_Oracle.NUMBER)   
     cursor.callproc('ADM_AGREGAR_PASILLO',[cant_estanterias,id_bodega, salida])
     return salida.getvalue()
+
 
 def listado_pasillo():
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
-
     cursor.callproc("LISTAR_PASILLO", [out_cur])
 
     lista = []
@@ -345,11 +369,14 @@ def eliminar_pasillo(request, id_pasillo):
     try:
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
+        messages.add_message(request=request, level=messages.SUCCESS, message="Pasillo eliminado con Éxito.Las estanterías asociadas tambien se eliminaron.")
+        return redirect('/mantenedor_pasillo')
     except:
         estanteria = Estanteria.objects.get(pasillo_id_pasillo=id_pasillo)
         estanteria.delete()
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
+        return redirect('/mantenedor_pasillo')
     
     data={
         'pasillo':listado_pasillo()
@@ -381,6 +408,7 @@ def listado_estanteria():
 def eliminar_estanteria(request, id_estanteria):
     estanteria = Estanteria.objects.get(id_estanteria=id_estanteria)
     estanteria.delete()
+    messages.add_message(request=request, level=messages.SUCCESS, message="Estantería eliminada con Éxito.")
     return redirect('/mantenedor_estanteria')
 
 #login 
@@ -388,8 +416,7 @@ def eliminar_estanteria(request, id_estanteria):
 def logemp(request):
     if request.method =='POST':
         try:
-            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
-            clave =request.POST['clave'])
+            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],clave =request.POST['clave'])
             request.session['usuario']=Usuario.usuario 
             #OBTENER EL ROL
             if Usuario.rol_id_rol== 1:

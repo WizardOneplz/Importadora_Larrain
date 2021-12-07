@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'shared',
     'agente',
     'import_export',
+    'cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -139,3 +140,5 @@ MEDIA_URL = 'shared/static/img/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 IMPORT_EXPORT_USE_TRANSACTIONS = True  
+
+CART_SESSION_ID = 'cart'
