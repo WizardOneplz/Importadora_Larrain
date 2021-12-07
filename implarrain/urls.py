@@ -30,6 +30,7 @@ urlpatterns = [
     path('',home),
     path('cart', cart),
     path('store', store),
+    path('search', search),
     path('producto/<int:pk>/', producto, name='producto'),
     path('oferta', oferta),
 

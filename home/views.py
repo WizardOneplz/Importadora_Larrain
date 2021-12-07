@@ -12,7 +12,7 @@ import base64
 # Create your views here.
 def home(request):
 
-    datos_productos = listar_productos()
+    datos_productos = listado_oferta()
     arreglo = []
     productos = Producto.objects.filter()
 
@@ -23,7 +23,7 @@ def home(request):
         }
         arreglo.append(data)
 
-    paginator = Paginator(arreglo, 3)
+    paginator = Paginator(arreglo, 4)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
@@ -65,7 +65,6 @@ def store(request):
 
 def producto(request, pk):
     datos_productos = listado_productos(id_pro = pk)
-    productos = Producto.objects.filter(pk=pk)
     
     arreglo = []
     for i in datos_productos:
@@ -141,5 +140,15 @@ def listado_oferta():
         }
         lista.append(fila)
     return lista
+
+def search(request):
+    q = request.GET['q']
+    data = Producto.objects.filter(nombre_producto__icontains=q).order_by('-id_producto')
+    
+    paginator = Paginator(data, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render (request, 'search.html', {'data':data, 'page_obj':page_obj})
         
 

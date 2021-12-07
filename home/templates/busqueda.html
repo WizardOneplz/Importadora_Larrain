@@ -1,13 +1,14 @@
 <div class="container">
     <div class="row justify-content-center" style=" margin-top: 15px; margin-bottom: 20px;">
         <div class="col-md-4">
+            <form action="/search">
             <div class="input-group rounded" style="width: 400px;">
-                <input type="search" class="form-control rounded" placeholder="Buscar Producto" aria-label="Search"
-                    aria-describedby="search-addon" />
-                <button class="btn btn-primary" id="search-addon">
+                <input name="q" type="text" class="form-control rounded" placeholder="Buscar Producto" minlength="1" maxlength="30" required pattern="{1,30}"  aria-label="Search" aria-describedby="search-addon"/>
+                <button class="btn btn-primary" type="submit" id="button-addon2">
                     <i class="fas fa-search"></i>
                     </span>
             </div>
+            </form>
         </div>
     </div>
-    </div>
+</div>
