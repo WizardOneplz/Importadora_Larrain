@@ -38,13 +38,15 @@ urlpatterns = [
     path('mostrar_info/', mostrarinfo),
     #REGISTRO
     path('registro',registro),
-    path('agregar_empleado',mantenedor_admin),
+    path('logemp/agregar_empleado',mantenedor_admin),
     path('login', login), 
     path('cerrarsesion',cerrarsesion),
     path('logemp/',logemp),
-    path('logout',logout),
+    path('logemp/logout',logout),
     path('perfil/<cliente_rut>',modificar_cliente),
     path('editar_perfil/',perfil),
+    path('perfil/editar_clave/',cambclave),
+   
     #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
@@ -63,8 +65,8 @@ urlpatterns = [
     path('editar_empleado/',editar_empleado),
     path('modificar_orden/<id_orden>',modificar_orden),
     path('editar_orden/',editar_orden),
-    path('mantenedor_bodega',mantenedor_bodega),
-    path('mantenedor_pasillo',mantenedor_pasillo),
+    path('logemp/mantenedor_bodega',mantenedor_bodega),
+    path('logemp/mantenedor_pasillo',mantenedor_pasillo),
     path('mantenedor_estanteria',mantenedor_estanteria),
     path('mantenedor_marca',mantenedor_marca),
     path('mantenedor_categorias',mantenedor_categorias),

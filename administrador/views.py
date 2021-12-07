@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+from django.contrib.auth import authenticate
 from core.models import Empleado,CuentaEmpleado, Rol, Estanteria, Bodega, Pasillo
 import cx_Oracle 
 
@@ -386,24 +387,24 @@ def eliminar_estanteria(request, id_estanteria):
 #login 
 
 def logemp(request):
+    
     if request.method =='POST':
-        try:
-            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
-            clave =request.POST['clave'])
-            request.session['usuario']=Usuario.usuario 
-            #OBTENER EL ROL
-            if Usuario.rol_id_rol== 1:
-                return render(request,'agregar_empleado.html')
-            elif Usuario.rol_id_rol == 3:
+        try: 
+           Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+           clave=request.POST['clave'])
+           request.session['usuario']=Usuario.usuario
+           if Usuario.rol == 1 :
+               return render(request, 'agregar_empleado.html')
+           elif Usuario.rol == 3 :
                 return render(request,'subir_oferta.html')
-            elif Usuario.rol_id_rol == 4:
+           elif Usuario.rol == 4 :
                 return render(request,'registro.html')
-            elif Usuario.rol_id_rol == 5:
+           elif Usuario.rol == 5 :
                 return render(request,'mantenedor_marca.html')
-            else:
-                return render(request,'home.html')      
+           else:
+               return render(request, 'home.html' )
         except:
-            return render(request, 'mantenedor_productos.html')
+         return render(request, 'registro.html' )
 
 
 def logout(request):
