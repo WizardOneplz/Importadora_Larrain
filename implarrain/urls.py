@@ -29,11 +29,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',home),
     path('store', store),
-<<<<<<< HEAD
-    path('search', search),
-=======
     path('cart/', include('cart.urls', namespace='cart')),
->>>>>>> 7cff1de4d538d8eebede24d485152b32a1707bb4
     path('producto/<int:pk>/', producto, name='producto'),
     path('oferta', oferta),
 
