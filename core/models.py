@@ -265,12 +265,13 @@ class Marca(models.Model):
 
 
 class Oferta(models.Model):
-    rut_proveedor = models.CharField(primary_key=True, max_length=20)
+    id_oferta = models.BigIntegerField(primary_key=True)
+    rut_proveedor = models.CharField(max_length=20)
     nombre_proveedor = models.CharField(max_length=40)
     apellido_proveedor = models.CharField(max_length=40)
     email = models.CharField(max_length=40)
     oferta = models.CharField(max_length=300)
-    agente_rut = models.CharField(max_length=4000)
+    fecha = models.DateField()
     empleado_rut = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='empleado_rut')
 
     class Meta:
