@@ -113,7 +113,12 @@ def producto(request, pk):
         id_producto = request.POST.get('id_producto')
         comentario = request.POST.get('comentario')
         email = request.POST.get('email')
-        salida = agregar_valoracion(valoracion, id_producto, comentario, email)     
+        salida = agregar_valoracion(valoracion, id_producto, comentario, email)
+        if salida==1:
+                data['MensajeCategoriaCorrecto'] = 'Categoria registrada correctamente'
+                data['lista_valoraciones'] = listado_valoracion(id_producto=pk)
+        else:
+            data['MensajeCategoriaError'] = 'El nombre de la categoria ya esta siendo utilizado'       
         
     return render(request, 'producto.html', data)      
 
