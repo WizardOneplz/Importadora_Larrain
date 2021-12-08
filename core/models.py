@@ -295,6 +295,8 @@ class OrdenCompra(models.Model):
     tipo_pago_id_tipo_pago = models.ForeignKey('TipoPago', models.DO_NOTHING, db_column='tipo_pago_id_tipo_pago')
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
     tipo_orden_id_tipo_orden = models.ForeignKey('TipoOrden', models.DO_NOTHING, db_column='tipo_orden_id_tipo_orden')
+    nombre_comprador = models.CharField(max_length=40, blank=True, null=True)
+    apellido_comprador = models.CharField(max_length=40, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -326,7 +328,7 @@ class Producto(models.Model):
     oferta = models.CharField(max_length=1)
     porcentaje = models.BigIntegerField(blank=True, null=True)
     imagen = models.BinaryField(blank=True, null=True)
-    valoracion = models.BigIntegerField(blank=True, null=True)
+    valoracion2 = models.BigIntegerField(blank=True, null=True)
     categoria_id_categoria = models.ForeignKey(Categoria, models.DO_NOTHING, db_column='categoria_id_categoria')
     marca_id_marca = models.ForeignKey(Marca, models.DO_NOTHING, db_column='marca_id_marca')
 
