@@ -46,8 +46,11 @@ urlpatterns = [
     path('logemp/logout',logout),
     path('perfil/<cliente_rut>',modificar_cliente),
     path('editar_perfil/',perfil),
-    path('perfil/editar_clave/',cambclave),
-   
+    path('/perfil/editar_clave/',cambclave),
+    path('logemp/peremple/<empleado_rut>',modificar_perfil),
+    path('edt_emple/',peremple),
+    path('claveemple',claveemple),
+
     #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
