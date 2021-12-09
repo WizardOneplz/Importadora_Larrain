@@ -24,7 +24,7 @@
         {% endif %}
 
         <p>Stock: {{ product.data.3}} Unidades</p>
-        <p>Marca: {{ product.data.8 }}</p>
+        <p>Marca: {{ product.data.10 }}</p>
         <p>Categoría: {{ product.data.9 }}</p>
         <hr>
         <button class="btn btn-outline-secondary add-btn">Añadir al Carrito</button>
@@ -73,6 +73,25 @@
             </div>
         </div>
         <!-- Cierre Modal -->
+
+        <table class="table blanco espacio4 align-middle">                                     
+            <thead>
+                <tr>
+                <th scope="col">EMAIL</th>
+                <th scope="col">VALORACIÓN</th>
+                <th scope="col">COMENTARIO</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for p in lista_valoraciones%}
+                <tr>
+                <th scope="row">{{ p.4 }}</th>
+                <td>{{ p.1}}</td>
+                <td>{{ p.3 }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>      
     </div>
     {% endfor %}
 </div>

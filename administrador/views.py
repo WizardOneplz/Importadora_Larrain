@@ -224,7 +224,7 @@ def editar_empleado(request):
     empleado.save()
     messages.add_message(request=request, level=messages.SUCCESS, message="Empleado modificado con Éxito.")
 
-    return redirect('/agregar_empleado')
+    return redirect('/logemp/agregar_empleado')
 #CLIENTE
 
 def listado_clientes():
@@ -343,7 +343,7 @@ def editar_bodega(request):
     bodega.save()
     messages.add_message(request=request, level=messages.SUCCESS, message="Bodega modificada con Éxito.")
 
-    return redirect('/mantenedor_bodega')
+    return redirect('/logemp/mantenedor_bodega')
 
 #PASILLO
 
