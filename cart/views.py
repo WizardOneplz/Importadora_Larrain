@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .Carrito import Carrito
 from .forms import CartAddProductForm, OrderCreateForm
-from core.models import DetalleOrden, Producto
+from core.models import DetalleOrden, Producto, CuentaCliente
 from django.views.decorators.http import require_POST
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -20,6 +20,10 @@ def order_create(request):
         form = OrderCreateForm(request.POST)
         if form.is_valid():
             order = form.save()
+            order.precio_total = cart.get_total_price()
+            correo = request.POST.get('email')
+            order.cuenta_cliente_email = CuentaCliente.objects.get(email=correo)
+            order.save()
             for item in cart:
                 DetalleOrden.objects.create(cantidad = item['cantidad'], precio = item['precio'],producto_id_producto=item['id_producto'], orden_id_orden=order)
             cart.limpiar()

@@ -115,8 +115,8 @@ class CuentaCliente(models.Model):
 
     def __str__(self):
         titulo = "{0}"
-        return titulo.format(self.cliente_rut)
-
+        return titulo.format(self.email)
+        
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
     clave = models.CharField(max_length=20)
@@ -295,13 +295,13 @@ class OrdenCompra(models.Model):
             return 1
         else:
             return no + 1
-
-    id_orden = models.BigIntegerField(primary_key=True)
+        
+    id_orden = models.BigIntegerField(primary_key=True, default=number)
+    nombre_comprador = models.CharField(max_length=40)
+    apellido_comprador = models.CharField(max_length=40)
     precio_total = models.BigIntegerField()
-    fecha_compra = models.DateField()
-    fecha_estimada = models.DateField()
-    estado_pago_id_estado_pago = models.ForeignKey(EstadoPago, models.DO_NOTHING, db_column='estado_pago_id_estado_pago')
-    estado_pedido_id_estado_pedido = models.ForeignKey(EstadoPedido, models.DO_NOTHING, db_column='estado_pedido_id_estado_pedido')
+    fecha_compra = models.DateField(auto_now_add=True)
+    fecha_estimada = models.DateField(auto_now=True)
     tipo_pago_id_tipo_pago = models.ForeignKey('TipoPago', models.DO_NOTHING, db_column='tipo_pago_id_tipo_pago')
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
     tipo_orden_id_tipo_orden = models.ForeignKey('TipoOrden', models.DO_NOTHING, db_column='tipo_orden_id_tipo_orden')
@@ -406,6 +406,10 @@ class TipoPago(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_pago'
+    
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_pago)
 
     def __str__(self):
         titulo = "{0}"
