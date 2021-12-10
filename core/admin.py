@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 from .models import Bodega, Categoria, Cliente, CuentaCliente, CuentaEmpleado, DetalleOrden, Empleado, EstadoPago, EstadoPedido, EstadoSolicitud, Estanteria, Marca, Oferta, OrdenCompra, Pasillo, Producto, Region, Rol, SolicitudProductos, TipoOrden, TipoPago, Valoracion
 
