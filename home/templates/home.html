@@ -100,10 +100,11 @@
                           <p>CLP ${{ product.data.2 }}</p>
                           {% endif %}
                           <hr>
-                          <a href=""><button class="btn btn-outline-secondary add-btn"
-                                  style="margin-bottom: 10px;">Añadir
-                                  al
-                                  Carrito</button></a>
+                          <form class="form-group" action="{% url 'cart:Add' product.data.0 %}" method="post">
+                            {{ cart_product_form }}
+                            <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Añadir al Carrito</button>
+                            {% csrf_token %}
+                          </form>
                           <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
                               Producto</a>
                       </div>

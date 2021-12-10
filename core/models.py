@@ -148,16 +148,11 @@ class CuentaCliente(models.Model):
 
     def __str__(self):
         titulo = "{0}"
-        return titulo.format(self.cliente_rut)
-<<<<<<< HEAD
-
-=======
+        return titulo.format(self.email)
         
->>>>>>> 74a0b902aaf842e4c99d25dec2be522b74ab9d07
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
     clave = models.CharField(max_length=20)
-    rol_id_rol = models.ForeignKey('Rol', models.DO_NOTHING, db_column='rol_id_rol')
     empleado_rut = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_rut')
     rol = models.BigIntegerField()
 
@@ -315,7 +310,7 @@ class OrdenCompra(models.Model):
     id_orden = models.BigIntegerField(primary_key=True, default=number)
     nombre_comprador = models.CharField(max_length=40)
     apellido_comprador = models.CharField(max_length=40)
-    precio_total = models.BigIntegerField(default=20)
+    precio_total = models.BigIntegerField()
     fecha_compra = models.DateField(auto_now_add=True)
     fecha_estimada = models.DateField(auto_now=True)
     tipo_pago_id_tipo_pago = models.ForeignKey('TipoPago', models.DO_NOTHING, db_column='tipo_pago_id_tipo_pago')
@@ -422,6 +417,10 @@ class TipoPago(models.Model):
     class Meta:
         managed = False
         db_table = 'tipo_pago'
+    
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.nombre_pago)
 
 
 class Valoracion(models.Model):
