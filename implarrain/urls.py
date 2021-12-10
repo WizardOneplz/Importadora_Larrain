@@ -50,7 +50,6 @@ urlpatterns = [
     path('logemp/peremple/<empleado_rut>',modificar_perfil),
     path('edt_emple/',peremple),
     path('/logemp/peremple/<empleado_rut>',claveemple),
-    
     #ELIMINAR
     path('eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
