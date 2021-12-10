@@ -11,4 +11,27 @@
             </form>
         </div>
     </div>
+    <ul class="nav nav-pills align-items-center justify-content-center">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
+            aria-expanded="false">TODAS LAS CATEGORIAS</a>
+          
+          <ul class="dropdown-menu">
+            {% for categoria in categorias %}
+            <li><a style="color: black;" class="dropdown-item" href="/categoria/{{ categoria.id_categoria }}">{{categoria.nombre_categoria}}</a></li>
+            {% endfor %}
+          </ul>
+          
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
+          aria-expanded="false">TODAS LAS MARCAS</a>
+          <ul class="dropdown-menu">
+            {% for marca in marcas %}
+            <li><a style="color: black;" class="dropdown-item" href="/marca/{{ marca.id_marca }}">{{marca.nombre_marca}}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+      <br>
 </div>

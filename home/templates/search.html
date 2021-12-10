@@ -11,7 +11,7 @@
             {% if data %}
             {% for product in page_obj %}
             <div class="col-md-auto">
-                <div class="card card-body" style="text-align: center; margin-bottom: 30px; width: 310px; height: 525px;">
+                <div class="card card-body" style="text-align: center; margin-bottom: 10px; width: 250px; height: 500px; margin-top: 20px;">
                     {% if product.imagen %}
                     <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                             src="data:imagen/png;base64, {{ product.imagen }}" alt=""/></a>

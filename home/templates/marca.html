@@ -1,19 +1,20 @@
 {%extends "base/navbarStore.html"%}
-{%load static %}
-
-{% block content %}
+{%load static%}
+{% block content%}
 {%include "busqueda.html"%}
+
+
 <section>
     <div class="container">
         <div class="card" style="background-color: whitesmoke; margin-bottom: 20px;">
             <br>
-            <h2 style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos Disponibles
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos en Marca: {{marcass.nombre_marca}}
             </h2>
             <div class="row align-items-center justify-content-center row-cols-auto">
                 {% for product in page_obj %}
                 <div class="col-md-auto">
                     <div class="card card-body"
-                    style="text-align: center; margin-bottom: 10px; width: 250px; height: 500px; margin-top: 20px;">
+                    style="text-align: center; margin-bottom: 10px; width: 250px; height: 500px; margin-top: 20px;;">
                         {% if product.imagen %}
                         <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                                 src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>

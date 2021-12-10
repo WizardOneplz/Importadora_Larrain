@@ -53,9 +53,6 @@ class Bodega(models.Model):
         managed = False
         db_table = 'bodega'
 
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.id_bodega)
 
 class Categoria(models.Model):
     id_categoria = models.BigIntegerField(primary_key=True)
@@ -75,12 +72,14 @@ class Ciudad(models.Model):
     nombre_ciudad = models.CharField(unique=True, max_length=30)
     codigo_postal = models.BigIntegerField()
     region_id_region = models.ForeignKey('Region', models.DO_NOTHING, db_column='region_id_region')
+
     class Meta:
         managed = False
         db_table = 'ciudad'
 
 
 class Cliente(models.Model):
+    id = models.BigIntegerField()
     rut = models.CharField(primary_key=True, max_length=20)
     nombre = models.CharField(max_length=40)
     apellido_paterno = models.CharField(max_length=40)
@@ -88,7 +87,7 @@ class Cliente(models.Model):
     genero = models.CharField(max_length=1)
     telefono = models.BigIntegerField()
     email = models.CharField(max_length=40)
-    direccion = models.CharField(max_length=40)
+    direccion = models.CharField(max_length=50)
     clave = models.CharField(max_length=15)
     ciudad_id_ciudad = models.ForeignKey(Ciudad, models.DO_NOTHING, db_column='ciudad_id_ciudad')
 
@@ -99,6 +98,7 @@ class Cliente(models.Model):
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.rut)
+
 
 class CuentaCliente(models.Model):
     email = models.CharField(primary_key=True, max_length=40)
@@ -112,12 +112,14 @@ class CuentaCliente(models.Model):
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.cliente_rut)
-        
+
+
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
     clave = models.CharField(max_length=20)
-    rol_id_rol = models.ForeignKey('Rol', models.DO_NOTHING, db_column='rol_id_rol')
     empleado_rut = models.ForeignKey('Empleado', models.DO_NOTHING, db_column='empleado_rut')
+    rol_id_rol = models.ForeignKey('Rol', models.DO_NOTHING, db_column='rol_id_rol')
+    rol = models.BigIntegerField()
 
     class Meta:
         managed = False
@@ -125,10 +127,10 @@ class CuentaEmpleado(models.Model):
 
 
 class DetalleOrden(models.Model):
-    producto_id_producto = models.ForeignKey('Producto', related_name='order_items', on_delete=models.CASCADE, db_column='producto_id_producto')
-    cantidad = models.BigIntegerField(default=1)
+    cantidad = models.BigIntegerField()
     precio = models.BigIntegerField()
-    orden_id_orden = models.ForeignKey('OrdenCompra', related_name='items', on_delete=models.CASCADE, db_column='orden_id_orden')
+    orden_compra_id_orden = models.OneToOneField('OrdenCompra', models.DO_NOTHING, db_column='orden_compra_id_orden', primary_key=True)
+    producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
 
     def get_cost(self):
         return self.precio * self.cantidad
@@ -186,21 +188,17 @@ class DjangoSession(models.Model):
 class Empleado(models.Model):
     id = models.BigIntegerField()
     rut = models.CharField(primary_key=True, max_length=4000)
-    nombre = models.CharField(max_length=30)
-    apellido_paterno = models.CharField(max_length=30)
-    apellido_materno = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=40)
+    apellido_paterno = models.CharField(max_length=40)
+    apellido_materno = models.CharField(max_length=40)
     genero = models.CharField(max_length=1)
     telefono = models.BigIntegerField()
-    email = models.CharField(unique=True, max_length=30)
+    email = models.CharField(unique=True, max_length=40)
     cargo = models.CharField(max_length=30)
 
     class Meta:
         managed = False
         db_table = 'empleado'
-
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.rut)
 
 
 class EstadoPago(models.Model):
@@ -252,10 +250,6 @@ class Estanteria(models.Model):
         managed = False
         db_table = 'estanteria'
 
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.producto_id_producto)
-
 
 class Marca(models.Model):
     id_marca = models.BigIntegerField(primary_key=True)
@@ -292,21 +286,23 @@ class OrdenCompra(models.Model):
             return 1
         else:
             return no + 1
-        
-    id_orden = models.BigIntegerField(primary_key=True, default=number)
-    nombre_comprador = models.CharField(max_length=40)
-    apellido_comprador = models.CharField(max_length=40)
-    precio_total = models.BigIntegerField(default=20)
-    fecha_compra = models.DateField(auto_now_add=True)
-    fecha_estimada = models.DateField(auto_now=True)
+
+    id_orden = models.BigIntegerField(primary_key=True)
+    precio_total = models.BigIntegerField()
+    fecha_compra = models.DateField()
+    fecha_estimada = models.DateField()
+    estado_pago_id_estado_pago = models.ForeignKey(EstadoPago, models.DO_NOTHING, db_column='estado_pago_id_estado_pago')
+    estado_pedido_id_estado_pedido = models.ForeignKey(EstadoPedido, models.DO_NOTHING, db_column='estado_pedido_id_estado_pedido')
     tipo_pago_id_tipo_pago = models.ForeignKey('TipoPago', models.DO_NOTHING, db_column='tipo_pago_id_tipo_pago')
-    tipo_orden_id_tipo_orden = models.ForeignKey('TipoOrden', models.DO_NOTHING, db_column='tipo_orden_id_tipo_orden')
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
+    tipo_orden_id_tipo_orden = models.ForeignKey('TipoOrden', models.DO_NOTHING, db_column='tipo_orden_id_tipo_orden')
+    nombre_comprador = models.CharField(max_length=40, blank=True, null=True)
+    apellido_comprador = models.CharField(max_length=40, blank=True, null=True)
 
     class Meta:
         managed = False
         db_table = 'orden_compra'
-    
+
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
     
@@ -323,30 +319,28 @@ class Pasillo(models.Model):
         managed = False
         db_table = 'pasillo'
 
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.id_pasillo)
-
 
 class Producto(models.Model):
     id_producto = models.BigIntegerField(primary_key=True)
-    nombre_producto = models.CharField(unique=True, max_length=30)
+    nombre_producto = models.CharField(max_length=30)
     precio = models.BigIntegerField()
     stock = models.BigIntegerField()
     oferta = models.CharField(max_length=1)
     porcentaje = models.BigIntegerField(blank=True, null=True)
     imagen = models.BinaryField(blank=True, null=True)
     precio_oferta = models.BigIntegerField(blank=True, null=True)
-    marca_id_marca = models.ForeignKey(Marca, models.DO_NOTHING, db_column='marca_id_marca')
+    valoraciontotal = models.BigIntegerField(blank=True, null=True)
     categoria_id_categoria = models.ForeignKey(Categoria, models.DO_NOTHING, db_column='categoria_id_categoria')
+    marca_id_marca = models.ForeignKey(Marca, models.DO_NOTHING, db_column='marca_id_marca')
 
     class Meta:
         managed = False
         db_table = 'producto'
-
+    
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.nombre_producto)
+
 
 class Region(models.Model):
     id_region = models.BigIntegerField(primary_key=True)
@@ -355,10 +349,6 @@ class Region(models.Model):
     class Meta:
         managed = False
         db_table = 'region'
-
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.nombre_region)
 
 
 class Rol(models.Model):
@@ -369,21 +359,19 @@ class Rol(models.Model):
         managed = False
         db_table = 'rol'
 
-    def __str__(self):
-        titulo = "{0}"
-        return titulo.format(self.nombre_rol)
-
 
 class SolicitudProductos(models.Model):
     id_solicitud = models.BigIntegerField(primary_key=True)
     nombre_producto = models.CharField(max_length=30)
-    nombre_categoria = models.CharField(max_length=30)
-    nombre_marca = models.CharField(max_length=30)
+    nombre_categoria = models.BigIntegerField()
     precio = models.BigIntegerField()
+    nombre_marca = models.BigIntegerField()
     stock = models.BigIntegerField()
+    supervisor_rut = models.CharField(max_length=4000)
+    bodeguero_rut = models.CharField(max_length=4000)
     observacion = models.CharField(max_length=30, blank=True, null=True)
-    empleado_rut = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='empleado_rut')
     estado_solicitud_id_estado = models.ForeignKey(EstadoSolicitud, models.DO_NOTHING, db_column='estado_solicitud_id_estado')
+    empleado_rut = models.ForeignKey(Empleado, models.DO_NOTHING, db_column='empleado_rut')
 
     class Meta:
         managed = False
@@ -392,7 +380,7 @@ class SolicitudProductos(models.Model):
 
 class TipoOrden(models.Model):
     id_tipo_orden = models.BigIntegerField(primary_key=True)
-    nombre_orden = models.CharField(max_length=30)
+    nombre = models.CharField(max_length=30)
 
     class Meta:
         managed = False
@@ -400,7 +388,7 @@ class TipoOrden(models.Model):
 
     def __str__(self):
         titulo = "{0}"
-        return titulo.format(self.nombre_orden)
+        return titulo.format(self.nombre)
 
 
 class TipoPago(models.Model):
@@ -420,6 +408,8 @@ class Valoracion(models.Model):
     id_valoracion = models.BigIntegerField(primary_key=True)
     valoracion = models.BigIntegerField()
     producto_id_producto = models.ForeignKey(Producto, models.DO_NOTHING, db_column='producto_id_producto')
+    comentario = models.CharField(max_length=300, blank=True, null=True)
+    email = models.CharField(max_length=50)
 
     class Meta:
         managed = False

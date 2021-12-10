@@ -1,34 +1,15 @@
 {%extends "base/navbarStore.html"%}
 {%load static%}
 
-<body>
-<<<<<<< HEAD
-=======
 
->>>>>>> 7cff1de4d538d8eebede24d485152b32a1707bb4
+
+<body>
   {% block content %}
+  {%include "busqueda.html"%}
   <div class="row align-items-center justify-content-center espacio4">
     <div class="col-md-9">
-      <section>
+      <section style="margin-top: -30px;">
         <!--Menu Inicio-->
-        <ul class="nav nav-pills align-items-center justify-content-center">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
-              aria-expanded="false">TODAS LAS CATEGORIAS</a>
-            {% for categorias in categoria %}
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="categoria/{{ categoria.nombre_categoria }}"></a></li>
-            </ul>
-            {% endfor %}
-          </li>
-          <li class="nav-item">
-            <a class="nav-link " aria-current="page" href="#">MARCAS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">CONTACTO</a>
-          </li>
-        </ul>
-        <!--Cierre Menu Inicio-->
         <!--Carousel-->
         <div id="carouselExampleIndicators" class="carousel slide espacio4" data-bs-ride="carousel">
           <div class="carousel-indicators">
@@ -86,7 +67,7 @@
               {% for product in page_obj %}
               <div class="col-md-auto">
                   <div class="card card-body"
-                      style="text-align: center; margin-bottom: 30px; width: 310px; height: auto; margin-top: 20px;">
+                  style="text-align: center; margin-bottom: 10px; width: 250px; height: 500px; margin-top: 20px;">
                       {% if product.imagen %}
                       <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                               src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>
@@ -112,6 +93,7 @@
               {% endfor %}
             </div>
           </div>
+        </div>
       </section>
     </div>
 

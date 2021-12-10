@@ -1,7 +1,7 @@
 from django.db import connection
 from bodeguero.views import listar_productos
 from django.shortcuts import redirect, render, get_object_or_404
-from core.models import OrdenCompra
+from core.models import Categoria, OrdenCompra, Producto, Marca
 from django.core.paginator import Paginator
 from cart.forms import CartAddProductForm
 from cart.Carrito import Carrito
@@ -11,6 +11,8 @@ import cx_Oracle
 # Create your views here.
 def home(request):
     cart = Carrito(request)
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
     cart_product_form = CartAddProductForm()
     datos_productos = listar_productos()
     arreglo = []
@@ -30,13 +32,16 @@ def home(request):
         'productos':arreglo,
         'page_obj': page_obj,
         'cart_product_form':cart_product_form,
-        'cart':cart
+        'cart':cart,
+        'categorias':categorias,
+        'marcas':marcas,
     }
     return render(request, 'home.html', data)
 
-
 def store(request):
     cart = Carrito(request)
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
     cart_product_form = CartAddProductForm()
     datos_productos = listar_productos()
     arreglo = []
@@ -56,13 +61,17 @@ def store(request):
         'productos':arreglo,
         'page_obj': page_obj,
         'cart_product_form':cart_product_form,
-        'cart':cart
+        'cart':cart,
+        'categorias':categorias,
+        'marcas':marcas,
     }
 
     return render(request, 'store.html', data)
 
 def oferta(request):
     cart = Carrito(request)
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
     cart_product_form = CartAddProductForm()
     datos_productos = listado_oferta()
     arreglo = []
@@ -82,10 +91,78 @@ def oferta(request):
         'productos':arreglo,
         'page_obj': page_obj,
         'cart_product_form':cart_product_form,
-        'cart':cart
+        'cart':cart,
+        'categorias':categorias,
+        'marcas':marcas,
     }
     return render(request, 'oferta.html', data)
 
+def categoria(request, id_categoria):
+
+    cart = Carrito(request)
+    cart_product_form = CartAddProductForm()
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
+    cart_product_form = CartAddProductForm()
+    categoriass = Categoria.objects.get(id_categoria = id_categoria)
+    datos_productos = listado_categoria(id_cat = id_categoria)
+    
+    arreglo = []
+
+    for i in datos_productos:
+        data = {
+            'data':i,   
+            'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+        }
+        arreglo.append(data)
+
+    paginator = Paginator(arreglo, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'productos':arreglo,
+        'page_obj': page_obj,
+        'cart_product_form':cart_product_form,
+        'cart':cart,
+        'categorias':categorias,
+        'categoriass':categoriass,
+        'marcas':marcas,
+    }
+    return render(request, 'categoria.html', data)
+
+def marca(request, id_marca):
+    cart = Carrito(request)
+    cart_product_form = CartAddProductForm()
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
+    cart_product_form = CartAddProductForm()
+    marcass = Marca.objects.get(id_marca = id_marca)
+    datos_productos = listado_marca(id_mar = id_marca)
+    
+    arreglo = []
+
+    for i in datos_productos:
+        data = {
+            'data':i,   
+            'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+        }
+        arreglo.append(data)
+
+    paginator = Paginator(arreglo, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    data = {
+        'productos':arreglo,
+        'page_obj': page_obj,
+        'cart_product_form':cart_product_form,
+        'cart':cart,
+        'categorias':categorias,
+        'marcass':marcass,
+        'marcas':marcas,
+    }
+    return render(request, 'marca.html', data)
 
 def producto(request, pk):
     cart = Carrito(request)
@@ -156,6 +233,36 @@ def listado_oferta():
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
     cursor.callproc("SP_PRODUCTO_OFERTA", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        data = {
+            'data':fila,
+            'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
+        }
+        lista.append(fila)
+    return lista
+
+def listado_categoria(id_cat):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("SP_PRODUCTO_CATEGORIA", [out_cur, id_cat])
+
+    lista = []
+    for fila in out_cur:
+        data = {
+            'data':fila,
+            'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
+        }
+        lista.append(fila)
+    return lista
+
+def listado_marca(id_mar):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("SP_PRODUCTO_MARCA", [out_cur, id_mar])
 
     lista = []
     for fila in out_cur:
