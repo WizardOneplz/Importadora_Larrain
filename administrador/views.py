@@ -258,7 +258,7 @@ def listar_pasillos():
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
 
-    cursor.callproc("ADM_LISTAR_PASILLOS", [out_cur])
+    cursor.callproc("LISTAR_PASILLO", [out_cur])
 
     lista = []
     for fila in out_cur:

@@ -52,6 +52,10 @@ class Bodega(models.Model):
     class Meta:
         managed = False
         db_table = 'bodega'
+    
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.direccion)
 
 
 class Categoria(models.Model):
@@ -112,7 +116,6 @@ class CuentaCliente(models.Model):
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.cliente_rut)
-
 
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
@@ -315,7 +318,6 @@ class OrdenCompra(models.Model):
     def __str__(self):
         return f'OrdenCompra {self.id_orden}'
 
-
 class Pasillo(models.Model):
     id_pasillo = models.BigIntegerField(primary_key=True)
     num_estanteria = models.BigIntegerField()
@@ -328,7 +330,7 @@ class Pasillo(models.Model):
 
 class Producto(models.Model):
     id_producto = models.BigIntegerField(primary_key=True)
-    nombre_producto = models.CharField(unique=True, max_length=30)
+    nombre_producto = models.CharField(max_length=30)
     precio = models.BigIntegerField()
     stock = models.BigIntegerField()
     oferta = models.CharField(max_length=1)
