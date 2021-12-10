@@ -475,15 +475,17 @@ def peremple(request):
     return redirect('/')
 
 def claveemple (request):
-
-    email = request.POST.get('email')
-    rut = request.POST.get('rut')
-
-    cuentaempleado= CuentaEmpleado.objects.get(email=email)  
-    empleado = Empleado.objects.get(rut=rut)
-    contraseña2 = request.POST.get('nuevacontraseñaem')
-    cuentaempleado.clave = contraseña2
-    empleado.clave =contraseña2 
-    cuentaempleado.save()
-    empleado.save()
-    return render(request,'home.html')
+    empleado = CuentaEmpleado.objects.get(empleado_rut=request.POST.get('rut'))
+    try:
+        if empleado.Clave == request.POST.get('clave'):
+            contraseña2 = request.POST.get('nuevacontraseñaem')
+            if request.POST.get('repetircontraseña ') == contraseña2:
+                empleado.Clave = contraseña2
+                empleado.save()
+                return render(request, "perfil_empleado.html")
+            else:
+                return render(request, "registro.html")
+                messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+    except:
+        return render(request, "registro.html")
+        messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
