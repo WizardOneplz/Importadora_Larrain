@@ -429,10 +429,8 @@ def logemp(request):
                 return render(request,'registro.html',{"empleado":Usuario})
            elif Usuario.rol == 5 :
                 return render(request,'mantenedor_marca.html',{"empleado":Usuario})
-           else:
-               return render(request, 'home.html' )
         except:
-         return render(request, 'registro.html' )
+            return render(request,'home.html' )
 
 
 def logout(request):

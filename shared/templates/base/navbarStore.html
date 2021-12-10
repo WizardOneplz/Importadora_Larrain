@@ -85,38 +85,62 @@
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <form class="" action="login" method="POST">
+                          <form class="" id="formulario" action="" method="POST" >
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-">
-                                <div class="mb-3">
+                                <div class="mb-3 position-relative">
                                   <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="" required> 
+                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required>
+                                  <!--MENSAJE-->
+                                  <div class="invalid-feedback">Ingrese un Correo Válido.</div>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="" required>
-                                    
+                                <div class="mb-3 position-relative">
+                                  <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                                  <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="" required>
+                                  <!--MENSAJE-->
+                                  <div class="invalid-feedback">Ingrese una contraseña.</div>
                                 </div>         
                                 <button type="submit" class="btn btn-secondary" >Ingresar</button>
                                 <a href="registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>
+                                
+                                {%if messages %}
+                                  <ul class="messages"> 
+                                      {%for message in messages %}
+                                      <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>
+                                          {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                          <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                              <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                              </symbol>
+                                          </svg>
+                                          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                          {% endif %}
+                                          {{ message }}
+                                      </li>
+                                      {% endfor %}
+                                  </ul>
+                              {% endif %}
                             </div>
                         </div>                   
                         </form>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <form class="" action="logemp/" method="POST">
+                        <form class="" action="logemp/" method="POST" >
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-">
                                 <div class="mb-3">
                                   <label for="exampleFormControlInput1" class="form-label espacio4">USUARIO</label>
-                                  <input type="text" class="form-control" id="exampleFormControlInput1" name="empleado" placeholder="" required> 
+                                  <input type="text" class="form-control" id="exampleFormControlInput1" name="empleado" placeholder="Debe ingresar un usuario válido" required> 
+                                  <!--MENSAJE-->
+                                  <div class="invalid-feedback">Ingrese un usuario válido.</div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="" required>
-                                    
+                                  <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                                  <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="" required>
+                                  <!--MENSAJE-->
+                                  <div class="invalid-feedback">Ingrese una contraseña.</div>
                                 </div>         
                                 <button type="submit" class="btn btn-secondary">Ingresar</button></a>
                             </div>
