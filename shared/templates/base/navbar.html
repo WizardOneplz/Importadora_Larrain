@@ -30,23 +30,15 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
     
               {% if request.session.usuario %}
-              <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="home">Bienvenido {{ empleado.nombre}} </a>
-              </li>
               <ul class="navbar-nav ms-auto">
-                <a href="perfil/{{cliente.cliente_rut}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
+                <a href="peremple/{{empleado.empleado_rut}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
               </ul>
               <ul class="blanco" style="visibility:hidden">
-                <p id="email" name="email"> {{ cliente.cliente_rut}}</p> 
+                <p id="email" name="email"> {{ empleado.empleado_rut}}</p> 
               </ul>
               <ul class="navbar-nav ms-auto">
-                <a href="logout">
+                <a href="/">
                 <button class="btn btn-outline-success me-2" type="button">CERRAR SESIÓN</button></a>
-              </ul>
-                
-                <ul class="blanco" >
-                <p id="usuario" name="usuario"> {{ empleado.empleado_rut}}</p> 
-                </ul>
               </ul>
               {% else %}
               <ul class="navbar-nav ms-auto">
@@ -78,12 +70,11 @@
                             <div class="col-md-">
                                 <div class="mb-3">
                                   <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="" required> 
+                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required> 
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="" required>
-                                    
                                 </div>         
                                 <button type="submit" class="btn btn-secondary" >Ingresar</button>
                                 <a href="registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>

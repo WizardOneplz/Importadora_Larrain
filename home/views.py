@@ -90,6 +90,7 @@ def oferta(request):
 def producto(request, pk):
     cart = Carrito(request)
     datos_productos = listado_productos(id_pro = pk)
+    valoraciones = listado_valoracion(id_producto=pk)
     cart_product_form = CartAddProductForm()
     
     arreglo = []
@@ -104,6 +105,7 @@ def producto(request, pk):
         'productos': arreglo,
         'cart':cart,
         'cart_product_form':cart_product_form,
+        'lista_valoraciones':valoraciones
     }
     
     if request.method== 'POST':
@@ -112,6 +114,11 @@ def producto(request, pk):
         comentario = request.POST.get('comentario')
         email = request.POST.get('email')
         salida = agregar_valoracion(valoracion, id_producto, comentario, email)
+        if salida==1:
+                data['MensajeCategoriaCorrecto'] = 'Categoria registrada correctamente'
+                data['lista_valoraciones'] = listado_valoracion(id_producto=pk)
+        else:
+            data['MensajeCategoriaError'] = 'El nombre de la categoria ya esta siendo utilizado'       
         
     return render(request, 'producto.html', data)      
 
@@ -148,6 +155,17 @@ def listado_productos(id_pro):
             'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
         }
         lista.append(fila)
+    return lista
+
+def listado_valoracion(id_producto):
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("LISTAR_VALORACION", [id_producto, out_cur])
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+        
     return lista
 
 
