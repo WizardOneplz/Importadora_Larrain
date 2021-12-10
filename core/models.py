@@ -99,9 +99,18 @@ class Cliente(models.Model):
         managed = False
         db_table = 'cliente'
 
+<<<<<<< HEAD
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.rut)
+=======
+<<<<<<< HEAD
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.rut)
+=======
+>>>>>>> 052370e3d14a729687ee3e6796b4ea2784a9fade
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
 
 
 class CuentaCliente(models.Model):
@@ -113,11 +122,22 @@ class CuentaCliente(models.Model):
         managed = False
         db_table = 'cuenta_cliente'
 
+<<<<<<< HEAD
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.cliente_rut)
 
+=======
+<<<<<<< HEAD
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.cliente_rut)
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
 
+
+=======
+
+>>>>>>> 052370e3d14a729687ee3e6796b4ea2784a9fade
 class CuentaEmpleado(models.Model):
     usuario = models.CharField(primary_key=True, max_length=20)
     clave = models.CharField(max_length=20)
@@ -132,13 +152,22 @@ class CuentaEmpleado(models.Model):
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.empleado_rut)
+<<<<<<< HEAD
 
+=======
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
 
 class DetalleOrden(models.Model):
     cantidad = models.BigIntegerField()
     precio = models.BigIntegerField()
     orden_compra_id_orden = models.OneToOneField('OrdenCompra', models.DO_NOTHING, db_column='orden_compra_id_orden', primary_key=True)
     producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
+<<<<<<< HEAD
+
+    def get_cost(self):
+        return self.precio * self.cantidad
+=======
+>>>>>>> 052370e3d14a729687ee3e6796b4ea2784a9fade
 
     def get_cost(self):
         return self.precio * self.cantidad
@@ -208,6 +237,9 @@ class Empleado(models.Model):
         managed = False
         db_table = 'empleado'
 
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.rut)
 
 class EstadoPago(models.Model):
     id_estado_pago = models.BigIntegerField(primary_key=True)
@@ -288,6 +320,10 @@ class Oferta(models.Model):
 
 
 class OrdenCompra(models.Model):
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
     def number():
         no = OrdenCompra.objects.count()
         if no == None:
@@ -295,6 +331,11 @@ class OrdenCompra(models.Model):
         else:
             return no + 1
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 052370e3d14a729687ee3e6796b4ea2784a9fade
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
     id_orden = models.BigIntegerField(primary_key=True)
     precio_total = models.BigIntegerField()
     fecha_compra = models.DateField()
@@ -310,6 +351,15 @@ class OrdenCompra(models.Model):
     class Meta:
         managed = False
         db_table = 'orden_compra'
+<<<<<<< HEAD
+
+    def get_total_cost(self):
+        return sum(item.get_cost() for item in self.items.all())
+    
+    def __str__(self):
+        return f'OrdenCompra {self.id_orden}'
+=======
+>>>>>>> 052370e3d14a729687ee3e6796b4ea2784a9fade
 
     def get_total_cost(self):
         return sum(item.get_cost() for item in self.items.all())
@@ -344,10 +394,20 @@ class Producto(models.Model):
     class Meta:
         managed = False
         db_table = 'producto'
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
     
     def __str__(self):
         titulo = "{0}"
         return titulo.format(self.nombre_producto)
+<<<<<<< HEAD
+=======
+=======
+
+>>>>>>> 052370e3d14a729687ee3e6796b4ea2784a9fade
+>>>>>>> e5de1b1a33e9e16bd89ad2366b068e9a6b5a8b0c
 
 
 class Region(models.Model):

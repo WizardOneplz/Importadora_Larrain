@@ -14,7 +14,7 @@ def mantenedor_admin(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -52,7 +52,7 @@ def mantenedor_bodega(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -85,7 +85,7 @@ def mantenedor_pasillo(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -120,7 +120,7 @@ def mantenedor_estanteria(request):
         'categorias':listar_categorias(),
         'productos':listar_productos(),
         'pasillos':listar_pasillos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -417,19 +417,19 @@ def eliminar_estanteria(request, id_estanteria):
 def logemp(request):
     
     if request.method =='POST':
-        try:
-            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],clave =request.POST['clave'])
-            request.session['usuario']=Usuario.usuario 
-            #OBTENER EL ROL
-            if Usuario.rol== 1 :
-                return render(request,'agregar_empleado.html')
-            elif Usuario.rol == 3 :
-                return render(request,'subir_oferta.html')
-            elif Usuario.rol == 4 :
-                return render(request,'registro.html')
-            elif Usuario.rol == 5 :
-                return render(request,'mantenedor_marca.html')
-            else:
+        try: 
+           Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+           clave=request.POST['clave'])
+           request.session['usuario']=Usuario.usuario 
+           if Usuario.rol == 1 :
+               return render(request, 'agregar_empleado.html',{"empleado":Usuario} )
+           elif Usuario.rol == 3 :
+                return render(request,'subir_oferta.html' ,{"empleado":Usuario})
+           elif Usuario.rol == 4 :
+                return render(request,'registro.html',{"empleado":Usuario})
+           elif Usuario.rol == 5 :
+                return render(request,'mantenedor_marca.html',{"empleado":Usuario})
+           else:
                return render(request, 'home.html' )
         except:
          return render(request, 'registro.html' )
@@ -441,3 +441,51 @@ def logout(request):
     except:
         return render(request, 'home.html')
     return render(request, 'home.html')
+
+def modificar_perfil(request, empleado_rut):
+    data={
+        'empleado' : Empleado.objects.get(rut=empleado_rut),
+        'cuentaempleado': CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
+        
+    }
+    return render(request, "perfil_empleado.html", data)
+
+
+def peremple(request):
+
+    rut = request.POST.get('rut')
+    nombre = request.POST.get('nombre')
+    ap_paterno = request.POST.get('ap_paterno')
+    ap_materno = request.POST.get('ap_materno')
+    genero = request.POST.get('genero')
+    telefono = request.POST.get('telefono')
+    email = request.POST.get('email')
+    direccion = request.POST.get('Direccion')
+    ciudad = request.POST.get('ciudad')
+     
+    empleado = Empleado.objects.get(rut=rut)
+    empleado.rut = rut
+    empleado.nombre = nombre
+    empleado.apellido_paterno = ap_paterno
+    empleado.apellido_materno = ap_materno
+    empleado.genero = genero
+    empleado.telefono = telefono
+    empleado.email = email
+    empleado.direccion = direccion
+    empleado.ciudad = ciudad
+    empleado.save()
+    return redirect('/')
+
+def claveemple (request):
+
+    email = request.POST.get('email')
+    rut = request.POST.get('rut')
+
+    cuentaempleado= CuentaEmpleado.objects.get(email=email)  
+    empleado = Empleado.objects.get(rut=rut)
+    contraseña2 = request.POST.get('nuevacontraseñaem')
+    cuentaempleado.clave = contraseña2
+    empleado.clave =contraseña2 
+    cuentaempleado.save()
+    empleado.save()
+    return render(request,'home.html')
