@@ -208,7 +208,8 @@ def mostrarinfo(request):
         id_orden = request.POST.get('id_orden')
         ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
         return render(request,'info_orden.html', {"orden": ordencompra})
-    except:
+    except OrdenCompra.DoesNotExist as e:
+        messages.add_message(request=request, level=messages.ERROR, message="No se ha encontrado la orden solicitada.")
         return redirect('/seguimiento')
 
 def agregar_valoracion(valoracion,id_producto, comentario, email):

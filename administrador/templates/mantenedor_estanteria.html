@@ -79,7 +79,6 @@
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <button class="nav-link active" id="nav-crearest-tab" data-bs-toggle="tab" data-bs-target="#nav-crearest" type="button" role="tab" aria-controls="nav-crearest" aria-selected="true">Crear Estanteria</button>
-                                <button class="nav-link" id="nav-listarest-tab" data-bs-toggle="tab" data-bs-target="#nav-listarest" type="button" role="tab" aria-controls="nav-listarest" aria-selected="false">Listar Estanteria</button>
                                 <button class="nav-link" id="nav-modificarest-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarest" type="button" role="tab" aria-controls="nav-modificarest" aria-selected="false">Eliminar Estanteria</button>
                             </div>
                             </nav>
@@ -167,39 +166,6 @@
                                     </form>
                                 </div>
                                 <!-- Cierre Crear Estanteria-->
-                                <!-- Lista Estanteria-->
-                                <div class="tab-pane fade" id="nav-listarest" role="tabpanel" aria-labelledby="nav-listarest-tab">
-                                    <div class="card row col-md-12" >
-                                        <div class="card-header ">
-                                            <h1 class="text-center negro">Listado de Estanterías</h2>
-                                        </div>
-                                        <div class="card-body">
-                                            <input type="text" id="myInput8" onkeyup="myFunction8()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                            <table class="table align-middle" id="myTable8">                                     
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">CAPACIDAD</th>
-                                                        <th scope="col">ID PASILLO</th>
-                                                        <th scope="col">NOMBRE PRODUCTO</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {%for e in estanteria%}
-                                                <tr>
-                                                    <td>{{ e.0 }}</td>
-                                                    <td>{{ e.1 }}</td>
-                                                    <td>{{ e.2 }}</td>
-                                                    <td>{{ e.3 }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>                                 
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                                <!-- Cierre Lista Estanteria-->
                                 <!-- Editar Estanteria-->
                                 <div class="tab-pane fade" id="nav-modificarest" role="tabpanel" aria-labelledby="nav-modificarest-tab">
                                     <div class="card row col-md-12" >
