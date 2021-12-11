@@ -11,9 +11,6 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.DeleteModel(
-            name='AgenteOferta',
-        ),
-        migrations.DeleteModel(
             name='AuthGroupPermissions',
         ),
         migrations.DeleteModel(
@@ -21,8 +18,5 @@ class Migration(migrations.Migration):
         ),
         migrations.DeleteModel(
             name='AuthUserUserPermissions',
-        ),
-        migrations.DeleteModel(
-            name='SolicitudPresencial',
-        ),
+        )
     ]
