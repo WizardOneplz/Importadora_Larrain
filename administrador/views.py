@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.db import connection
+from django.contrib.auth import authenticate
 from core.models import Empleado,CuentaEmpleado, Rol, Estanteria, Bodega, Pasillo
 from django.contrib import messages
 import cx_Oracle 
@@ -13,7 +14,7 @@ def mantenedor_admin(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -51,7 +52,7 @@ def mantenedor_bodega(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -84,7 +85,7 @@ def mantenedor_pasillo(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -119,7 +120,7 @@ def mantenedor_estanteria(request):
         'categorias':listar_categorias(),
         'productos':listar_productos(),
         'pasillos':listar_pasillos(),
-        'cliente':listado_clientes(),
+        'empleado':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -223,7 +224,7 @@ def editar_empleado(request):
     empleado.save()
     messages.add_message(request=request, level=messages.SUCCESS, message="Empleado modificado con Éxito.")
 
-    return redirect('/agregar_empleado')
+    return redirect('/logemp/agregar_empleado')
 #CLIENTE
 
 def listado_clientes():
@@ -257,7 +258,7 @@ def listar_pasillos():
     cursor = django_cursor.connection.cursor()
     out_cur = django_cursor.connection.cursor()
 
-    cursor.callproc("ADM_LISTAR_PASILLOS", [out_cur])
+    cursor.callproc("LISTAR_PASILLO", [out_cur])
 
     lista = []
     for fila in out_cur:
@@ -342,7 +343,7 @@ def editar_bodega(request):
     bodega.save()
     messages.add_message(request=request, level=messages.SUCCESS, message="Bodega modificada con Éxito.")
 
-    return redirect('/mantenedor_bodega')
+    return redirect('/logemp/mantenedor_bodega')
 
 #PASILLO
 
@@ -414,23 +415,22 @@ def eliminar_estanteria(request, id_estanteria):
 #login 
 
 def logemp(request):
+    
     if request.method =='POST':
-        try:
-            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],clave =request.POST['clave'])
-            request.session['usuario']=Usuario.usuario 
-            #OBTENER EL ROL
-            if Usuario.rol_id_rol== 1:
-                return render(request,'agregar_empleado.html')
-            elif Usuario.rol_id_rol == 3:
-                return render(request,'subir_oferta.html')
-            elif Usuario.rol_id_rol == 4:
-                return render(request,'registro.html')
-            elif Usuario.rol_id_rol == 5:
-                return render(request,'mantenedor_marca.html')
-            else:
-                return render(request,'home.html')      
+        try: 
+           Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+           clave=request.POST['clave'])
+           request.session['usuario']=Usuario.usuario 
+           if Usuario.rol == 1 :
+               return render(request, 'agregar_empleado.html',{"empleado":Usuario} )
+           elif Usuario.rol == 3 :
+                return render(request,'subir_oferta.html' ,{"empleado":Usuario})
+           elif Usuario.rol == 4 :
+                return render(request,'registro.html',{"empleado":Usuario})
+           elif Usuario.rol == 5 :
+                return render(request,'mantenedor_marca.html',{"empleado":Usuario})
         except:
-            return render(request, 'mantenedor_productos.html')
+            return render(request,'home.html' )
 
 
 def logout(request):
@@ -439,3 +439,53 @@ def logout(request):
     except:
         return render(request, 'home.html')
     return render(request, 'home.html')
+
+def modificar_perfil(request, empleado_rut):
+    data={
+        'empleado' : Empleado.objects.get(rut=empleado_rut),
+        'cuentaempleado': CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
+        
+    }
+    return render(request, "perfil_empleado.html", data)
+
+
+def peremple(request):
+
+    rut = request.POST.get('rut')
+    nombre = request.POST.get('nombre')
+    ap_paterno = request.POST.get('ap_paterno')
+    ap_materno = request.POST.get('ap_materno')
+    genero = request.POST.get('genero')
+    telefono = request.POST.get('telefono')
+    email = request.POST.get('email')
+    direccion = request.POST.get('Direccion')
+    ciudad = request.POST.get('ciudad')
+     
+    empleado = Empleado.objects.get(rut=rut)
+    empleado.rut = rut
+    empleado.nombre = nombre
+    empleado.apellido_paterno = ap_paterno
+    empleado.apellido_materno = ap_materno
+    empleado.genero = genero
+    empleado.telefono = telefono
+    empleado.email = email
+    empleado.direccion = direccion
+    empleado.ciudad = ciudad
+    empleado.save()
+    return redirect('/')
+
+def claveemple (request):
+    empleado = CuentaEmpleado.objects.get(empleado_rut=request.POST.get('rut'))
+    try:
+        if empleado.Clave == request.POST.get('clave'):
+            contraseña2 = request.POST.get('nuevacontraseñaem')
+            if request.POST.get('repetircontraseña ') == contraseña2:
+                empleado.Clave = contraseña2
+                empleado.save()
+                return render(request, "perfil_empleado.html")
+            else:
+                return render(request, "registro.html")
+                messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+    except:
+        return render(request, "registro.html")
+        messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")

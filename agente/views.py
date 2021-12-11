@@ -35,25 +35,26 @@ def subir_oferta_listado(request):
         dataset = Dataset()
         #print(dataset)  
         nuevas_ofertas = request.FILES['myfile']
-
-        if not nuevas_ofertas.name.endswith('xlsx'):
-            messages.info(request,'Formato Archivo Incorrecto')
-            return render(request, 'subir_oferta.html',{})
-        imported_data = dataset.load(nuevas_ofertas.read(),format='xlsx')
-        messages.info(request,'Archivo Añadido Correctamente')
-        for data in imported_data:
-            value = Oferta(
-                data[0],
-                data[1],
-                data[2],
-                data[3],
-                data[4],
-                data[5],
-                data[6],
-                data[7],
-                )
-            value.save()
-    return redirect('/subir_oferta')
+        try:
+            imported_data = dataset.load(nuevas_ofertas.read(),format='xlsx')
+            for data in imported_data:
+                value = Oferta(
+                    data[0],
+                    data[1],
+                    data[2],
+                    data[3],
+                    data[4],
+                    data[5],
+                    data[6],
+                    data[7],
+                    )
+                value.save()
+            messages.add_message(request=request, level=messages.SUCCESS, message="Oferta registrada con éxito.")
+        except:
+            if not nuevas_ofertas.name.endswith('xlsx'):
+                messages.add_message(request=request, level=messages.ERROR, message="Imposible registrar, verifique el el archivo contenga 8 columnas de datos.")    
+ 
+    return redirect('/logemp/subir_oferta')
     
     
  

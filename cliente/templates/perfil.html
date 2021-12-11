@@ -11,7 +11,7 @@
                         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                             <button class="nav-link active" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true">PERFIL</button>
                             <button class="nav-link" id="v-pills-contraseña-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contraseña" type="button" role="tab" aria-controls="v-pills-contraseña" aria-selected="false">CAMBIAR CONTRASEÑA</button>
-                            <button class="nav-link" id="v-pills-cliente-tab" data-bs-toggle="pill" data-bs-target="#v-pills-cliente" type="button" role="tab" aria-controls="v-pills-cliente" aria-selected="false">HISTORIAL DE COMPRAS</button>
+                            <button class="nav-link" id="v-pills-historial-tab" data-bs-toggle="pill" data-bs-target="#v-pills-historial" type="button" role="tab" aria-controls="v-pills-historial" aria-selected="false">HISTORIAL DE COMPRAS</button>
                         </div>
                         <div class="tab-content col-md-12" id="v-pills-tabContent">
                             <div class="tab-pane fade show active" id="v-pills-perfil" role="tabpanel" aria-labelledby="v-pills-perfil-tab">
@@ -71,13 +71,13 @@
                                                                 <h5><label for="">+569</label></h5>
                                                                 <!--MENSAJE-->
                                                                 <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
-                                                            </div>  
-                                                            <div class="col-md-5 position-relative">
+                                                        </div>  
+                                                        <div class="col-md-5 position-relative">
                                                                 <h4><label for="exampleFormControlInput1" class="form-label" >TELÉFONO</label></h4>
-                                                                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="12345678" min="11111111" max="99999999" required>
+                                                                <input type="number" class="form-control" id="telefono" name="telefono" placeholder="12345678" min="11111111" max="99999999"  required>
                                                                 <!--MENSAJE-->
                                                                 <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
-                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="row espacio_form">
                                                         <div class="col position-relative">
@@ -100,17 +100,16 @@
                                                                     <option value="{{ c.0 }}">{{c.1}}</option>
                                                                 {% endfor %}
                                                             </select>
+
                                                             <!--MENSAJE-->
                                                             <div class="invalid-feedback">Complete los datos</div>
                                                         </div>   
-                                                    </div>
-                                                </div>
-                                                <div class="row espacio_form position-relative">
-                                                    <div class="col">
-                                                        <h4><label for="exampleFormControlInput1" class="form-label">Contraseña</label></h4>
-                                                        <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  value="{{cliente.clave}}" required>
-                                                        <!--MENSAJE-->
-                                                        <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
@@ -121,10 +120,49 @@
                             </div>
                                 
                             <div class="tab-pane fade show active" id="v-pills-contraseña" role="tabpanel" aria-labelledby="v-pills-contraseña-tab">
+                                <div class="card row col-md-12" >
+                                    <div class="card-header ">
+                                        <h1 class="text-center">CAMBIAR CONTRASEÑA</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="col-md-12 needs-validation" action="perfil/editar_clave/" method="POST" novalidate>
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md">  
+                                                    <div class="row espacio_form position-relative">
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Actual Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"  required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Nueva Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="nuevacontraseña" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Repetir Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="repetircontraseña" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade show active" id="v-pills-historial" role="tabpanel" aria-labelledby="v-pills-historial-tab">
+
                                 asdasdasdasds
                             </div>
                         </div>
-                </div>
+                    </div>
                 </div>   
             </div>
         </div>

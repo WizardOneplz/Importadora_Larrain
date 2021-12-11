@@ -2,22 +2,6 @@
 {%load static%}
 
 <body>
-    {% block navbar%}
-    <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="home">Bienvenido</a>
-          </li>
-          <li class="nav-item">
-          <a class="nav-link" href="">*nombre AGENT*</a>
-          </li>
-      </ul>
-      <ul class="navbar-nav ms-auto">
-          <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">CERRAR SESIÓN</button>
-      </ul>
-      </div>
-    {% endblock%}
-
     {% block content %}
     <section id="reserva">
         <div class="container-fluid espacio2 gradient3">
@@ -42,26 +26,61 @@
                                 <div class="tab-content espacio4" id="nav-tabContent">
                                      <!-- FORMULARIO DE CREACION DE OFERTAS-->
                                     <div class="tab-pane fade show active" id="nav-crear" role="tabpanel" aria-labelledby="nav-crear-tab">
-                                            {% if messages %}
-                                        {%for message in messages%}
-                                        <div class="alert alert-{{ message.tags }}" role="alert">
-                                            <p{% if message.tags %} class=""{% endif %}>{{ message }}</p>
-
-                                        </div>
-                                        {%endfor%}
-                                        {% endif %}
-                                        <form class="needs-validation espacio_form" action="/subir_oferta1/" method="post" enctype="multipart/form-data" novalidate>  
-                                            {% csrf_token %}  
-                                            <inppload Excel file></inppload>
-                                            <h3>Subir Nueva Oferta</h3>
-                                            <input class="boton_subir position-relative" type="file" name="myfile" required>
-                                            <!--MENSAJE-->
-                                            <div class="invalid-feedback">Debe Seleccionar un archivo .xlsx.</div>
-                                            <div >
-                                                <button type="submit" class="btn btn-warning btn-lg">Subir</button>  
-                                                {{mensaje}}
+                                        <div class="card row col-md-12">
+                                            <div class="card-header">
+                                                <h1 class="text-center negro">Subir Oferta</h1>
                                             </div>
-                                        </form>
+                                            <div class="card-body">
+                                                <form class="needs-validation espacio_form" action="/subir_oferta1/" method="post" enctype="multipart/form-data" novalidate>  
+                                                    <div class="row">
+                                                        <div class="col-md">
+                                                            <div class="row espacio_form position-relative">
+                                                                <div class="negro ">
+                                                                    Estimado Agente, le recordamos que el archivo que debe cargar al sistema debe contener 8 columnas con informacion.
+                                                                    <br>de lo contrario sera imposible lograr la carga de la informacion al sistema.</br>
+                                                                </div>
+                                                                {% csrf_token %}  
+                                                                <div class="align-items-center negro">
+                                                                    <br>
+                                                                    Porfavor, seleccione un archivo.<inppload Excel file></inppload> 
+                                                                    <input class="espacio3 boton_subir position-relative" type="file" name="myfile" required>
+                                                                    <div class="invalid-feedback espacio3">Debe Seleccionar un archivo .xlsx.</div>
+                                                                </div>
+                                                                <!--MENSAJE-->
+                                                                
+                                                                <button type="submit" class="btn btn-warning btn-lg">Registrar Oferta</button>  
+                                                                {%if messages %}
+                                                                <ul class="messages"> 
+                                                                    {%for message in messages %}
+                                                                    <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>
+                                                                        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                                            <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                                                            </symbol>
+                                                                        </svg>
+                                                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                                                        {% endif %}
+                                                                        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                                            <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                                                <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                                            </symbol>
+                                                                        </svg>
+                                                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                                        {% endif %}
+                                                                        {{ message }}
+                                                                    </li>
+                                                                    {% endfor %}
+                                                                </ul>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        
                                         
                                         
                                     </div>
@@ -80,7 +99,6 @@
                                                             <th>NOMBRE</th>
                                                             <th>APELLIDO</th>
                                                             <th>EMAIL</th>
-                                                            <th>OFERTA</th>
                                                             <th>FECHA</th>
                                                             <th>RUT EMPLEADO</th>
                                                         </tr>
@@ -92,7 +110,6 @@
                                                         <td>{{ p.2 }}</td>
                                                         <td>{{ p.3 }}</td>
                                                         <td>{{ p.4 }}</td>
-                                                        <td>{{ p.5 }}</td>
                                                         <td>{{ p.6 }}</td>
                                                         <td>{{ p.7 }}</td>
                                                     </tr>

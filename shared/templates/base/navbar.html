@@ -27,9 +27,25 @@
             <span></span>
             <span></span>
             </button>
-            {% block navbar %}
-            
-            {% endblock%}
+            <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
+    
+              {% if request.session.usuario %}
+              <ul class="navbar-nav ms-auto">
+                <a href="peremple/{{empleado.empleado_rut}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
+              </ul>
+              <ul class="blanco" style="visibility:hidden">
+                <p id="email" name="email"> {{ empleado.empleado_rut}}</p> 
+              </ul>
+              <ul class="navbar-nav ms-auto">
+                <a href="/">
+                <button class="btn btn-outline-success me-2" type="button">CERRAR SESIÓN</button></a>
+              </ul>
+              {% else %}
+              <ul class="navbar-nav ms-auto">
+                <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">INICIAR SESIÓN</button>
+              </ul>
+              {% endif %}
+              </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                   <div class="modal-content">
@@ -54,12 +70,11 @@
                             <div class="col-md-">
                                 <div class="mb-3">
                                   <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="" required> 
+                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required> 
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                     <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="" required>
-                                    
                                 </div>         
                                 <button type="submit" class="btn btn-secondary" >Ingresar</button>
                                 <a href="registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>

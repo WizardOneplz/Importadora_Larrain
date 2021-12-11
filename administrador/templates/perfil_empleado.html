@@ -1,0 +1,138 @@
+{%extends "base/navbar.html"%}
+{%load static%}
+<body>
+    {% block content %}
+    <div class="container-fluid espacio2 gradient3">
+        <div class="row align-items-center justify-content-center">
+            <div class="col-md-12 negro">
+                <div class="container espacio3">
+                    <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-perfil-tab" data-bs-toggle="pill" data-bs-target="#v-pills-perfil" type="button" role="tab" aria-controls="v-pills-perfil" aria-selected="true">PERFIL</button>
+                            <button class="nav-link" id="v-pills-contraseña-tab" data-bs-toggle="pill" data-bs-target="#v-pills-contraseña" type="button" role="tab" aria-controls="v-pills-contraseña" aria-selected="false">CAMBIAR CONTRASEÑA</button>
+                            
+                        </div>
+                        <div class="tab-content col-md-12" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-perfil" role="tabpanel" aria-labelledby="v-pills-perfil-tab">
+                                <div class="card row col-md-12" >
+                                    <div class="card-header ">
+                                        <h1 class="text-center">EDITAR PERFIL</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="col-md-12 needs-validation" action="/edt_emple/" method="POST" novalidate>
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md">
+                                                    <div class="row espacio_form">
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">ID</label></h4>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="id" placeholder="" value="{{empleado.id}}" readonly required>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">RUT</label></h4>
+                                                            <input type="text" class="form-control" id="exampleFormControlInput1" name="rut" placeholder="12.345.678-9" value="{{empleado.rut}}" readonly required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="mb-3 position-relative">
+                                                        <h4><label for="exampleFormControlInput1" class="form-label">NOMBRE</label></h4>
+                                                        <input type="text" class="form-control" id="exampleFormControlInput1" name="nombre" minlength="3" maxlength="30" placeholder="Debe ingresar un nombre o ambos en mayusculas." required pattern="[A-Z ]{3,30}" value="{{empleado.nombre}}" > 
+                                                        <!--MENSAJE-->
+                                                        <div class="invalid-feedback">El nombre debe ser de 3 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
+                                                    </div>
+                                                    <div class="row espacio_form">
+                                                        <div class="col position-relative">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">APELLIDO PATERNO</label></h4>
+                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_paterno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido paterno en mayusculas." pattern="[A-Z ]{3,30}" value="{{empleado.apellido_paterno}}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
+                                                        </div>
+                                                        <div class="col position-relative">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">APELLIDO MATERNO</label></h4>
+                                                            <input type="name" class="form-control" id="exampleFormControlInput1" name="ap_materno" minlength="3" maxlength="30" placeholder="Debe ingresar su apellido materno en mayusculas." pattern="[A-Z ]{3,30}" value="{{empleado.apellido_materno}}"required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">El apellido debe ser de 4 a 30 caracteres. Solo puede contener letras mayúsculas.</div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col position-relative">
+                                                            <h4></h4><label for="exampleFormControlInput1" class="form-label">GENERO</label>
+                                                            <div class="col">
+                                                            <div class="form-check form-check-inline col">
+                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio1" value="M" required>
+                                                                <label class="form-check-label" for="inlineRadio1">Masculino</label>
+                                                            </div>
+                                                            <div class="form-check form-check-inline col">
+                                                                <input class="form-check-input" type="radio" name="genero" id="inlineRadio2" value="F">
+                                                                <label class="form-check-label" for="inlineRadio2">Femenino</label>
+                                                            </div>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Complete los datos</div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col position-relative">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">TELÉFONO</label></h4>
+                                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" min="11111111111" max="99999999999" value="{{empleado.telefono}}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese un número de teléfono anteponiendo "569" y 8 digitos.</div>
+                                                        </div> 
+                                                    </div>
+                                                    <div class="row espacio_form">
+                                                        <div class="col position-relative">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">EMAIL</label></h4>
+                                                            <input type="email" class="form-control" id="exampleFormControlInput1" name="email" placeholder="nombre@ejemplo.com" value="{{empleado.email}}" readonly required>
+                                                        </div>                                                        
+                                                    </div>
+                                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>   
+                            </div>
+                            <div class="tab-pane fade show active" id="v-pills-contraseña" role="tabpanel" aria-labelledby="v-pills-contraseña-tab">
+                                <div class="card row col-md-12" >
+                                    <div class="card-header ">
+                                        <h1 class="text-center">CAMBIAR CONTRASEÑA</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form class="col-md-12 needs-validation" action="/logemp/peremple/{{empleado.rut}}" method="POST" novalidate>
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md">  
+                                                    <div class="row espacio_form position-relative">
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Actual Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" >
+                                                            
+                                                        </div>
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Nueva Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="nuevacontraseñaem" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        </div>
+                                                        <div class="col">
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">Repetir Contraseña</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="repetircontraseña" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
+                                                        </div>
+                                                    </div>
+                                                   
+                                                    <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>  
+    <script src="{%static 'app/js/formulario.js'%}"></script>
+    {% endblock %}
+</body>
+</html>

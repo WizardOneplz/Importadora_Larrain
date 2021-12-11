@@ -2,26 +2,36 @@
 {% block content %}
 {% if cart %}
 <div class="row justify-content-center" >
-  <div class="col-md-9">
-      <div class="card" style="margin-top: 40px;">
-        <h2 style="text-align: center;">Pago de la Orden</h2>
-        <div class="order-info">
-          <h4 style="text-align: center;">Tu Orden</h4>
-          <ul style="text-align: center; padding-right: 30px;">
+  <div class="col-md-6">
+      <div class="card" style="margin-top: 30px;">
+        <div class="">
+          <h2 style="margin-top: 20px; text-align: center; font-size: 38px;">TU ORDEN</h2>
+          <ul class="list-group" style="text-align: center; ">
+            <hr>
             {% for item in cart %}
                 <li>
                   <h5>{{ item.cantidad }}x {{ item.id_producto }}: 
                   <span>${{ item.precio_total }}</span></h5>
                 </li>
+                <hr>
             {% endfor %}
           </ul>
-          <h3 style="text-align: center;">Total: ${{cart.get_total_price }}</h3>
+          <p style="text-align: center; font-size: 24px;">Total:  <h3 style="text-align: center; font-weight:bold;">$ {{cart.get_total_price }}</h3> </p>
         </div>
-        <form method="post" class="order-form">
-          {{ form.as_p }}
-          <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Realizar Orden</button>
-          {% csrf_token %}
-        </form>
+        <div style="margin-top:10px;" class="row justify-content-center">
+          <div class="col-md-6">
+            <form method="post" style="text-align: center;" class="form-control">
+              {{ form.as_p }}
+              <label for="">Correo del Cliente:</label>
+              <br>
+              <input style="width: 300px;" type="text" id=form.cuenta_cliente_email name="email" value={{request.session.email}} readonly></input>
+              <br>
+              <button style="margin-top: 20px;" class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Realizar Orden</button>
+              {% csrf_token %}
+            </form>
+            <br>
+          </div>
+        </div>
       </div>
   </div>
 </div>

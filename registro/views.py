@@ -1,3 +1,4 @@
+from django import contrib
 from django.shortcuts import render, redirect
 from django.db import connection
 from core.models import AuthGroup, Cliente, CuentaCliente, Rol
@@ -59,8 +60,8 @@ def login(request):
             request.session['email']=Email.email
             return render(request, 'home.html' ,{ "cliente":Email})
         except CuentaCliente.DoesNotExist as e:
-            messages.success(request,'correo  o clave no es correcto')
-    return render(request, 'home.html')
+            messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
+    
 
 def cerrarsesion(request):
     try:
@@ -89,8 +90,7 @@ def perfil(request):
     email = request.POST.get('email')
     direccion = request.POST.get('Direccion')
     ciudad = request.POST.get('ciudad')
-    clave= request.POST.get('clave')
-      
+     
     cliente = Cliente.objects.get(rut=rut)
     cliente.rut = rut
     cliente.nombre = nombre
@@ -101,7 +101,23 @@ def perfil(request):
     cliente.email = email
     cliente.direccion = direccion
     cliente.ciudad = ciudad
-    cliente.clave = clave
     cliente.save()
-
     return redirect('/')
+
+def cambclave (request):
+
+    email = request.POST.get('email')
+    rut = request.POST.get('rut')
+
+    cuentacliente= CuentaCliente.objects.get(email=email)  
+    cliente = Cliente.objects.get(rut=rut)
+    contraseña2 = request.POST.get('nuevacontraseña')
+    cuentacliente.clave = contraseña2
+    cliente.clave =contraseña2 
+    cuentacliente.save()
+    cliente.save()
+    return render(request,'home.html')
+        
+            
+
+
