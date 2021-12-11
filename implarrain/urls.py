@@ -53,11 +53,11 @@ urlpatterns = [
     path('edt_emple/',peremple),
     path('logemp/peremple/<empleado_rut>',claveemple),
     #ELIMINAR
-    path('eliminar_empleado/<rut>',eliminar_empleado),
+    path('logemp/eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
     path('eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
     path('eliminar_bodega/<id_bodega>',eliminar_bodega),
-    path('eliminar_marca/<id_marca>',eliminar_marca),
+    path('logemp/eliminar_marca/<id_marca>',eliminar_marca),
     path('eliminar_categoria/<id_categoria>',eliminar_categoria),
     #MANTENEDORES
     path('logemp/mantenedor_bodega',mantenedor_bodega),

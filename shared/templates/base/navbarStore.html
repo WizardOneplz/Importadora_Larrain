@@ -85,7 +85,7 @@
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                          <form class="" id="formulario" action="" method="POST" >
+                          <form class="needs-validation" action="login" method="POST" novalidate>
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-">
@@ -101,6 +101,7 @@
                                   <!--MENSAJE-->
                                   <div class="invalid-feedback">Ingrese una contraseña.</div>
                                 </div>         
+                                <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#algo">INGRESAR</button>
                                 <button type="submit" class="btn btn-secondary" >Ingresar</button>
                                 <a href="registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>
                                 {%if messages %}
@@ -125,17 +126,17 @@
                         </form>
                         </div>
                         <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                        <form class="" action="logemp/" method="POST" >
+                        <form class="needs-validation" action="logemp/" method="POST" novalidate >
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-">
-                                <div class="mb-3">
+                                <div class="mb-3 position-relative">
                                   <label for="exampleFormControlInput1" class="form-label espacio4">USUARIO</label>
                                   <input type="text" class="form-control" id="exampleFormControlInput1" name="empleado" placeholder="Debe ingresar un usuario válido" required> 
                                   <!--MENSAJE-->
                                   <div class="invalid-feedback">Ingrese un usuario válido.</div>
                                 </div>
-                                <div class="mb-3">
+                                <div class="mb-3 position-relative">
                                   <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                                   <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="Ingrese una contraseña" required>
                                   <!--MENSAJE-->
@@ -151,12 +152,29 @@
                   </div>
                 </div>
               </div>
+              <div class="modal fade" id="algo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title text-center" id="exampleModalLongTitle">ERROR</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                      Correo o contraseña no coinciden.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
         </div>
         </nav>
     {% block content %}
     {% endblock%}
     <script src="{%static 'app/js/bootstrap.min.js'%}"></script>
     <script src="{%static 'app/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{%static 'app/js/formulario.js'%}"></script>
     
 </body>
 </html>

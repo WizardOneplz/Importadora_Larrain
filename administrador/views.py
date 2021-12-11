@@ -189,7 +189,7 @@ def eliminar_empleado(request, rut):
         messages.add_message(request=request, level=messages.SUCCESS, message="Empleado eliminado con Éxito.")
     except:
         messages.add_message(request=request, level=messages.ERROR, message="Imposible Eliminar, empleado se relaciona con otras tablas.")    
-    return redirect('/agregar_empleado')
+    return redirect('/logemp/agregar_empleado')
 
 def modificar_empleado(request, rut):
     data = {
@@ -429,7 +429,8 @@ def logemp(request):
                 return render(request,'registro.html',{"empleado":Usuario})
            elif Usuario.rol == 5 :
                 return render(request,'mantenedor_marca.html',{"empleado":Usuario})
-        except:
+        except CuentaEmpleado.DoesNotExist as e:
+            messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
             return render(request,'home.html' )
 
 

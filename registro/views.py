@@ -61,7 +61,7 @@ def login(request):
             return render(request, 'home.html' ,{ "cliente":Email})
         except CuentaCliente.DoesNotExist as e:
             messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
-    
+            return render(request, 'home.html')
 
 def cerrarsesion(request):
     try:

@@ -330,7 +330,7 @@ class Pasillo(models.Model):
 
 class Producto(models.Model):
     id_producto = models.BigIntegerField(primary_key=True)
-    nombre_producto = models.CharField(max_length=30)
+    nombre_producto = models.CharField(unique=True, max_length=30)
     precio = models.BigIntegerField()
     stock = models.BigIntegerField()
     oferta = models.CharField(max_length=1)
@@ -344,8 +344,8 @@ class Producto(models.Model):
     class Meta:
         managed = False
         db_table = 'producto'
-    
-    def __str__(self):
+
+    def str(self):
         titulo = "{0}"
         return titulo.format(self.nombre_producto)
 

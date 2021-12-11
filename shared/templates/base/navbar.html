@@ -64,18 +64,22 @@
                       </ul>
                       <div class="tab-content" id="myTabContent">
                         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <form class="" action="login" method="POST">
+                        <form class="needs-validation" action="login" method="POST" novalidate>
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md-">
-                                <div class="mb-3">
-                                  <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
-                                  <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required> 
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
-                                    <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="" required>
-                                </div>         
+                              <div class="mb-3 position-relative">
+                                <label for="exampleFormControlInput1" class="form-label espacio4">Correo Electrónico</label>
+                                <input type="email" class="form-control" id="exampleFormControlInput1" name="correo" placeholder="Debe ingresar un Email valido en mayusculas" pattern="[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$" required>
+                                <!--MENSAJE-->
+                                <div class="invalid-feedback">Ingrese un Correo Válido.</div>
+                              </div>
+                              <div class="mb-3 position-relative">
+                                <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
+                                <input type="password" class="form-control" id="exampleFormControlInput1" name="contraseña" placeholder="Ingrese una contraseña" required>
+                                <!--MENSAJE-->
+                                <div class="invalid-feedback">Ingrese una contraseña.</div>
+                              </div>          
                                 <button type="submit" class="btn btn-secondary" >Ingresar</button>
                                 <a href="registro"><button type="button" class="btn btn-primary">Crear cuenta</button></a>
                             </div>
@@ -115,6 +119,6 @@
 
         </div>
 
-
+        <script src="{%static 'app/js/formulario.js'%}"></script>
 </body>
 </html>
