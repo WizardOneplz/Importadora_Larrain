@@ -431,7 +431,7 @@ def logemp(request):
                 return render(request,'mantenedor_marca.html',{"empleado":Usuario})
         except CuentaEmpleado.DoesNotExist as e:
             messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
-            return render(request,'home.html' )
+            return redirect('/')
 
 
 def logout(request):
