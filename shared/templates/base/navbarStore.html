@@ -40,11 +40,11 @@
                   </li>
               </ul>
               {% if request.session.email %}
-              <ul class="navbar-nav ms-auto">
-                <a href="perfil/{{cliente.cliente_rut}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
-              </ul>
               <ul class="blanco" style="visibility:hidden">
                 <p id="email" name="email"> {{ cliente.cliente_rut}}</p> 
+              </ul>
+              <ul class="navbar-nav ms-auto">
+                <a href="perfil/{{cliente.cliente_rut}}"><button class="btn btn-outline-success me-2" type="button">PERFIL</button></a>
               </ul>
               <ul class="navbar-nav ms-auto">
                 <a href="cerrarsesion">

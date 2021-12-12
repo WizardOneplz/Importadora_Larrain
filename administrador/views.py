@@ -438,8 +438,8 @@ def logout(request):
     try:
         del request.session['usuario']
     except:
-        return render(request, 'home.html')
-    return render(request, 'home.html')
+        return redirect('/')
+    return redirect('/')
 
 def modificar_perfil(request, empleado_rut):
     data={

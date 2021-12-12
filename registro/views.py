@@ -67,8 +67,8 @@ def cerrarsesion(request):
     try:
         del request.session['email']
     except:
-        return render(request, 'home.html')
-    return render(request, 'home.html')
+        return redirect('/')
+    return redirect('/')
 
 def modificar_cliente(request, cliente_rut):
     data={
