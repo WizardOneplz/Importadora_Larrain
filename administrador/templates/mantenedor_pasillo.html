@@ -79,7 +79,6 @@
                             <nav>
                             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                 <button class="nav-link active" id="nav-crearpass-tab" data-bs-toggle="tab" data-bs-target="#nav-crearpass" type="button" role="tab" aria-controls="nav-crearpass" aria-selected="true">Crear Pasillo</button>
-                                <button class="nav-link" id="nav-listarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-listarpass" type="button" role="tab" aria-controls="nav-listarpass" aria-selected="false">Listar Pasillo</button>
                                 <button class="nav-link" id="nav-modificarpass-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarpass" type="button" role="tab" aria-controls="nav-modificarpass" aria-selected="false">Eliminar Pasillo</button>
                             </div>
                             </nav>
@@ -167,38 +166,6 @@
                                     </form>
                                 </div>
                                 <!-- Cierre Crear Pasillo-->
-                                <!-- Lista Pasillo-->
-                                <div class="tab-pane fade" id="nav-listarpass" role="tabpanel" aria-labelledby="nav-listarpass-tab">
-                                    <div class="card row col-md-12" >
-                                        <div class="card-header ">
-                                            <h1 class="text-center negro">Listado de Pasillos</h2>
-                                        </div>
-                                        <div class="card-body">
-                                            <input type="text" id="myInput6" onkeyup="myFunction6()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                            <table class="table align-middle" id="myTable6">                                     
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">ID</th>
-                                                        <th scope="col">CANTIDAD ESTANTERIAS</th>
-                                                        <th scope="col">ID BODEGA</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                {%for c in pasillo%}
-                                                <tr>
-                                                    <td>{{ c.0 }}</td>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                </tr>
-                                                {% endfor %}
-                                                </tbody>
-                                            </table>                                     
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                </div>
-                                <!-- Cierre Lista Pasillo-->
                                 <!-- Editar Pasillo-->
                                 <div class="tab-pane fade" id="nav-modificarpass" role="tabpanel" aria-labelledby="nav-modificarpass-tab">
                                     <div class="card row col-md-12" >

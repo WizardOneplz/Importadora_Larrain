@@ -79,7 +79,6 @@
                                 <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
                                     <button class="nav-link active" id="nav-crearbod-tab" data-bs-toggle="tab" data-bs-target="#nav-crearbod" type="button" role="tab" aria-controls="nav-crearbod" aria-selected="true">Crear Bodega</button>
-                                    <button class="nav-link" id="nav-listarbod-tab" data-bs-toggle="tab" data-bs-target="#nav-listarbod" type="button" role="tab" aria-controls="nav-listarbod" aria-selected="false">Listar Bodega</button>
                                     <button class="nav-link" id="nav-modificarbod-tab" data-bs-toggle="tab" data-bs-target="#nav-modificarbod" type="button" role="tab" aria-controls="nav-modificarbod" aria-selected="false">Modificar/Eliminar Bodega</button>
                                 </div>
                                 </nav>
@@ -164,37 +163,6 @@
                                         </form>
                                     </div>
                                     <!-- Cierre Crear Bodega-->
-                                    <!-- Lista Bodega-->
-                                    <div class="tab-pane fade" id="nav-listarbod" role="tabpanel" aria-labelledby="nav-listarbod-tab">
-                                        <div class="card row col-md-12" >
-                                            <div class="card-header ">
-                                                <h1 class="text-center negro">Listado de Bodegas</h2>
-                                            </div>
-                                            <div class="card-body">
-                                                <input type="text" id="myInput4" onkeyup="myFunction4()" placeholder="BUSCADOR" class="search form-control espacio4"></input>
-                                                <table class="table align-middle" id="myTable4">                                     
-                                                <thead>
-                                                    <tr>
-                                                    <th scope="col">ID</th>
-                                                    <th scope="col">NUMERO PASILLOS</th>
-                                                    <th scope="col">DIRECCION</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    {%for c in bodega%}
-                                                    <tr>
-                                                    <td>{{ c.0 }}</td>
-                                                    <td>{{ c.1 }}</td>
-                                                    <td>{{ c.2 }}</td>
-                                                    </tr>
-                                                    {% endfor %}
-                                                </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                        
-                                    </div>
-                                    <!-- Cierre Lista Bodega-->
                                     <!-- Editar Bodega-->
                                     <div class="tab-pane fade" id="nav-modificarbod" role="tabpanel" aria-labelledby="nav-modificarbod-tab">
                                         <div class="card row col-md-12" >
