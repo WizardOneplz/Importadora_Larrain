@@ -27,13 +27,14 @@ from agente.views import *
 urlpatterns = [
     #TIENDA
     path('admin/', admin.site.urls),
-    path('',home),
+    path('', home, name='home'),
     path('store', store),
     path('cart/', include('cart.urls', namespace='cart')),
     path('producto/<int:pk>/', producto, name='producto'),
     path('oferta', oferta),
     path('categoria/<int:id_categoria>', categoria, name='categoria'),
     path('marca/<int:id_marca>', marca, name='marca'),
+    path('search', search),
 
     #REGISTRO
     path('registro',registro,),

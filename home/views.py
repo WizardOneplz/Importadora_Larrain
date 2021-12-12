@@ -14,8 +14,10 @@ def home(request):
     categorias = Categoria.objects.all()
     marcas = Marca.objects.all()
     cart_product_form = CartAddProductForm()
-    datos_productos = listar_productos()
+    datos_valoracion = listado_valoraciontotal()
+    datos_productos = listado_oferta()
     arreglo = []
+    arreglo_valoracion = []
 
     for i in datos_productos:
         data = {
@@ -23,14 +25,25 @@ def home(request):
             'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
         }
         arreglo.append(data)
+    
+    for i in datos_valoracion:
+        data = {
+            'data':i,
+            'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+        }
+        arreglo_valoracion.append(data)
 
+    paginator_val = Paginator(arreglo_valoracion, 4)
     paginator = Paginator(arreglo, 4)
     page_number = request.GET.get('page')
+    page_obj_ = paginator_val.get_page(page_number)
     page_obj = paginator.get_page(page_number)
 
     data = {
+        'valoracion':arreglo_valoracion,
         'productos':arreglo,
         'page_obj': page_obj,
+        'page_obj_': page_obj_,
         'cart_product_form':cart_product_form,
         'cart':cart,
         'categorias':categorias,
@@ -98,7 +111,6 @@ def oferta(request):
     return render(request, 'oferta.html', data)
 
 def categoria(request, id_categoria):
-
     cart = Carrito(request)
     cart_product_form = CartAddProductForm()
     categorias = Categoria.objects.all()
@@ -199,6 +211,17 @@ def producto(request, pk):
         
     return render(request, 'producto.html', data)      
 
+def search(request):
+    q = request.GET['q']
+    data = Producto.objects.filter(nombre_producto__icontains=q).order_by('-id_producto')
+    cart_product_form = CartAddProductForm()
+    
+    paginator = Paginator(data, 6)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render (request, 'search.html', {'data':data, 'page_obj':page_obj, 'cart_product_form':cart_product_form})
+
 def seguimiento(request):
     cart = Carrito(request)
     return render(request,'seguimiento.html', {'cart':cart})
@@ -261,6 +284,22 @@ def listado_oferta():
         lista.append(fila)
     return lista
 
+
+def listado_valoraciontotal():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("SP_PRODUCTO_VALORACION", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        data = {
+            'data':fila,
+            'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
+        }
+        lista.append(fila)
+    return lista
+
 def listado_categoria(id_cat):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -291,14 +330,6 @@ def listado_marca(id_mar):
         lista.append(fila)
     return lista
 
-def search(request):
-    q = request.GET['q']
-    data = Producto.objects.filter(nombre_producto__icontains=q).order_by('-id_producto')
-    
-    paginator = Paginator(data, 6)
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
 
-    return render (request, 'search.html', {'data':data, 'page_obj':page_obj})
         
 

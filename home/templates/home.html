@@ -46,26 +46,23 @@
         <!--Menu secundario-->
         <ul class="nav nav-pills mb-3 espacio4 align-items-center justify-content-center" id="pills-tab" role="tablist">
           <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="pills-ofertas-tab" data-bs-toggle="pill" data-bs-target="#pills-ofertas"
-              type="button" role="tab" aria-controls="pills-ofertas" aria-selected="true">OFERTA Y LANZAMIENTOS</button>
+            <a class="nav-link active" id="pills-ofertas-tab" data-bs-toggle="pill" data-bs-target="#pills-ofertas"
+              type="button" role="tab" aria-controls="pills-ofertas" aria-selected="true">OFERTA Y LANZAMIENTOS</a>
           </li>
           <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-destacados-tab" data-bs-toggle="pill" data-bs-target="#pills-destacados"
-              type="button" role="tab" aria-controls="pills-destacados" aria-selected="false">DESTACADOS</button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-valorados-tab" data-bs-toggle="pill" data-bs-target="#pills-valorados"
-              type="button" role="tab" aria-controls="pills-valorados" aria-selected="false">VALORADOS</button>
+            <a class="nav-link" id="pills-valorados-tab" data-bs-toggle="pill" data-bs-target="#pills-valorados"
+              type="button" role="tab" aria-controls="pills-valorados" aria-selected="false">VALORADOS</a>
           </li>
         </ul>
 
-        <div class="container" style="margin-top: 20px;">
+        <div class="tab-content" id="v-pills-tabContent" style="margin-top: 20px;" > 
+          <div class="tab-pane fade show active" id="pills-ofertas" role="tabpanel" aria-labelledby="pills-ofertas-tab">
           <div class="card" style="background-color: whitesmoke; margin-bottom: 20px;">
           <div class="row align-items-center justify-content-center row-cols-auto">
               {% for product in page_obj %}
               <div class="col-md-auto">
                   <div class="card card-body"
-                  style="text-align: center; margin-bottom: 10px; width: 250px; height: 500px; margin-top: 20px;">
+                  style="text-align: center; margin-bottom: 10px; width: 250px; height: 540px; margin-top: 20px;">
                       {% if product.imagen %}
                       <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                               src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>
@@ -81,7 +78,7 @@
                           <hr>
                           <form class="form-group" action="{% url 'cart:Add' product.data.0 %}" method="post">
                             {{ cart_product_form }}
-                            <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">Añadir al Carrito</button>
+                            <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito" style="margin-top: 10px; margin-bottom: 10px;">Añadir al Carrito</button>
                             {% csrf_token %}
                           </form>
                           <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
@@ -92,6 +89,41 @@
               {% endfor %}
             </div>
           </div>
+        </div>
+        <div class="tab-pane fade" id="pills-valorados" role="tabpanel" aria-labelledby="pills-valorados-tab">
+          <div class="card" style="background-color: whitesmoke; margin-bottom: 20px;">
+            <div class="row align-items-center justify-content-center row-cols-auto">
+                {% for product in page_obj_ %}
+                <div class="col-md-auto">
+                  <div class="card card-body"
+                  style="text-align: center; margin-bottom: 10px; width: 250px; height: 540px; margin-top: 20px;">
+                      {% if product.imagen %}
+                      <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
+                              src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>
+                      {% endif %}
+                      <div class="card-text" style="margin-top: 5px;">
+                          <h4 style="color: black;">{{ product.data.1 }}</h4>
+                          {% if product.data.7 %}
+                          <p style="text-decoration: line-through;">CLP ${{ product.data.2 }}</p>
+                          <p style="color: red;">OFERTA ${{ product.data.7 }}</p>
+                          {% else %}
+                          <p>CLP ${{ product.data.2 }}</p>
+                          {% endif %}
+                          <hr>
+                          <form class="form-group" action="{% url 'cart:Add' product.data.0 %}" method="post">
+                            {{ cart_product_form }}
+                            <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito" style="margin-top: 10px; margin-bottom: 10px;">Añadir al Carrito</button>
+                            {% csrf_token %}
+                          </form>
+                          <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
+                              Producto</a>
+                      </div>
+                  </div>
+              </div>
+                {% endfor %}
+              </div>
+            </div>
+        </div>
         </div>
       </section>
     </div>

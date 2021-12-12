@@ -2,7 +2,7 @@
     <div class="row justify-content-center" style=" margin-top: 15px; margin-bottom: 20px;">
         <div class="col-md-4">
             <form action="/search">
-            <div class="input-group rounded" style="width: 400px;">
+            <div class="input-group rounded" style="width: 415px;">
                 <input name="q" type="text" class="form-control rounded" placeholder="Buscar Producto" minlength="1" maxlength="30" required pattern="{1,30}"  aria-label="Search" aria-describedby="search-addon"/>
                 <button class="btn btn-primary" type="submit" id="button-addon2">
                     <i class="fas fa-search"></i>
@@ -12,7 +12,7 @@
         </div>
     </div>
     <ul class="nav nav-pills align-items-center justify-content-center">
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" style="margin-right: 20px;">
           <a class="nav-link dropdown-toggle active" data-bs-toggle="dropdown" href="#" role="button"
             aria-expanded="false">TODAS LAS CATEGORIAS</a>
           
@@ -32,6 +32,7 @@
             {% endfor %}
           </ul>
         </li>
+        
       </ul>
       <br>
 </div>

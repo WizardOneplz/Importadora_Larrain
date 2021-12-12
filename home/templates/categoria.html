@@ -7,13 +7,14 @@
     <div class="container">
         <div class="card" style="background-color: whitesmoke; margin-bottom: 20px;">
             <br>
-            <h2 style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos en Categoria: {{categoriass.nombre_categoria}}
+            <h2 style="text-align: center; margin-bottom: 40px; font-size: 50px;">Productos en Categoría: {{categoriass.nombre_categoria}}
             </h2>
+            {% if page_obj %}
             <div class="row align-items-center justify-content-center row-cols-auto">
                 {% for product in page_obj %}
                 <div class="col-md-auto">
                     <div class="card card-body"
-                    style="text-align: center; margin-bottom: 10px; width: 250px; height: 500px; margin-top: 20px;">
+                    style="text-align: center; margin-bottom: 10px; width: 250px; height: 540px; margin-top: 20px;">
                         {% if product.imagen %}
                         <a href="producto/{{ product.data.0 }}"><img class="card-img-top" style="height: 250px;"
                                 src="data:imagen/png;base64, {{product.imagen}}" alt="" /></a>
@@ -27,9 +28,11 @@
                             <p>CLP ${{ product.data.2 }}</p>
                             {% endif %}
                             <hr>
-                            <a href=""><button class="btn btn-outline-secondary add-btn"
-                                    style="margin-bottom: 10px;">Añadir al
-                                    Carrito</button></a>
+                            <form class="form-group" action="{% url 'cart:Add' product.data.0 %}" method="post">
+                              {{ cart_product_form }}
+                              <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito" style="margin-top: 10px; margin-bottom: 10px;">Añadir al Carrito</button>
+                              {% csrf_token %}
+                            </form>
                             <a href="producto/{{ product.data.0 }}" class="btn btn-outline-success">Ver
                                 Producto</a>
                         </div>
@@ -66,6 +69,13 @@
 
                 </ul>
             </div>
+            {% else %}
+            <div>
+                <h4 style="text-align: center;"> No hay productos en esta 
+                    categoría</h4>
+            </div>
+            <br>
+            {% endif %}
         </div>
 </section>
 {% endblock %}

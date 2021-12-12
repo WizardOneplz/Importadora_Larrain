@@ -302,6 +302,8 @@ class OrdenCompra(models.Model):
     precio_total = models.BigIntegerField()
     fecha_compra = models.DateField(auto_now_add=True)
     fecha_estimada = models.DateField(auto_now=True)
+    estado_pago_id_estado_pago = models.ForeignKey(EstadoPago, models.DO_NOTHING, db_column='estado_pago_id_estado_pago')
+    estado_pedido_id_estado_pedido = models.ForeignKey(EstadoPedido, models.DO_NOTHING, db_column='estado_pedido_id_estado_pedido')
     tipo_pago_id_tipo_pago = models.ForeignKey('TipoPago', models.DO_NOTHING, db_column='tipo_pago_id_tipo_pago')
     cuenta_cliente_email = models.ForeignKey(CuentaCliente, models.DO_NOTHING, db_column='cuenta_cliente_email')
     tipo_orden_id_tipo_orden = models.ForeignKey('TipoOrden', models.DO_NOTHING, db_column='tipo_orden_id_tipo_orden')
@@ -345,7 +347,7 @@ class Producto(models.Model):
         managed = False
         db_table = 'producto'
 
-    def str(self):
+    def __str__(self):
         titulo = "{0}"
         return titulo.format(self.nombre_producto)
 

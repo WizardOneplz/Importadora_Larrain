@@ -6,8 +6,11 @@
         <div class="card" style="margin-top:30px; padding-right: 20px;">
             <div class="card-header">
                 <a style="margin-bottom: 20px;" class="btn btn-outline-dark" href="/">&#x2190; Continuar Comprando</a>
-
+                {% if request.session.email %}
                 <a  style="float:right; margin:0 auto; font-size: 18px;" class="btn btn-success" href="{% url "cart:order_create" %}">Pagar</a>
+                {% else %}
+                <a style="float:right; margin:0 auto; font-size: 18px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"">Inicia sesión</a>
+                {% endif %}
             </div>
             {% if cart %}
             <div class="row justify-content-center" style="margin-top: 20px;">
@@ -19,7 +22,7 @@
 
                 {% for item in cart %}
                     {% with producto=item.id_producto %}
-                        <div class="cart-row" style="text-align: center; width: 1150px;">
+                        <div class="cart-row" style="text-align: center;">
                             <div style="flex:1;"><p>{{item.id_producto}}</p></div>
                             <div style="flex:2;">
                                 <p class="quantity">{{item.cantidad}}</p>
@@ -40,7 +43,11 @@
                         </div>
                     {% endwith %}
                 {% endfor %}
-                <h5 style="text-align: right; margin: 10 auto; margin-right: 50px; font-weight: bold;">Total de la Compra:<strong> {{ cart.get_total_price }}$</strong></h5>
+                <hr class="my-4">
+                <h5 style="text-align: right; margin: 10 auto; margin-right: 50px; font-weight: bold;">Total de la Compra:</h5>
+                <br>
+                <h3 style="text-align: right; padding-right: 40px;"><strong>$ {{ cart.get_total_price }}</strong></h3>
+                <br>
             </div>
         </div>
                 {% else %}
