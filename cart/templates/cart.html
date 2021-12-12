@@ -9,7 +9,7 @@
                 {% if request.session.email %}
                 <a  style="float:right; margin:0 auto; font-size: 18px;" class="btn btn-success" href="{% url "cart:order_create" %}">Pagar</a>
                 {% else %}
-                <a style="float:right; margin:0 auto; font-size: 18px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal"">Inicia sesión</a>
+                <a style="float:right; margin:0 auto; font-size: 18px;" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">Inicia sesión</a>
                 {% endif %}
             </div>
             {% if cart %}
@@ -17,14 +17,14 @@
                 <div class="cart-row" style="text-align: center;width: 1150px;">
                     <div style="flex:1"><strong>Producto</strong></div>
                     <div style="flex:2"><strong>Cantidad</strong></div>
-                    <div style="flex:3"><strong>Precio</strong></div>
+                    <div style="flex:2"><strong>Precio</strong></div>
                 </div>
 
                 {% for item in cart %}
                     {% with producto=item.id_producto %}
-                        <div class="cart-row" style="text-align: center;">
-                            <div style="flex:1;"><p>{{item.id_producto}}</p></div>
-                            <div style="flex:2;">
+                        <div class="cart-row" style="text-align: center; width: 1150px;">
+                            <div style="flex:1; padding-left: 20px;"><p>{{item.id_producto}}</p></div>
+                            <div style="flex:2; padding-left: 80px;">
                                 <p class="quantity">{{item.cantidad}}</p>
                                 <div class="quantity">
                                     <form action="{% url 'cart:Add' producto.id_producto %}" method="post">
@@ -35,7 +35,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div style="flex:3; "><p>CLP ${{item.precio_total}}</p></div>
+                            <div style="flex:2; padding-left: 60px;"><p style="font-weight: bold;">CLP ${{item.precio_total}}</p></div>
                             <form action="{% url 'cart:Del' producto.id_producto %}" method="post">
                                 <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">X</button>
                             {% csrf_token %}

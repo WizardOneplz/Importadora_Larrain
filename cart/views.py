@@ -11,7 +11,7 @@ def cart(request):
     for item in cart:
         item['update_quantity_form'] = CartAddProductForm(initial={
         'cantidad': item['cantidad'],
-        'override': True})
+        'override': True})  
     return render(request, 'cart.html', {'cart':cart})
 
 def order_create2(request):
