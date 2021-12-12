@@ -133,10 +133,17 @@ class CuentaEmpleado(models.Model):
         return titulo.format(self.empleado_rut)
 
 class DetalleOrden(models.Model):
+    def number():
+        no = DetalleOrden.objects.count()
+        if no == None:
+            return 1
+        else:
+            return no + 1
     cantidad = models.BigIntegerField()
     precio = models.BigIntegerField()
-    orden_compra_id_orden = models.OneToOneField('OrdenCompra', models.DO_NOTHING, db_column='orden_compra_id_orden', primary_key=True)
+    orden_compra_id_orden = models.OneToOneField('OrdenCompra', models.DO_NOTHING, db_column='orden_compra_id_orden')
     producto_id_producto = models.ForeignKey('Producto', models.DO_NOTHING, db_column='producto_id_producto')
+    id_det_orden = models.BigIntegerField(primary_key=True, default=number)
 
     def get_cost(self):
         return self.precio * self.cantidad

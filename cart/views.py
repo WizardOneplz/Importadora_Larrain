@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from .Carrito import Carrito
 from .forms import CartAddProductForm, OrderCreateForm
-from core.models import DetalleOrden, Producto, CuentaCliente
+from core.models import DetalleOrden, OrdenCompra, Producto, CuentaCliente
 from django.views.decorators.http import require_POST
 from django.shortcuts import redirect, render, get_object_or_404
 
@@ -16,6 +16,7 @@ def cart(request):
  
 def order_create(request):
     cart = Carrito(request)
+    det_orden = DetalleOrden(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
