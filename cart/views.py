@@ -16,7 +16,6 @@ def cart(request):
  
 def order_create(request):
     cart = Carrito(request)
-    det_orden = DetalleOrden(request)
     if request.method == 'POST':
         form = OrderCreateForm(request.POST)
         if form.is_valid():
