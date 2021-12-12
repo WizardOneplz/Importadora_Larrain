@@ -1,10 +1,11 @@
 from django.db import connection
 from bodeguero.views import listar_productos
 from django.shortcuts import redirect, render, get_object_or_404
-from core.models import Categoria, OrdenCompra, Producto, Marca
+from core.models import Categoria, OrdenCompra, Producto, Marca, CuentaEmpleado
 from django.core.paginator import Paginator
 from cart.forms import CartAddProductForm
 from cart.Carrito import Carrito
+from django.contrib import messages
 import base64
 import cx_Oracle
 
@@ -49,6 +50,24 @@ def home(request):
         'categorias':categorias,
         'marcas':marcas,
     }
+    
+    if request.method =='POST':
+        try: 
+            Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+            clave=request.POST['clave'])
+            request.session['usuario']=Usuario.usuario 
+            if Usuario.rol == 1 :
+                return render(request, 'agregar_empleado.html',{"empleado":Usuario} )
+            elif Usuario.rol == 3 :
+                return render(request,'subir_oferta.html' ,{"empleado":Usuario})
+            elif Usuario.rol == 4 :
+                return render(request,'registro.html',{"empleado":Usuario})
+            elif Usuario.rol == 5 :
+                return render(request,'mantenedor_marca.html',{"empleado":Usuario})
+        except CuentaEmpleado.DoesNotExist as e:
+            messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
+            return redirect('/')
+    
     return render(request, 'home.html', data)
 
 def store(request):

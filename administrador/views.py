@@ -414,24 +414,7 @@ def eliminar_estanteria(request, id_estanteria):
 
 #login 
 
-def logemp(request):
-    
-    if request.method =='POST':
-        try: 
-           Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
-           clave=request.POST['clave'])
-           request.session['usuario']=Usuario.usuario 
-           if Usuario.rol == 1 :
-               return render(request, 'agregar_empleado.html',{"empleado":Usuario} )
-           elif Usuario.rol == 3 :
-                return render(request,'subir_oferta.html' ,{"empleado":Usuario})
-           elif Usuario.rol == 4 :
-                return render(request,'registro.html',{"empleado":Usuario})
-           elif Usuario.rol == 5 :
-                return render(request,'mantenedor_marca.html',{"empleado":Usuario})
-        except CuentaEmpleado.DoesNotExist as e:
-            messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
-            return redirect('/')
+
 
 
 def logout(request):

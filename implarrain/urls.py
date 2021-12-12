@@ -48,9 +48,8 @@ urlpatterns = [
     path('perfil/<cliente_rut>',modificar_cliente),
     path('editar_perfil/',perfil),
     path('perfil/editar_clave/',cambclave),
-    path('logemp/',logemp),
     path('logemp/logout',logout),
-    path('logemp/peremple/<empleado_rut>',modificar_perfil),
+    path('peremple/<empleado_rut>',modificar_perfil),
     path('edt_emple/',peremple),
     path('logemp/peremple/<empleado_rut>',claveemple),
     #ELIMINAR
