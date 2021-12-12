@@ -13,24 +13,6 @@ def cart(request):
         'cantidad': item['cantidad'],
         'override': True})
     return render(request, 'cart.html', {'cart':cart})
- 
-def order_create(request):
-    cart = Carrito(request)
-    if request.method == 'POST':
-        form = OrderCreateForm(request.POST)
-        if form.is_valid():
-            order = form.save()
-            order.precio_total = cart.get_total_price()
-            correo = request.POST.get('email')
-            order.cuenta_cliente_email = CuentaCliente.objects.get(email=correo)
-            order.save()
-            for item in cart:
-                DetalleOrden.objects.create(cantidad = item['cantidad'], precio = item['precio'],producto_id_producto=item['id_producto'], orden_id_orden=order)
-            cart.limpiar()
-            return render(request, 'created.html',{'order':order})
-    else:
-        form = OrderCreateForm()
-    return render(request, 'create.html', {'cart': cart, 'form':form})
 
 def order_create2(request):
     cart = Carrito(request)
@@ -40,7 +22,6 @@ def order_create2(request):
             order = form.save()
             order.precio_total = cart.get_total_price()
             correo = request.POST.get('email')
-            
             order.cuenta_cliente_email = CuentaCliente.objects.get(email=correo)
             order.save()
             for item in cart:

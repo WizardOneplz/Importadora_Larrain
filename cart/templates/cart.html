@@ -35,7 +35,7 @@
                                     </form>
                                 </div>
                             </div>
-                            <div style="flex:3; "><p>{{item.precio_total}}$</p></div>
+                            <div style="flex:3; "><p>CLP ${{item.precio_total}}</p></div>
                             <form action="{% url 'cart:Del' producto.id_producto %}" method="post">
                                 <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito">X</button>
                             {% csrf_token %}
@@ -46,7 +46,7 @@
                 <hr class="my-4">
                 <h5 style="text-align: right; margin: 10 auto; margin-right: 50px; font-weight: bold;">Total de la Compra:</h5>
                 <br>
-                <h3 style="text-align: right; padding-right: 40px;"><strong>$ {{ cart.get_total_price }}</strong></h3>
+                <h3 style="text-align: right; padding-right: 40px;"><strong>CLP ${{ cart.get_total_price }}</strong></h3>
                 <br>
             </div>
         </div>
