@@ -14,7 +14,7 @@ def mantenedor_admin(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'empleado':listado_clientes(),
+        'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -52,7 +52,7 @@ def mantenedor_bodega(request):
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'empleado':listado_clientes(),
+        'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -430,6 +430,22 @@ def modificar_perfil(request, empleado_rut):
         'cuentaempleado': CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
         
     }
+    empleado = CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
+    if request.method == 'POST':
+        try:
+            if empleado.clave == request.POST.get('clave'):
+                contraseña2 = request.POST.get('nuevacontraseñaem')
+                contraseña1 = request.POST.get('repetircontraseña')
+                if contraseña1 == contraseña2:
+                    empleado.clave = contraseña2
+                    empleado.save()
+                    return render(request, "perfil_empleado.html")
+                else:
+                    return render(request, "registro.html")
+                    messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+        except:
+            return render(request, "home.html")
+            messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
     return render(request, "perfil_empleado.html", data)
 
 
@@ -458,18 +474,18 @@ def peremple(request):
     empleado.save()
     return redirect('/')
 
-def claveemple (request):
-    empleado = CuentaEmpleado.objects.get(empleado_rut=request.POST.get('rut'))
-    try:
-        if empleado.Clave == request.POST.get('clave'):
-            contraseña2 = request.POST.get('nuevacontraseñaem')
-            if request.POST.get('repetircontraseña ') == contraseña2:
-                empleado.Clave = contraseña2
-                empleado.save()
-                return render(request, "perfil_empleado.html")
-            else:
-                return render(request, "registro.html")
-                messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
-    except:
-        return render(request, "registro.html")
-        messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
+##def claveemple (request):
+  ##  empleado = CuentaEmpleado.objects.get(empleado_rut=request.POST.get('rut'))
+    ##try:
+      ##  if empleado.Clave == request.POST.get('clave'):
+        ##    contraseña2 = request.POST.get('nuevacontraseñaem')
+         ##   if request.POST.get('repetircontraseña ') == contraseña2:
+           ##     empleado.Clave = contraseña2
+             ##   empleado.save()
+              ##  return render(request, "perfil_empleado.html")
+            ##else:
+              ##  return render(request, "registro.html")
+      ##          messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+    ##except:
+     ##   return render(request, "registro.html")
+        ##messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
