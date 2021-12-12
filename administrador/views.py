@@ -8,7 +8,10 @@ import cx_Oracle
 # Create your views here.
 
 #EMPLEADOS
-def mantenedor_admin(request):
+def mantenedor_admin(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -23,6 +26,7 @@ def mantenedor_admin(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
+        'empleado':Usuario,
         
     }
  
@@ -46,7 +50,10 @@ def mantenedor_admin(request):
     return render(request,'agregar_empleado.html',data)
 
 #BODEGA
-def mantenedor_bodega(request):
+def mantenedor_bodega(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -61,6 +68,7 @@ def mantenedor_bodega(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
+        'empleado':Usuario,
         
     } 
 
@@ -79,7 +87,10 @@ def mantenedor_bodega(request):
     return render(request,'mantenedor_bodega.html',data)
 
 #PASILLO
-def mantenedor_pasillo(request):
+def mantenedor_pasillo(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -94,9 +105,9 @@ def mantenedor_pasillo(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
-        
-    } 
-
+        'empleado':Usuario,
+    }
+    
 #AGREGAR PASILLO
     if request.method== 'POST':
         cant_estanterias = request.POST.get('cant_estanterias')
@@ -113,7 +124,10 @@ def mantenedor_pasillo(request):
 
 
 #ESTANTERIA
-def mantenedor_estanteria(request):
+def mantenedor_estanteria(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -129,6 +143,7 @@ def mantenedor_estanteria(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
+        'empleado':Usuario,
         
     } 
 
