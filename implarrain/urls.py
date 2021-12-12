@@ -42,17 +42,18 @@ urlpatterns = [
     path('mostrar_info/', mostrarinfo),
     #REGISTRO
     path('registro',registro),
-    path('logemp/agregar_empleado',mantenedor_admin),
+    path('agregar_empleado/<empleado_rut>',mantenedor_admin, name="mantenedor_empleado"),
     path('login', login), 
     path('cerrarsesion',cerrarsesion),
     path('perfil/<cliente_rut>',modificar_cliente),
     path('editar_perfil/',perfil),
-    path('perfil/editar_clave/',cambclave),
-    path('logemp/',logemp),
     path('logemp/logout',logout),
-    path('logemp/peremple/<empleado_rut>',modificar_perfil),
+    path('<empleado_rut>/peremple',modificar_perfil, name="perfil_empleado"),
     path('edt_emple/',peremple),
-    path('logemp/peremple/<empleado_rut>',claveemple),
+<<<<<<< HEAD
+=======
+    path('peremple/<empleado_rut>',claveemple),
+>>>>>>> c9a7318dc0254f45e74641f3c2a868ead25bc812
     #ELIMINAR
     path('logemp/eliminar_empleado/<rut>',eliminar_empleado),
     path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
@@ -61,12 +62,21 @@ urlpatterns = [
     path('logemp/eliminar_marca/<id_marca>',eliminar_marca),
     path('eliminar_categoria/<id_categoria>',eliminar_categoria),
     #MANTENEDORES
-    path('logemp/mantenedor_bodega',mantenedor_bodega),
+<<<<<<< HEAD
+    path('mantenedor_bodega',mantenedor_bodega),
     path('logemp/mantenedor_pasillo',mantenedor_pasillo),
     path('logemp/mantenedor_estanteria',mantenedor_estanteria),
     path('logemp/mantenedor_marca',mantenedor_marca),
     path('logemp/mantenedor_categorias',mantenedor_categorias),
     path('logemp/mantenedor_productos',mantenedor_productos),
+=======
+    path('mantenedor_bodega/<empleado_rut>',mantenedor_bodega, name="mantenedor_bodega"),
+    path('mantenedor_pasillo/<empleado_rut>',mantenedor_pasillo, name="mantenedor_pasillo"),
+    path('mantenedor_estanteria/<empleado_rut>',mantenedor_estanteria, name="mantenedor_estanteria"),
+    path('mantenedor_marca',mantenedor_marca, ),
+    path('mantenedor_categorias',mantenedor_categorias),
+    path('mantenedor_productos',mantenedor_productos),
+>>>>>>> c9a7318dc0254f45e74641f3c2a868ead25bc812
     #MODIFICAR
     path('logemp/modificar_marca/<id_marca>',modificar_marca),
     path('editar_marca/',editar_marca),
@@ -83,7 +93,6 @@ urlpatterns = [
     path('editar_producto/',editar_producto),
     path('editar_solicitud/',editar_solicitud),
     path('eliminar_producto/<id_producto>',eliminar_producto), 
-    path('listar_datos',listar_datos),
     path('modificar_datos',modificar_datos),
     path('logemp/subir_oferta',subir_oferta),
     path('subir_oferta1/',subir_oferta_listado),

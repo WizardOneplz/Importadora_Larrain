@@ -8,13 +8,16 @@ import cx_Oracle
 # Create your views here.
 
 #EMPLEADOS
-def mantenedor_admin(request):
+def mantenedor_admin(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'empleado':listado_clientes(),
+        'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -23,6 +26,7 @@ def mantenedor_admin(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
+        'empleado':Usuario,
         
     }
  
@@ -46,13 +50,16 @@ def mantenedor_admin(request):
     return render(request,'agregar_empleado.html',data)
 
 #BODEGA
-def mantenedor_bodega(request):
+def mantenedor_bodega(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
         'categorias':listar_categorias(),
         'productos':listar_productos(),
-        'empleado':listado_clientes(),
+        'cliente':listado_clientes(),
         'empleados':listado_empleados(),
         'listar_empleados':Empleado.objects.all(),
         'listado_bodega':Bodega.objects.all(),
@@ -61,6 +68,7 @@ def mantenedor_bodega(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
+        'empleado':Usuario,
         
     } 
 
@@ -79,7 +87,10 @@ def mantenedor_bodega(request):
     return render(request,'mantenedor_bodega.html',data)
 
 #PASILLO
-def mantenedor_pasillo(request):
+def mantenedor_pasillo(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -94,9 +105,9 @@ def mantenedor_pasillo(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
-        
-    } 
-
+        'empleado':Usuario,
+    }
+    
 #AGREGAR PASILLO
     if request.method== 'POST':
         cant_estanterias = request.POST.get('cant_estanterias')
@@ -113,7 +124,10 @@ def mantenedor_pasillo(request):
 
 
 #ESTANTERIA
-def mantenedor_estanteria(request):
+def mantenedor_estanteria(request, empleado_rut):
+    
+    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+    
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -129,6 +143,7 @@ def mantenedor_estanteria(request):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
+        'empleado':Usuario,
         
     } 
 
@@ -414,24 +429,7 @@ def eliminar_estanteria(request, id_estanteria):
 
 #login 
 
-def logemp(request):
-    
-    if request.method =='POST':
-        try: 
-           Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
-           clave=request.POST['clave'])
-           request.session['usuario']=Usuario.usuario 
-           if Usuario.rol == 1 :
-               return render(request, 'agregar_empleado.html',{"empleado":Usuario} )
-           elif Usuario.rol == 3 :
-                return render(request,'subir_oferta.html' ,{"empleado":Usuario})
-           elif Usuario.rol == 4 :
-                return render(request,'registro.html',{"empleado":Usuario})
-           elif Usuario.rol == 5 :
-                return render(request,'mantenedor_marca.html',{"empleado":Usuario})
-        except CuentaEmpleado.DoesNotExist as e:
-            messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
-            return redirect('/')
+
 
 
 def logout(request):
@@ -447,6 +445,22 @@ def modificar_perfil(request, empleado_rut):
         'cuentaempleado': CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
         
     }
+    empleado = CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
+    if request.method == 'POST':
+        try:
+            if empleado.clave == request.POST.get('clave'):
+                contraseña2 = request.POST.get('nuevacontraseñaem')
+                contraseña1 = request.POST.get('repetircontraseña')
+                if contraseña1 == contraseña2:
+                    empleado.clave = contraseña2
+                    empleado.save()
+                    return render(request, "perfil_empleado.html")
+                else:
+                    return render(request, "registro.html")
+                    messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+        except:
+            return render(request, "home.html")
+            messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
     return render(request, "perfil_empleado.html", data)
 
 
@@ -475,18 +489,18 @@ def peremple(request):
     empleado.save()
     return redirect('/')
 
-def claveemple (request):
-    empleado = CuentaEmpleado.objects.get(empleado_rut=request.POST.get('rut'))
-    try:
-        if empleado.Clave == request.POST.get('clave'):
-            contraseña2 = request.POST.get('nuevacontraseñaem')
-            if request.POST.get('repetircontraseña ') == contraseña2:
-                empleado.Clave = contraseña2
-                empleado.save()
-                return render(request, "perfil_empleado.html")
-            else:
-                return render(request, "registro.html")
-                messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
-    except:
-        return render(request, "registro.html")
-        messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
+##def claveemple (request):
+  ##  empleado = CuentaEmpleado.objects.get(empleado_rut=request.POST.get('rut'))
+    ##try:
+      ##  if empleado.Clave == request.POST.get('clave'):
+        ##    contraseña2 = request.POST.get('nuevacontraseñaem')
+         ##   if request.POST.get('repetircontraseña ') == contraseña2:
+           ##     empleado.Clave = contraseña2
+             ##   empleado.save()
+              ##  return render(request, "perfil_empleado.html")
+            ##else:
+              ##  return render(request, "registro.html")
+      ##          messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+    ##except:
+     ##   return render(request, "registro.html")
+        ##messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")

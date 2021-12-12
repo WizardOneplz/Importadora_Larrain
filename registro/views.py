@@ -1,7 +1,8 @@
 from django import contrib
 from django.shortcuts import render, redirect
 from django.db import connection
-from core.models import AuthGroup, Cliente, CuentaCliente, Rol
+from cliente.views import historial
+from core.models import AuthGroup, Cliente, CuentaCliente, Rol,OrdenCompra
 from django.contrib import messages
 import cx_Oracle
 
@@ -70,12 +71,33 @@ def cerrarsesion(request):
         return redirect('/')
     return redirect('/')
 
-def modificar_cliente(request, cliente_rut):
+def modificar_cliente(request, cliente_rut): 
+    cliente = Cliente.objects.get(rut=cliente_rut)
+    compras = historial(email= cliente.email)
     data={
         'cliente' : Cliente.objects.get(rut=cliente_rut),
         'cuentacliente': CuentaCliente.objects.get(cliente_rut=cliente_rut),
-        'CIUDAD':listar_ciudad() 
+        'CIUDAD':listar_ciudad(), 
+        'listacompras':compras,
     }
+    cuentacliente = CuentaCliente.objects.get(cliente_rut=cliente_rut)
+    if request.method == 'POST':
+        try:
+            if cliente.clave == request.POST.get('clave'):
+                contraseña1 = request.POST.get('nuevacontraseña')
+                contraseña2 = request.POST.get('repetircontraseña1')
+                if contraseña2 == contraseña1:
+                    cuentacliente.clave = contraseña2
+                    cliente.clave =contraseña2 
+                    cuentacliente.save()
+                    cliente.save()
+                    return render(request, "perfil")
+                else:
+                    return render(request, "registro.html")
+                    messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+        except:
+            return render(request, "home.html")
+            messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
     return render(request, "perfil.html", data)
 
 
@@ -104,20 +126,14 @@ def perfil(request):
     cliente.save()
     return redirect('/')
 
-def cambclave (request):
-
-    email = request.POST.get('email')
-    rut = request.POST.get('rut')
-
-    cuentacliente= CuentaCliente.objects.get(email=email)  
-    cliente = Cliente.objects.get(rut=rut)
-    contraseña2 = request.POST.get('nuevacontraseña')
-    cuentacliente.clave = contraseña2
-    cliente.clave =contraseña2 
-    cuentacliente.save()
-    cliente.save()
-    return render(request,'home.html')
+##def cambclave (request):
+    
+        ##cuentacliente= CuentaCliente.objects.get(email=email)  
+        ##cliente = Cliente.objects.get(rut=rut)
+        ##contraseña2 = request.POST.get('nuevacontraseña')
+        ##cuentacliente.clave = contraseña2
+        ##cliente.clave =contraseña2 
+        ##cuentacliente.save()
+        ##cliente.save()
+        ##return render(request,'home.html')
         
-            
-
-
