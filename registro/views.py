@@ -83,7 +83,10 @@ def modificar_cliente(request, cliente_rut):
     cuentacliente = CuentaCliente.objects.get(cliente_rut=cliente_rut)
     if request.method == 'POST':
         try:
-            if cliente.clave == request.POST.get('clave'):
+            if cliente.clave != request.POST.get('clave'):#Al equivocarse en la clave actual, el sistema no permite seguir con el proceso.
+                messages.add_message(request=request, level=messages.ERROR, message="Su contraseña actual no es correcta.")
+                return render(request, "perfil.html",data)
+            elif cliente.clave == request.POST.get('clave'):
                 contraseña1 = request.POST.get('nuevacontraseña')
                 contraseña2 = request.POST.get('repetircontraseña1')
                 if contraseña2 == contraseña1:
@@ -91,13 +94,17 @@ def modificar_cliente(request, cliente_rut):
                     cliente.clave =contraseña2 
                     cuentacliente.save()
                     cliente.save()
-                    return render(request, "perfil")
-                else:
-                    return render(request, "registro.html")
-                    messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+                    messages.add_message(request=request, level=messages.SUCCESS, message="Contraseña cambiada con éxito.")
+                    return render(request, "perfil.html",data)
+                if contraseña2 != contraseña1: #Si las claves son distintas, no guarda y me indica el error.
+                    messages.add_message(request=request, level=messages.ERROR, message="Las contraseñas nuevas no coinciden.")
+                    return render(request, "perfil.html",data)
+            else:
+                 messages.add_message(request=request, level=messages.ERROR, message="Ha ocurrido un error inesperado, porfavor intente nuevamente.")
+                 return render(request, "perfil.html",data) 
         except:
-            return render(request, "home.html")
-            messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
+            messages.add_message(request=request, level=messages.ERROR, message="Ha ocurrido un error inesperado, porfavor intente nuevamente.")
+            return render(request, "perfil.html",data)
     return render(request, "perfil.html", data)
 
 
