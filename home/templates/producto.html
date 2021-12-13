@@ -2,104 +2,120 @@
 {%load static%}
 
 {% block content %}
-
-<div class="row align-items-center justify-content-center" style="margin-bottom: 200px; float: left; margin-top: 50px;
-    margin-right: 15px;">
-    <div class="col-md-1 blanco">
-        {% for product in productos %}
-        {% if product.imagen %}
-        <img src="data:imagen/png;base64, {{product.imagen}}" alt="" width="400" height="400">
-        {% endif %}
-
-    </div>
-</div>
-<div class="row align-items-center justify-content-center" style="margin-bottom: 200px; margin-top: 50px ">
-    <div class="col-md-5 blanco">
-        <h2>Producto: {{ product.data.1 }}</h2>
-
-        {% if product.data.7 %}
-        <p style="text-decoration: line-through;">PRECIO: CLP ${{ product.data.2 }}</p>
-        <p style="color: red;">OFERTA ${{ product.data.7 }}</p>
-        {% else %}
-        <p>PRECIO: CLP ${{ product.data.2 }}</p>
-        {% endif %}
-
-        <p>Stock: {{ product.data.3}} Unidades</p>
-        <p>Marca: {{ product.data.10 }}</p>
-        <p>Categoría: {{ product.data.9 }}</p>
-        <p>Valoración: {{ product.data.8 }}</p>
-        <hr>
-        <form class="form-group" action="{% url 'cart:Add' product.data.0 %}" method="post">
-            {{ cart_product_form }}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        <div class="card">
             <br>
-            <button class="btn btn-outline-secondary add-btn" type="submit" value="Añadir al carrito" style="margin-top: 10px; margin-bottom: 10px;">Añadir al Carrito</button>
-            {% csrf_token %}
-        </form>
-        <!-- Boton Valoración -->
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#valoracion">
-            VALORAR PRODUCTO
-        </button>
-        <!-- Cierre Boton Valoración -->   
-        <!-- Modal -->
-        <div class="modal fade" id="valoracion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content negro">
-                <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Valoración de producto</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                <form action="" method="POST" class="needs-validation" novalidate>
-                {% csrf_token %}
-                <h5 class="centrartexto">Selecciona de 1 a 5 estrellas</h5>
-                    <div class="container">
-                        <div class="star-widget">
-                            <input type="radio" name="valoracion" id="rate-5" value="5" required>
-                            <label for="rate-5" class="fas fa-star"></label>
-                            <input type="radio" name="valoracion" id="rate-4" value="4">
-                            <label for="rate-4" class="fas fa-star"></label>
-                            <input type="radio" name="valoracion" id="rate-3" value="3">
-                            <label for="rate-3" class="fas fa-star"></label>
-                            <input type="radio" name="valoracion" id="rate-2" value="2">
-                            <label for="rate-2" class="fas fa-star"></label>
-                            <input type="radio" name="valoracion" id="rate-1" value="1">
-                            <label for="rate-1" class="fas fa-star"></label>
-                        </div>
-                    </div>
-                    <h5 class="centrartexto3">Email</h5>
-                    <input type="email" class="form-control espacio_form" id="exampleFormControlInput1" name="email" placeholder="" required>
-                    <h5 class="centrartexto2">Cuéntanos tu experiencia</h5>
-                    <input type="text" class="form-control espacio_form" id="exampleFormControlInput1" name="comentario" placeholder="">
-                    </div>
-                    <input type="number" class="form-control d-none" id="exampleFormControlInput1" name="id_producto" value={{product.data.0}} readonly>
-                    <div class="d-grid col-10 mx-auto espacio_form">
-                        <button class="btn btn-warning btn-lg" type="submit" value="Submit">Valorar</button>
-                    </div>
-                </form>
+            <div class="card-header">
+                {% for product in productos %}
+                {% if product.imagen %}
+                <img style="border: black; display: block;
+                margin-left: auto;
+                margin-right: auto;" src="data:imagen/png;base64, {{product.imagen}}" alt="" width="400" height="400">
+                {% endif %}
             </div>
-            </div>
-        </div>
-        <!-- Cierre Modal -->
+            <div class="card-body" style="margin-left: 40px;">
+                <h3>PRODUCTO:</h3>
+                <p style="font-size:24px"> {{ product.data.1 }}</p>
+                <hr class="my-6">
+                {% if product.data.7 %}
+                <h5 style="text-decoration: line-through;"> PRECIO:</h5>
+                <p style="font-size:24px">CLP ${{ product.data.2 }}</p>
+                <h5 style="color: red;">OFERTA:</h5>
+                <p style="font-size:24px">${{ product.data.7 }}</p>
+                {% else %}
+                <h4>Precio:</h4>
+                <p style="font-size:24px">CLP ${{ product.data.2 }}</p>
+                {% endif %}
+        
+                <h5>Stock: <span>{{ product.data.3}} Unidades</span></h5>
+                
+                <h5>Marca: <span>{{ productoss.marca_id_marca }}</span></h5>
+                <h5>Categoría: <span>{{ productoss.categoria_id_categoria }}</span></h5>
+                <h5>Valoración:<p style="margin-top: 1px; color: rgb(170, 170, 8);">&#9733 <span style="color: black;">{{ product.data.8 }} / 5</span></p>
+                <hr>
+                {% if request.session.email %}
+                <form class="form-group" action="{% url 'cart:Add' product.data.0 %}" method="post">
+                  {{ cart_product_form }}
 
-        <table class="table blanco espacio4 align-middle">                                     
-            <thead>
-                <tr>
-                <th scope="col">EMAIL</th>
-                <th scope="col">VALORACIÓN</th>
-                <th scope="col">COMENTARIO</th>
-                </tr>
-            </thead>
-            <tbody>
-                {%for p in lista_valoraciones%}
-                <tr>
-                <th scope="row">{{ p.4 }}</th>
-                <td>{{ p.1}}</td>
-                <td>{{ p.3 }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>      
+                  <button class="btn btn-outline-secondary add-btn"  type="submit" value="Añadir al carrito" style="margin-top: 10px; margin-bottom: 10px;">AÑADIR AL CARRITO</button>
+                  {% csrf_token %}
+                </form>
+                {% else %}
+                <button class="btn btn-outline-secondary add-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" type="submit" value="Añadir al carrito" style="margin-top: 10px; margin-bottom: 10px;">AÑADIR AL CARRITO</button>
+                {% endif %}
+                <span><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#valoracion">
+                    VALORAR PRODUCTO
+                </button></span>
+                <!-- Boton Valoración -->
+
+
+                <!-- Cierre Boton Valoración -->   
+                <!-- Modal -->
+                <div class="modal fade" id="valoracion" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content negro">
+                        <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Valoración de producto</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <form action="" method="POST" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        <h5 class="centrartexto">Selecciona de 1 a 5 estrellas</h5>
+                            <div class="container">
+                                <div class="star-widget">
+                                    <input type="radio" name="valoracion" id="rate-5" value="5" required>
+                                    <label for="rate-5" class="fas fa-star"></label>
+                                    <input type="radio" name="valoracion" id="rate-4" value="4">
+                                    <label for="rate-4" class="fas fa-star"></label>
+                                    <input type="radio" name="valoracion" id="rate-3" value="3">
+                                    <label for="rate-3" class="fas fa-star"></label>
+                                    <input type="radio" name="valoracion" id="rate-2" value="2">
+                                    <label for="rate-2" class="fas fa-star"></label>
+                                    <input type="radio" name="valoracion" id="rate-1" value="1">
+                                    <label for="rate-1" class="fas fa-star"></label>
+                                </div>
+                            </div>
+                            <h5 class="centrartexto3">Email</h5>
+                            <input type="email" class="form-control espacio_form" id="exampleFormControlInput1" name="email" placeholder="" required>
+                            <h5 class="centrartexto2">Cuéntanos tu experiencia</h5>
+                            <input type="text" class="form-control espacio_form" id="exampleFormControlInput1" name="comentario" placeholder="">
+                            </div>
+                            <input type="number" class="form-control d-none" id="exampleFormControlInput1" name="id_producto" value={{product.data.0}} readonly>
+                            <div class="d-grid col-10 mx-auto espacio_form">
+                                <button class="btn btn-warning btn-lg" type="submit" value="Submit">Valorar</button>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
+                <!-- Cierre Modal -->
+        
+                <table class="table  espacio4 align-middle">                                     
+                    <thead>
+                        <tr>
+                        <th scope="col">EMAIL</th>
+                        <th scope="col">VALORACIÓN</th>
+                        <th scope="col">COMENTARIO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {%for p in lista_valoraciones%}
+                        <tr>
+                        <th scope="row">{{ p.4 }}</th>
+                        <td>{{ p.1}}</td>
+                        <td>{{ p.3 }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>      
+            </div>
+            {% endfor %}
+        </div>
     </div>
-    {% endfor %}
+    </div>
 </div>
 {% endblock %}

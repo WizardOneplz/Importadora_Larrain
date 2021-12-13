@@ -49,21 +49,22 @@
                 <a href="cerrarsesion">
                 <button class="btn btn-outline-success me-2" type="button">CERRAR SESIÓN</button></a>
               </ul>
+              <ul class="form-inline my-2 my-lg-0"> 
+                <a href="/cart/">
+                    <img  id="cart-icon" src="{% static 'img/cart.png' %}">
+                </a>
+                {% if cart %}
+              <p id="cart-total">{{cart.get_cantidad}}</p>
+                {% else %}
+              <p id="cart-total">0</p>
+              </ul> 
+                {% endif %}
               {% else %}
               <ul class="navbar-nav ms-auto">
                   <button class="btn btn-outline-success me-2" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">INICIAR SESIÓN</button>
               </ul>
               {% endif %}
-              <ul class="form-inline my-2 my-lg-0"> 
-                <a href="/cart/">
-                    <img  id="cart-icon" src="{% static 'img/cart.png' %}">
-                </a>
-              {% if cart %}
-              <p id="cart-total">{{cart.get_cantidad}}</p>
-              {% else %}
-              <p id="cart-total">0</p>
-              </ul> 
-              {% endif %}
+
               </div>
               
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

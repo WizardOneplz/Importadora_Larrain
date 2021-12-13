@@ -15,9 +15,13 @@ def home(request):
     categorias = Categoria.objects.all()
     marcas = Marca.objects.all()
     cart_product_form = CartAddProductForm()
+
     datos_valoracion = listado_valoraciontotal()
     datos_productos = listado_oferta()
+    datos_nuevos = listado_novedades()
+
     arreglo = []
+    arreglo_novedades = []
     arreglo_valoracion = []
 
     for i in datos_productos:
@@ -33,10 +37,19 @@ def home(request):
             'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
         }
         arreglo_valoracion.append(data)
+    
+    for i in datos_nuevos:
+        data = {
+            'data':i,
+            'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+        }
+        arreglo_novedades.append(data)
 
     paginator_val = Paginator(arreglo_valoracion, 4)
     paginator = Paginator(arreglo, 4)
+    paginator_nov = Paginator(arreglo_novedades, 4)
     page_number = request.GET.get('page')
+    page_obj__= paginator_nov.get_page(page_number)
     page_obj_ = paginator_val.get_page(page_number)
     page_obj = paginator.get_page(page_number)
 
@@ -45,6 +58,7 @@ def home(request):
         'productos':arreglo,
         'page_obj': page_obj,
         'page_obj_': page_obj_,
+        'page_obj__': page_obj__,
         'cart_product_form':cart_product_form,
         'cart':cart,
         'categorias':categorias,
@@ -197,6 +211,7 @@ def marca(request, id_marca):
 
 def producto(request, pk):
     cart = Carrito(request)
+    productoss = Producto.objects.get(id_producto = pk)
     datos_productos = listado_productos(id_pro = pk)
     valoraciones = listado_valoracion(id_producto=pk)
     cart_product_form = CartAddProductForm()
@@ -210,6 +225,7 @@ def producto(request, pk):
         arreglo.append(data)
         
     data = {
+        'productoss':productoss,
         'productos': arreglo,
         'cart':cart,
         'cart_product_form':cart_product_form,
@@ -234,12 +250,26 @@ def search(request):
     q = request.GET['q']
     data = Producto.objects.filter(nombre_producto__icontains=q).order_by('-id_producto')
     cart_product_form = CartAddProductForm()
-    
-    paginator = Paginator(data, 6)
+    categorias = Categoria.objects.all()
+    marcas = Marca.objects.all()
+    arreglo = []
+
+    if data.exists():
+        for it in data:
+            datos_productos = listado_productos(id_pro = it.id_producto)
+
+        for i in datos_productos:
+            data = {
+                'data':i,
+                'imagen':str(base64.b64encode(i[6].read()), 'utf-8')
+            }
+            arreglo.append(data)
+
+    paginator = Paginator(arreglo, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
-    return render (request, 'search.html', {'data':data, 'page_obj':page_obj, 'cart_product_form':cart_product_form})
+    return render (request, 'search.html', {'data':data, 'page_obj':page_obj, 'cart_product_form':cart_product_form, 'productos':arreglo, 'categorias':categorias, 'marcas':marcas})
 
 def seguimiento(request):
     cart = Carrito(request)
@@ -260,6 +290,22 @@ def agregar_valoracion(valoracion,id_producto, comentario, email):
     salida = cursor.var(cx_Oracle.NUMBER)
     cursor.callproc('SP_AGREGAR_VALORACION',[valoracion, id_producto, comentario, email, salida])
     return salida.getvalue()
+
+
+def listado_novedades():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+    cursor.callproc("SP_PRODUCTO_NUEVOS", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        data = {
+            'data':fila,
+            'imagen':str(base64.b64encode(fila[6].read()), 'utf-8')
+        }
+        lista.append(fila)
+    return lista
 
 
 def listado_productos(id_pro):
