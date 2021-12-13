@@ -11,7 +11,8 @@ def mantenedor_marca(request):
         'productos':listar_productos(),
         'listapedidos':listar_pedidos(),
         'productoslistados': Producto.objects.all(),
-        'pedidoslistados': OrdenCompra.objects.all(),
+        'pedidoslistados': OrdenCompra.objects.filter(tipo_orden_id_tipo_orden= 1),
+        'pedidoslistados2': OrdenCompra.objects.filter(tipo_orden_id_tipo_orden= 2),
         'solicitudes': SolicitudProductos.objects.all(),
         'marcas': Marca.objects.all(),
         'categorias': Categoria.objects.all(),
@@ -37,7 +38,8 @@ def mantenedor_categorias(request):
         'productos':listar_productos(),
         'listapedidos':listar_pedidos(),
         'productoslistados': Producto.objects.all(),
-        'pedidoslistados': OrdenCompra.objects.all(),
+        'pedidoslistados': OrdenCompra.objects.filter(tipo_orden_id_tipo_orden= 1),
+        'pedidoslistados2': OrdenCompra.objects.filter(tipo_orden_id_tipo_orden= 2),
         'solicitudes': SolicitudProductos.objects.all(),
         'solcitud':listar_solicitudes()
     }
@@ -60,7 +62,8 @@ def mantenedor_productos(request):
         'productos':listar_productos(),
         'listapedidos':listar_pedidos(),
         'productoslistados': Producto.objects.all(),
-        'pedidoslistados': OrdenCompra.objects.all(),
+        'pedidoslistados': OrdenCompra.objects.filter(tipo_orden_id_tipo_orden= 2),
+        'pedidoslistados2': OrdenCompra.objects.filter(tipo_orden_id_tipo_orden= 1),
         'solicitudes': SolicitudProductos.objects.all(),
         'solcitud':listar_solicitudes()
     }

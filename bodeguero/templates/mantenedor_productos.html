@@ -31,6 +31,7 @@
                             <a href="mantenedor_categorias" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-categorias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categorias" type="button" role="tab" aria-controls="v-pills-categorias" aria-selected="true">Categorias</button></a>
                             <button class="nav-link active" id="v-pills-productos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-productos" type="button" role="tab" aria-controls="v-pills-productos" aria-selected="true">Productos</button>
                             <button class="nav-link" id="v-pills-pedidos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Orden de Compra</button>
+                            <button class="nav-link" id="v-pills-pedidos2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos2" type="button" role="tab" aria-controls="v-pills-pedidos2" aria-selected="false">Orden presencial</button>
                             <button class="nav-link" id="v-pills-solicitud-tab" data-bs-toggle="pill" data-bs-target="#v-pills-solicitud" type="button" role="tab" aria-controls="v-pills-solicitud" aria-selected="false">Solicitudes</button>
                         </div>
                         <div class="tab-content col-md-10" id="v-pills-tabContent">
@@ -255,7 +256,6 @@
                                                 <th scope="col">FECHA DE COMPRA</th>
                                                 <th scope="col">FECHA ESTIMADA</th>
                                                 <th scope="col">ESTADO PAGO</th>
-                                                <th scope="col">ID DETALLE ORDEN</th>
                                                 <th scope="col">ESTADO DE PEDIDO</th>
                                                 <th scope="col">TIPO DE PAGO</th>
                                                 <th scope="col">TIPO DE ORDEN</th>
@@ -269,7 +269,6 @@
                                                 <td>{{ p.fecha_compra }}</td>
                                                 <td>{{ p.fecha_estimada }}</td>
                                                 <td>{{ p.estado_pago_id_estado_pago }}</td>
-                                                <td>{{ p.detalle_orden_id_detalle_orden }}</td>
                                                 <td>{{ p.estado_pedido_id_estado_pedido }}</td>
                                                 <td>{{ p.tipo_pago_id_tipo_pago }}</td>
                                                 <td>{{ p.tipo_orden_id_tipo_orden }}</td>
@@ -282,6 +281,46 @@
                                 </div>
                             </div>
                             <!-- Cierre Lista de Pedidos-->
+                            <!-- Lista de Pedidos2-->
+                            <div class="tab-pane fade" id="v-pills-pedidos2" role="tabpanel" aria-labelledby="v-pills-pedidos2-tab">
+                                <div class="card row col-md-12" >
+                                    <div class="card-header ">
+                                        <h1 class="text-center negro">Listado de Ordenes</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table espacio4 align-middle">                                     
+                                            <thead>
+                                                <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">PRECIO TOTAL</th>
+                                                <th scope="col">FECHA DE COMPRA</th>
+                                                <th scope="col">FECHA ESTIMADA</th>
+                                                <th scope="col">ESTADO PAGO</th>
+                                                <th scope="col">ESTADO DE PEDIDO</th>
+                                                <th scope="col">TIPO DE PAGO</th>
+                                                <th scope="col">TIPO DE ORDEN</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {%for p in pedidoslistados2%}
+                                                <tr>
+                                                <th scope="row">{{ p.id_orden }}</th>
+                                                <td>{{ p.precio_total }}</td>
+                                                <td>{{ p.fecha_compra }}</td>
+                                                <td>{{ p.fecha_estimada }}</td>
+                                                <td>{{ p.estado_pago_id_estado_pago }}</td>
+                                                <td>{{ p.estado_pedido_id_estado_pedido }}</td>
+                                                <td>{{ p.tipo_pago_id_tipo_pago }}</td>
+                                                <td>{{ p.tipo_orden_id_tipo_orden }}</td>
+                                                <td><a href="modificar_orden/{{ p.id_orden }}" class="btn btn-primary">MODIFICAR<a/></td>
+                                                </tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>                                         
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Cierre Lista de Pedidos2-->
                             <!-- Lista de solicitudes-->
                             <div class="tab-pane fade" id="v-pills-solicitud" role="tabpanel" aria-labelledby="v-pills-solicitud-tab">
                                 <div class="card row col-md-12" >
