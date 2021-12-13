@@ -443,24 +443,31 @@ def modificar_perfil(request, empleado_rut):
     data={
         'empleado' : Empleado.objects.get(rut=empleado_rut),
         'cuentaempleado': CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
-        
     }
     empleado = CuentaEmpleado.objects.get(empleado_rut=empleado_rut)
     if request.method == 'POST':
         try:
-            if empleado.clave == request.POST.get('clave'):
+            if empleado.clave != request.POST.get('clave'):#Al equivocarse en la clave actual, el sistema no permite seguir con el proceso.
+                messages.add_message(request=request, level=messages.ERROR, message="Su contraseña actual no es correcta.")
+                return render(request, "perfil_empleado.html",data)
+            elif empleado.clave == request.POST.get('clave'): #If para comprobar que la clave actual ingresada sea igual a la de la BD.
                 contraseña2 = request.POST.get('nuevacontraseñaem')
                 contraseña1 = request.POST.get('repetircontraseña')
-                if contraseña1 == contraseña2:
+                if contraseña1 == contraseña2: #Luego de comprobar las claves, se verifica que la clave nueva sea correcta en ambos campos.
                     empleado.clave = contraseña2
                     empleado.save()
-                    return render(request, "perfil_empleado.html")
-                else:
-                    return render(request, "registro.html")
-                    messages.add_message(request=request, level=messages.SUCCESS, message="porfavor repetir la nueva claave .")
+                    messages.add_message(request=request, level=messages.SUCCESS, message="Contraseña cambiada con éxito.")
+                    return render(request, "perfil_empleado.html",data)
+                if contraseña1 != contraseña2: #Si las claves son distintas, no guarda y me indica el error.
+                    messages.add_message(request=request, level=messages.ERROR, message="Las contraseñas nuevas no coinciden.")
+                    return render(request, "perfil_empleado.html",data)
+            else: 
+                messages.add_message(request=request, level=messages.ERROR, message="Ha ocurrido un error inesperado, porfavor intente nuevamente.")
+                return render(request, "perfil_empleado.html",data)
+
         except:
-            return render(request, "home.html")
-            messages.add_message(request=request, level=messages.SUCCESS, message="su contraseña actual no es correcta.")
+            messages.add_message(request=request, level=messages.ERROR, message="Ha ocurrido un error inesperado, porfavor intente nuevamente.")
+            return render(request, "perfil_empleado.html",data)
     return render(request, "perfil_empleado.html", data)
 
 
