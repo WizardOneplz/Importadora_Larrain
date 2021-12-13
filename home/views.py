@@ -265,7 +265,7 @@ def agregar_valoracion(valoracion,id_producto, comentario, email):
 def listado_productos(id_pro):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
-    out_cur = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor() 
     cursor.callproc("SP_MOSTRAR_PRODUCTO", [out_cur, id_pro])
 
     lista = []
