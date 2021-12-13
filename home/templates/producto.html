@@ -22,9 +22,9 @@
                 <hr class="my-6">
                 {% if product.data.7 %}
                 <h5 style="text-decoration: line-through;"> PRECIO:</h5>
-                <p style="font-size:24px">CLP ${{ product.data.2 }}</p>
+                <p style="font-size:24px; text-decoration: line-through;">CLP ${{ product.data.2 }}</p>
                 <h5 style="color: red;">OFERTA:</h5>
-                <p style="font-size:24px">${{ product.data.7 }}</p>
+                <p style="font-size:24px; color: red;">${{ product.data.7 }}</p>
                 {% else %}
                 <h4>Precio:</h4>
                 <p style="font-size:24px">CLP ${{ product.data.2 }}</p>

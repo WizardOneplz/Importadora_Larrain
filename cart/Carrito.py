@@ -61,4 +61,7 @@ class Carrito:
     
     def get_cantidad(self):
         return sum(item['cantidad'] for item in self.carrito.values())
+    
+    def get_total_price_usd(self):
+        return sum(Decimal(item['precio']/800) * item['cantidad'] for item in self.carrito.values())
 

@@ -148,7 +148,6 @@ def categoria(request, id_categoria):
     cart_product_form = CartAddProductForm()
     categorias = Categoria.objects.all()
     marcas = Marca.objects.all()
-    cart_product_form = CartAddProductForm()
     categoriass = Categoria.objects.get(id_categoria = id_categoria)
     datos_productos = listado_categoria(id_cat = id_categoria)
     
@@ -268,7 +267,6 @@ def search(request):
     paginator = Paginator(arreglo, 6)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-
     return render (request, 'search.html', {'data':data, 'page_obj':page_obj, 'cart_product_form':cart_product_form, 'productos':arreglo, 'categorias':categorias, 'marcas':marcas})
 
 def seguimiento(request):

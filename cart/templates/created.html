@@ -9,8 +9,49 @@
   <h1>¡Gracias por Tu Compra!</h1>
   <p>Tu Compra ha sido Exitosamente Ingresada. Tu número de orden es
   <strong>{{ order.id_orden }}</strong>.</p>
-  <button class="btn btn-outline-secondary"><a class="nav-link" aria-current="page" href="/">Volver a la Tienda</a></button>
-      </div>
-  </div>
+  <p>El pago del producto actualmente esta pendiente.</p>
+  <p>Si desea pagar el producto mediante tranferencia, puede realizarlo desde el siguiente credenciales:</p>
+  <p>Cuenta de Tranferencia</p>
+  <h5>Cuenta: 0-0007345678-6</h5>
+  <h5>Tipo de Cuenta: Corriente</h5>
+  <h5>Nombre: IMPORTADORA LARRAÍN</h5>
+  <h5>RUT: 77.416.432-2</h5>
+  <h5>Correo: importadoralarrain@gmail.com</h5>
+
+  <p>O también puede realizar pago mediante Paypal:</p>
+  <form>
+  <script src="https://www.paypal.com/sdk/js?client-id=AQ0JE5uF72cD543Guf1FInf_ZAV-cl2MLEJ45JEPTh6VcGpOgcVV_K1dP69ma-ot9inpab75afJRaLZX"></script> 
+  <div id="paypal-button-container"></div>
+  <script>
+      paypal.Buttons({
+        createOrder: function(data, actions) {
+          // This function sets up the details of the transaction, including the amount and line item details.
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: '{{order.precio_total}}' / 800
+              }
+            }]
+          });
+        },
+        onApprove: function(data, actions) {
+          return actions.order.capture().then(function(orderData) {
+                 // Successful capture! For demo purposes:
+                 console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                 var transaction = orderData.purchase_units[0].payments.captures[0];
+                 order.estado_pago_id_estado_pago = 2;
+                 order.save()
+                 //alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+                 // Replace the above to show a success message within this page, e.g.
+                 // const element = document.getElementById('paypal-button-container');
+                 // element.innerHTML = '';
+                 // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                 // Or go to another URL:  actions.redirect('thank_you.html');
+          });
+        }
+        }).render('#paypal-button-container');
+      //This function displays Smart Payment Buttons on your web page.
+    </script>
+    </form>
 </div>
 {% endblock %}

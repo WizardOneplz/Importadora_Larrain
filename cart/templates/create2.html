@@ -37,7 +37,7 @@
             <div class="row g-3"> 
               <div class="col-sm-6">
                 <label for="firstName" class="form-label" >Nombre del Comprador:</label>
-                <input type="text" class="form-control" placeholder="INGRESE NOMBRE DEL COMPRADOR" id=form.nombre_comprador name="nombre_comprador" minlength="3" maxlength="30" required pattern="[A-Z, a-z]{3,30}"/>
+                <input style="text-transform: uppercase;" type="text" class="form-control" placeholder="INGRESE NOMBRE DEL COMPRADOR" id=form.nombre_comprador name="nombre_comprador" minlength="3" maxlength="30" required pattern="[A-Z, a-z]{3,30}"/>
                 <div class="invalid-feedback">
                   Requiere de un nombre válido.
                 </div>
@@ -45,7 +45,7 @@
   
               <div class="col-sm-6">
                 <label for="lastName" class="form-label">Apellido:</label>
-                <input type="text" class="form-control" placeholder="INGRESE APELLIDO DEL COMPRADOR" id=form.apellido_comprador name="apellido_comprador" minlength="3" maxlength="30" required pattern="[A-Z, a-z, Ñ-ñ]{3,30}"/>
+                <input  style="text-transform: uppercase;" type="text" class="form-control" placeholder="INGRESE APELLIDO DEL COMPRADOR" id=form.apellido_comprador name="apellido_comprador" minlength="3" maxlength="30" required pattern="[A-Z, a-z, Ñ-ñ]{3,30}"/>
                 <div class="invalid-feedback">
                     Requiere de un nombre válido.
                 </div>
