@@ -56,6 +56,25 @@
                                     <p>{{ orden.tipo_orden_id_tipo_orden }}</p>
                                 </div> 
                             </div>
+
+                            <table id="myTable" class="table espacio4 align-middle listaproductos">                                     
+                                <thead>
+                                    <tr>
+                                    <th scope="col">PRODUCTO</th>
+                                    <th scope="col">CANTIDAD</th>   
+                                    <th scope="col">PRECIO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {%for p in productos%}
+                                    <tr>
+                                    <td>{{ p.producto_id_producto }}</td>
+                                    <td>{{ p.cantidad }}</td>
+                                    <td>{{ p.precio }}</td>         
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>  
                         </div>
                     </div>
 

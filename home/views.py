@@ -1,7 +1,7 @@
 from django.db import connection
 from bodeguero.views import listar_productos
 from django.shortcuts import redirect, render, get_object_or_404
-from core.models import Categoria, OrdenCompra, Producto, Marca, CuentaEmpleado
+from core.models import Categoria, DetalleOrden, OrdenCompra, Producto, Marca, CuentaEmpleado
 from django.core.paginator import Paginator
 from cart.forms import CartAddProductForm
 from cart.Carrito import Carrito
@@ -278,8 +278,11 @@ def seguimiento(request):
 def mostrarinfo(request):
     try:
         id_orden = request.POST.get('id_orden')
-        ordencompra = OrdenCompra.objects.get(id_orden=id_orden)
-        return render(request,'info_orden.html', {"orden": ordencompra})
+        data={
+            "orden": OrdenCompra.objects.get(id_orden=id_orden),
+            "productos":DetalleOrden.objects.filter(orden_compra_id_orden=id_orden)   
+        }
+        return render(request,'info_orden.html', data)
     except OrdenCompra.DoesNotExist as e:
         messages.add_message(request=request, level=messages.ERROR, message="No se ha encontrado la orden solicitada.")
         return redirect('/seguimiento')
