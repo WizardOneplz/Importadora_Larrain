@@ -69,11 +69,17 @@
                                                             <div class="invalid-feedback">Complete los datos</div>
                                                             </div>
                                                         </div>
-                                                        <div class="col position-relative">
-                                                            <h4><label for="exampleFormControlInput1" class="form-label">TELÉFONO</label></h4>
-                                                            <input type="number" class="form-control" id="exampleFormControlInput1" name="telefono" placeholder="+56912345678" min="11111111111" max="99999999999" value="{{empleado.telefono}}" required>
-                                                            <!--MENSAJE-->
-                                                            <div class="invalid-feedback">Ingrese un número de teléfono anteponiendo "569" y 8 digitos.</div>
+                                                        <div class="col-md-1 position-relative">
+                                                            <label for="exampleFormControlInput1" class="form-label" style="visibility:hidden">TELÉFONO</label>
+                                                            <h5><label for="">+569</label></h5>
+                                                           <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
+                                                        </div> 
+                                                        <div class="col-md-5 position-relative">
+                                                            <label for="exampleFormControlInput1" class="form-label" >TELÉFONO</label>
+                                                            <input type="number" class="form-control" id="telefono" name="telefono" placeholder="12345678" min="11111111" max="99999999" required>
+                                                           <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Ingrese un número de teléfono de 8 digitos.</div>
                                                         </div> 
                                                     </div>
                                                     <div class="row espacio_form">
@@ -83,6 +89,31 @@
                                                         </div>                                                        
                                                     </div>
                                                     <button type="submit" value="Submit" class="btn btn-warning btn-lg espacio3">MODIFICAR</button>
+                                                    {%if messages %}
+                                                        <ul class="messages"> 
+                                                            {%for message in messages %}
+                                                            <li {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %}>
+                                                                {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                                    <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                                                                    </symbol>
+                                                                </svg>
+                                                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                                                {% endif %}
+                                                                {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                                                                <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                                                                    <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+                                                                        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                                    </symbol>
+                                                                </svg>
+                                                                <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                                                                {% endif %}
+                                                                {{ message }}
+                                                            </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
                                                 </div>
                                             </div>
                                         </form>
@@ -101,18 +132,19 @@
                                                 <div class="col-md">  
                                                     <div class="row espacio_form position-relative">
                                                         <div class="col">
-                                                            <h4><label for="exampleFormControlInput1" class="form-label">Actual Contraseña</label></h4>
-                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" >
-                                                            
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">ACTUAL CONTRASEÑA</label></h4>
+                                                            <input type="password" class="form-control" id="exampleFormControlInput1" name="clave" placeholder="indique su clave actual." required>
+                                                            <!--MENSAJE-->
+                                                            <div class="invalid-feedback">Debe ingresar su clave actual.</div>
                                                         </div>
                                                         <div class="col">
-                                                            <h4><label for="exampleFormControlInput1" class="form-label">Nueva Contraseña</label></h4>
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">NUEVA CONTRASEÑA</label></h4>
                                                             <input type="password" class="form-control" id="exampleFormControlInput1" name="nuevacontraseñaem" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                                             <!--MENSAJE-->
                                                             <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
                                                         </div>
                                                         <div class="col">
-                                                            <h4><label for="exampleFormControlInput1" class="form-label">Repetir Contraseña</label></h4>
+                                                            <h4><label for="exampleFormControlInput1" class="form-label">REPETIR CONTRASEÑA</label></h4>
                                                             <input type="password" class="form-control" id="exampleFormControlInput1" name="repetircontraseña" placeholder="La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required>
                                                             <!--MENSAJE-->
                                                             <div class="invalid-feedback">La contraseña debe contener almenos un numero, una mayuscula, una minuscula y almenos 8 o mas caracteres.</div>
