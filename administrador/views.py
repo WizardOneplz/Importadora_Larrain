@@ -8,10 +8,7 @@ import cx_Oracle
 # Create your views here.
 
 #EMPLEADOS
-def mantenedor_admin(request, empleado_rut):
-    
-    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
-    
+def mantenedor_admin(request):  
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -26,7 +23,6 @@ def mantenedor_admin(request, empleado_rut):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
-        'empleado':Usuario,
         
     }
  
@@ -50,10 +46,7 @@ def mantenedor_admin(request, empleado_rut):
     return render(request,'agregar_empleado.html',data)
 
 #BODEGA
-def mantenedor_bodega(request, empleado_rut):
-    
-    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
-    
+def mantenedor_bodega(request):  
     data = {
         'cargos':listar_cargos(),
         'marcas':listar_marcas(),
@@ -68,7 +61,6 @@ def mantenedor_bodega(request, empleado_rut):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
-        'empleado':Usuario,
         
     } 
 
@@ -87,9 +79,7 @@ def mantenedor_bodega(request, empleado_rut):
     return render(request,'mantenedor_bodega.html',data)
 
 #PASILLO
-def mantenedor_pasillo(request, empleado_rut):
-    
-    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+def mantenedor_pasillo(request):
     
     data = {
         'cargos':listar_cargos(),
@@ -105,7 +95,6 @@ def mantenedor_pasillo(request, empleado_rut):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
-        'empleado':Usuario,
     }
     
 #AGREGAR PASILLO
@@ -124,9 +113,7 @@ def mantenedor_pasillo(request, empleado_rut):
 
 
 #ESTANTERIA
-def mantenedor_estanteria(request, empleado_rut):
-    
-    Usuario=CuentaEmpleado.objects.get(empleado_rut = empleado_rut)
+def mantenedor_estanteria(request):
     
     data = {
         'cargos':listar_cargos(),
@@ -143,7 +130,6 @@ def mantenedor_estanteria(request, empleado_rut):
         'listar_pasillo':Pasillo.objects.all(),
         'estanteria':listado_estanteria(),
         'listar_estanteria':Estanteria.objects.all(),
-        'empleado':Usuario,
         
     } 
 
@@ -429,7 +415,24 @@ def eliminar_estanteria(request, id_estanteria):
 
 #login 
 
-
+def logemp(request):
+    
+    if request.method =='POST':
+        try: 
+           Usuario=CuentaEmpleado.objects.get(usuario = request.POST['empleado'],
+           clave=request.POST['clave'])
+           request.session['usuario']=Usuario.usuario 
+           if Usuario.rol == 1 :
+               return render(request, 'agregar_empleado.html',{"empleado":Usuario} )
+           elif Usuario.rol == 3 :
+                return render(request,'subir_oferta.html' ,{"empleado":Usuario})
+           elif Usuario.rol == 4 :
+                return render(request,'registro.html',{"empleado":Usuario})
+           elif Usuario.rol == 5 :
+                return render(request,'mantenedor_marca.html',{"empleado":Usuario})
+        except CuentaEmpleado.DoesNotExist as e:
+            messages.add_message(request=request, level=messages.ERROR, message="Correo o contraseña no coinciden.")
+            return redirect('/')
 
 
 def logout(request):
