@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
-from core.models import EstadoPedido, EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria, DetalleOrden
+from core.models import EstadoPedido,EstadoPago,EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria, DetalleOrden
 from django.contrib import messages
 import cx_Oracle
 
@@ -137,6 +137,19 @@ def listar_estados():
 
     return lista
 
+def listar_pago():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_ESTADO_PAGO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+
+    return lista
+
 def agregar_marca(nombre_marca):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
@@ -163,10 +176,10 @@ def eliminar_producto(request, id_producto):
         producto = Producto.objects.get(id_producto=id_producto)
         producto.delete()
         messages.add_message(request=request, level=messages.SUCCESS, message="Producto eliminado con éxito.")
-        return redirect('/mantenedor_productos')
+        return redirect('/logemp/mantenedor_productos')
     except:
         messages.add_message(request=request, level=messages.ERROR, message="Primero debe eliminar las estanterias con este producto.")
-        return redirect('/mantenedor_productos')
+        return redirect('/logemp/mantenedor_productos')
         
     
 def modificar_producto(request, id_producto):
@@ -195,7 +208,7 @@ def editar_producto(request):
     producto.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Producto modificado con éxito.")
     
-    return redirect('/mantenedor_productos')
+    return redirect('/logemp/mantenedor_productos')
 
 def modificar_producto(request, id_producto):
     
@@ -228,7 +241,7 @@ def editar_solicitud(request):
     solicitud.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Solicitud modificada con éxito.")
     
-    return redirect('/mantenedor_productos')
+    return redirect('/logemp/mantenedor_productos')
 
 def eliminar_marca(request, id_marca):
 
@@ -239,7 +252,7 @@ def eliminar_marca(request, id_marca):
     except:
         messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar la marca, existen productos asociados a la marca.")
 
-    return redirect('/mantenedor_marca')
+    return redirect('/logemp/mantenedor_marca')
 
 def modificar_marca(request, id_marca):
     
@@ -258,7 +271,7 @@ def editar_marca(request):
     marca.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Marca modificada con éxito.")
     
-    return redirect('/mantenedor_marca')
+    return redirect('/logemp/mantenedor_marca')
 
 def eliminar_categoria(request, id_categoria):
 
@@ -270,7 +283,7 @@ def eliminar_categoria(request, id_categoria):
         messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar la categoría, existen productos asociados a la categoría.")
     
 
-    return redirect('/mantenedor_categorias')
+    return redirect('/logemp/mantenedor_categorias')
 
 def modificar_categoria(request, id_categoria):
     
@@ -289,13 +302,14 @@ def editar_categoria(request):
     categoria.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Categoría modificada con éxito.")
     
-    return redirect('/mantenedor_categorias')
+    return redirect('/logemp/mantenedor_categorias')
 
 def modificar_orden(request, id_orden):
     
     data = {
           'orden' : OrdenCompra.objects.get(id_orden=id_orden),
-          'estado': listar_estados()  
+          'estado': listar_estados(),  
+          'estado_pago': listar_pago()
     }
      
     return render(request, "modificar_orden.html", data)
@@ -304,11 +318,13 @@ def editar_orden(request):
     
     id_orden = request.POST.get('id_orden')  
     estado_pedido = request.POST.get('estado_orden')
+    estado_pago = request.POST.get('estado_pago')
 
     orden = OrdenCompra.objects.get(id_orden=id_orden)
     orden.id_orden = id_orden
     orden.estado_pedido_id_estado_pedido = EstadoPedido.objects.get(id_estado_pedido = estado_pedido)
+    orden.estado_pago_id_estado_pago = EstadoPago.objects.get( id_estado_pago = estado_pago)
     orden.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Orden de compra modificada con éxito.")
     
-    return redirect('/mantenedor_marca')
+    return redirect('/logemp/mantenedor_marca')

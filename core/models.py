@@ -335,6 +335,10 @@ class Pasillo(models.Model):
     class Meta:
         managed = False
         db_table = 'pasillo'
+    
+    def __str__(self):
+        titulo = "{0}"
+        return titulo.format(self.id_pasillo)
 
 
 class Producto(models.Model):

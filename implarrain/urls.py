@@ -53,11 +53,12 @@ urlpatterns = [
     path('edt_emple/',peremple),
     #ELIMINAR
     path('logemp/eliminar_empleado/<rut>',eliminar_empleado),
-    path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
-    path('eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
-    path('eliminar_bodega/<id_bodega>',eliminar_bodega),
+    path('logemp/eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
+    path('logemp/eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
+    path('logemp/eliminar_bodega/<id_bodega>',eliminar_bodega),
     path('logemp/eliminar_marca/<id_marca>',eliminar_marca),
-    path('eliminar_categoria/<id_categoria>',eliminar_categoria),
+    path('logemp/eliminar_categoria/<id_categoria>',eliminar_categoria),
+    path('logemp/eliminar_producto/<id_producto>',eliminar_producto), 
     #MANTENEDORES
     path('logemp/mantenedor_bodega',mantenedor_bodega),
     path('logemp/mantenedor_pasillo',mantenedor_pasillo),
@@ -80,7 +81,7 @@ urlpatterns = [
     path('logemp/modificar_solicitud/<id_solicitud>',modificar_solicitud),
     path('editar_producto/',editar_producto),
     path('editar_solicitud/',editar_solicitud),
-    path('eliminar_producto/<id_producto>',eliminar_producto), 
+    
     path('modificar_datos',modificar_datos),
     path('logemp/subir_oferta',subir_oferta),
     path('subir_oferta1/',subir_oferta_listado),

@@ -320,9 +320,9 @@ def eliminar_bodega(request, id_bodega):
         messages.add_message(request=request, level=messages.SUCCESS, message="Bodega eliminada con éxito.")
     except:
         messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar bodega, para realizar esta accion debe eliminar los pasillos de la bodega.")
-        return redirect('/mantenedor_bodega')
+        return redirect('/logemp/mantenedor_bodega')
     
-    return redirect('/mantenedor_bodega')
+    return redirect('/logemp/mantenedor_bodega')
 
 
 def modificar_bodega(request, id_bodega):
@@ -372,13 +372,13 @@ def eliminar_pasillo(request, id_pasillo):
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
         messages.add_message(request=request, level=messages.SUCCESS, message="Pasillo eliminado con Éxito.Las estanterías asociadas tambien se eliminaron.")
-        return redirect('/mantenedor_pasillo')
+        return redirect('/logemp/mantenedor_pasillo')
     except:
         estanteria = Estanteria.objects.get(pasillo_id_pasillo=id_pasillo)
         estanteria.delete()
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
-        return redirect('/mantenedor_pasillo')
+        return redirect('/logemp/mantenedor_pasillo')
     
     data={
         'pasillo':listado_pasillo()
@@ -411,7 +411,7 @@ def eliminar_estanteria(request, id_estanteria):
     estanteria = Estanteria.objects.get(id_estanteria=id_estanteria)
     estanteria.delete()
     messages.add_message(request=request, level=messages.SUCCESS, message="Estantería eliminada con Éxito.")
-    return redirect('/mantenedor_estanteria')
+    return redirect('/logemp/mantenedor_estanteria')
 
 #login 
 
