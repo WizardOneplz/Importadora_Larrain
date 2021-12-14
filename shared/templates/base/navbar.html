@@ -30,9 +30,6 @@
             <div class="collapse navbar-collapse position-absolute top-1 end-0" id="navbarSupportedContent">
               <ul class="nav navbar-nav navbar-right">
                 {% if request.session.usuario %}
-                <ul class="nav flex-column"> 
-                  <a href="/{{empleado.empleado_rut}}/peremple"><button class="btn btn-outline-success " type="button">PERFIL</button></a>
-                </ul>
                 <ul class="blanco" style="visibility:hidden">
                   <p id="email" name="email"> {{empleado.empleado_rut}}</p> 
                 </ul>

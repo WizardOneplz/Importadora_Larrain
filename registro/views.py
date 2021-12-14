@@ -23,18 +23,18 @@ def registro(request):
         direccion = request.POST.get('Direccion')
         ciudad = request.POST.get('ciudad')
         clave= request.POST.get('clave')
-        salida = agregar_cliente(rut, nombre, ap_paterno, ap_materno, genero, telefono, email, direccion, ciudad, clave)
+        salida = agregar_cliente(rut, nombre, ap_paterno, ap_materno, genero, telefono, email, direccion, clave, ciudad)
         if salida==1:
             data['MensajeRegistroCorrecto'] = 'Cliente Registrado Correctamente'
         else:
             data['MensajeRegistroError'] = 'No se ha podido registrar al Cliente'
     return render(request, 'registro.html' , data)
 
-def agregar_cliente(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,direccion,ciudad,clave):
+def agregar_cliente(rut,nombre,ap_paterno,ap_materno,genero,telefono,email,direccion, clave, ciudad):
     django_cursor = connection.cursor()
     cursor = django_cursor.connection.cursor()
     salida = cursor.var(cx_Oracle.NUMBER)
-    cursor.callproc('AGREGAR_CLIENTE',[rut, nombre, ap_paterno, ap_materno, genero, telefono, email, direccion, ciudad, clave, salida])
+    cursor.callproc('AGREGAR_CLIENTE',[rut, nombre, ap_paterno, ap_materno, genero, telefono, email, direccion, clave, ciudad, salida])
     return salida.getvalue()
 
 def listar_ciudad():
