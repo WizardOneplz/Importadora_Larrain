@@ -163,10 +163,10 @@ def eliminar_producto(request, id_producto):
         producto = Producto.objects.get(id_producto=id_producto)
         producto.delete()
         messages.add_message(request=request, level=messages.SUCCESS, message="Producto eliminado con éxito.")
-        return redirect('/mantenedor_productos')
+        return redirect('/logemp/mantenedor_productos')
     except:
         messages.add_message(request=request, level=messages.ERROR, message="Primero debe eliminar las estanterias con este producto.")
-        return redirect('/mantenedor_productos')
+        return redirect('/logemp/mantenedor_productos')
         
     
 def modificar_producto(request, id_producto):
@@ -195,7 +195,7 @@ def editar_producto(request):
     producto.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Producto modificado con éxito.")
     
-    return redirect('/mantenedor_productos')
+    return redirect('/logemp/mantenedor_productos')
 
 def modificar_producto(request, id_producto):
     
@@ -228,7 +228,7 @@ def editar_solicitud(request):
     solicitud.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Solicitud modificada con éxito.")
     
-    return redirect('/mantenedor_productos')
+    return redirect('/logemp/mantenedor_productos')
 
 def eliminar_marca(request, id_marca):
 
@@ -239,7 +239,7 @@ def eliminar_marca(request, id_marca):
     except:
         messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar la marca, existen productos asociados a la marca.")
 
-    return redirect('/mantenedor_marca')
+    return redirect('/logemp/mantenedor_marca')
 
 def modificar_marca(request, id_marca):
     
@@ -258,7 +258,7 @@ def editar_marca(request):
     marca.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Marca modificada con éxito.")
     
-    return redirect('/mantenedor_marca')
+    return redirect('/logemp/mantenedor_marca')
 
 def eliminar_categoria(request, id_categoria):
 
@@ -270,7 +270,7 @@ def eliminar_categoria(request, id_categoria):
         messages.add_message(request=request, level=messages.ERROR, message="Imposible eliminar la categoría, existen productos asociados a la categoría.")
     
 
-    return redirect('/mantenedor_categorias')
+    return redirect('/logemp/mantenedor_categorias')
 
 def modificar_categoria(request, id_categoria):
     
@@ -289,7 +289,7 @@ def editar_categoria(request):
     categoria.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Categoría modificada con éxito.")
     
-    return redirect('/mantenedor_categorias')
+    return redirect('/logemp/mantenedor_categorias')
 
 def modificar_orden(request, id_orden):
     
@@ -311,4 +311,4 @@ def editar_orden(request):
     orden.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Orden de compra modificada con éxito.")
     
-    return redirect('/mantenedor_marca')
+    return redirect('/logemp/mantenedor_marca')
