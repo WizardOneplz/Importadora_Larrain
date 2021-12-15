@@ -30,8 +30,8 @@
                             <button class="nav-link active" id="v-pills-marcas-tab" data-bs-toggle="pill" data-bs-target="#v-pills-marcas" type="button" role="tab" aria-controls="v-pills-marcas" aria-selected="true">Marcas</button>
                             <a href="mantenedor_categorias" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-categorias-tab" data-bs-toggle="pill" data-bs-target="#v-pills-categorias" type="button" role="tab" aria-controls="v-pills-categorias" aria-selected="true">Categorias</button></a>
                             <a href="mantenedor_productos" style="text-decoration:none"><button class="nav-link centrar" id="v-pills-productos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-productos" type="button" role="tab" aria-controls="v-pills-productos" aria-selected="true">Productos</button></a>
-                            <button class="nav-link" id="v-pills-pedidos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Orden de Compra</button>
-                            <button class="nav-link" id="v-pills-pedidos2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos2" type="button" role="tab" aria-controls="v-pills-pedidos2" aria-selected="false">Orden presencial</button>
+                            <button class="nav-link" id="v-pills-pedidos-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos" type="button" role="tab" aria-controls="v-pills-pedidos" aria-selected="false">Orden Presencial</button>
+                            <button class="nav-link" id="v-pills-pedidos2-tab" data-bs-toggle="pill" data-bs-target="#v-pills-pedidos2" type="button" role="tab" aria-controls="v-pills-pedidos2" aria-selected="false">Orden de Compra</button>
                             <button class="nav-link" id="v-pills-solicitud-tab" data-bs-toggle="pill" data-bs-target="#v-pills-solicitud" type="button" role="tab" aria-controls="v-pills-solicitud" aria-selected="false">Solicitudes</button>
                         </div>
                         <div class="tab-content col-md-10" id="v-pills-tabContent">
@@ -55,7 +55,7 @@
                                                 </div>
                                                 <div class="col position-relative">
                                                     <label class="espacio_form" for="inputEmail4">Nombre de Marca</label>
-                                                    <input type="text" class="form-control" name="nombre_marca" id="nombre_marca" placeholder="Debe ingresar un nombre en mayusculas." minlength="2" maxlength="30" required pattern="[A-Z0-9 ]{2,30}">
+                                                    <input type="text" class="form-control" name="nombre_marca" id="nombre_marca" placeholder="Debe ingresar un nombre en mayusculas." minlength="2" maxlength="30" required pattern="[A-Z0-9- ]{2,30}">
                                                     <!--MENSAJE-->
                                                     <div class="invalid-feedback">Ingrese un nombre valido. Entre 2 y 30 caracteres en mayúsculas.</div>
                                                 </div>

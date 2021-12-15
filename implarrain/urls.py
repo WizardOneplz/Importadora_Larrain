@@ -53,9 +53,9 @@ urlpatterns = [
     path('edt_emple/',peremple),
     #ELIMINAR
     path('logemp/eliminar_empleado/<rut>',eliminar_empleado),
-    path('eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
-    path('eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
-    path('eliminar_bodega/<id_bodega>',eliminar_bodega),
+    path('logemp/eliminar_estanteria/<id_estanteria>',eliminar_estanteria),
+    path('logemp/eliminar_pasillo/<id_pasillo>',eliminar_pasillo),
+    path('logemp/eliminar_bodega/<id_bodega>',eliminar_bodega),
     path('logemp/eliminar_marca/<id_marca>',eliminar_marca),
     path('logemp/eliminar_categoria/<id_categoria>',eliminar_categoria),
     #MANTENEDORES

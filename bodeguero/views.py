@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.db import connection
-from core.models import EstadoPedido, EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria, DetalleOrden
+from core.models import EstadoPedido,EstadoPago,EstadoSolicitud, Producto, OrdenCompra, SolicitudProductos, Marca, Categoria, DetalleOrden
 from django.contrib import messages
 import cx_Oracle
 
@@ -130,6 +130,19 @@ def listar_estados():
     out_cur = django_cursor.connection.cursor()
 
     cursor.callproc("SP_LISTAR_ESTADO_PEDIDO", [out_cur])
+
+    lista = []
+    for fila in out_cur:
+        lista.append(fila)
+
+    return lista
+
+def listar_pago():
+    django_cursor = connection.cursor()
+    cursor = django_cursor.connection.cursor()
+    out_cur = django_cursor.connection.cursor()
+
+    cursor.callproc("SP_LISTAR_ESTADO_PAGO", [out_cur])
 
     lista = []
     for fila in out_cur:
@@ -295,7 +308,8 @@ def modificar_orden(request, id_orden):
     
     data = {
           'orden' : OrdenCompra.objects.get(id_orden=id_orden),
-          'estado': listar_estados()  
+          'estado': listar_estados(),  
+          'estado_pago': listar_pago()
     }
      
     return render(request, "modificar_orden.html", data)
@@ -304,10 +318,12 @@ def editar_orden(request):
     
     id_orden = request.POST.get('id_orden')  
     estado_pedido = request.POST.get('estado_orden')
+    estado_pago = request.POST.get('estado_pago')
 
     orden = OrdenCompra.objects.get(id_orden=id_orden)
     orden.id_orden = id_orden
     orden.estado_pedido_id_estado_pedido = EstadoPedido.objects.get(id_estado_pedido = estado_pedido)
+    orden.estado_pago_id_estado_pago = EstadoPago.objects.get( id_estado_pago = estado_pago)
     orden.save() 
     messages.add_message(request=request, level=messages.SUCCESS, message="Orden de compra modificada con éxito.")
     

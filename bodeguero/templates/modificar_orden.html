@@ -41,7 +41,7 @@
                                             </div>
                                             <div class="col">
                                                 <div class="mb-3">
-                                                <h4><label for="exampleFormControlInput1" class="form-label">Estado Solicitud</label></h4>
+                                                <h4><label for="exampleFormControlInput1" class="form-label">Estado de Pedido</label></h4>
                                                     <select id="estado_orden" name="estado_orden" class="form-select">
                                                         <option value="">Seleccionar</option>
                                                         {% for c in estado %}
@@ -49,6 +49,17 @@
                                                         {% endfor %}
                                                     </select>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row espacio_form">
+                                            <div class="mb-3">
+                                            <h4><label for="exampleFormControlInput1" class="form-label">Estado de Pago</label></h4>
+                                                <select id="estado_orden" name="estado_pago" class="form-select">
+                                                    <option value="">Seleccionar</option>
+                                                    {% for c in estado_pago %}
+                                                    <option value="{{ c.0 }}">{{c.1}}</option>
+                                                    {% endfor %}
+                                                </select>
                                             </div>
                                         </div>
                                         <button type="submit" value="Submit" class="btn btn-primary btn-lg espacio3">MODIFICAR</button>
