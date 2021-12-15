@@ -374,7 +374,7 @@ def eliminar_pasillo(request, id_pasillo):
         messages.add_message(request=request, level=messages.SUCCESS, message="Pasillo eliminado con Éxito.Las estanterías asociadas tambien se eliminaron.")
         return redirect('/logemp/mantenedor_pasillo')
     except:
-        estanteria = Estanteria.objects.get(pasillo_id_pasillo=id_pasillo)
+        estanteria = Estanteria.objects.filter(pasillo_id_pasillo=id_pasillo)
         estanteria.delete()
         pasillo = Pasillo.objects.get(id_pasillo=id_pasillo)
         pasillo.delete()
